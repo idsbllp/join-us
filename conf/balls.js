@@ -1,22 +1,18 @@
-export default [
-    {
-        pic: 'asd.jpg',
-        pos: [100, 145, 55]
-    },
-    {
-        pic: 'q.jpg',
-        pos: [0, 130, 80]
-    },
-    {
-        pic: 'bg.jpg',
-        pos: [70, 10, 30]
-    },
-    {
-        pic: 'bl.png',
-        pos: [80, 90, 60]
-    },
-    {
-        pic: 'bg.jpg',
-        pos: [50, 60, 90]
-    },
-]
+const pics = ['asd.jpg', 'q.jpg', 'bg.jpg', 'bl.png', 'dd.jpg']
+
+function getPos() {
+    let perimeter = Math.PI * 2;
+    let per = perimeter / 5;
+
+    let pos = [];
+    for (var i = 5; i > 0; i--) {
+        pos.push({
+            pic: pics[i-1],
+            pos: [100 * Math.cos(per*i), 0, 100 * Math.sin(per*i)]
+        })
+    }
+    return pos;
+}
+
+export default getPos()
+
