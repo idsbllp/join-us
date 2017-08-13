@@ -5,8 +5,8 @@
 //     e.preventDefault();
 // });
 
+import 'three-onevent'
 import positionOfBalls from './conf/balls.js'
-
 import { RAF, CRAF } from './utils/index.js'
 
 const { PI, cos, sin, random } = Math
@@ -26,13 +26,21 @@ function init() {
 
     camera.position.y = 400;
     scene = new THREE.Scene();
+    // scene.add(WebVR.Camera);
+    THREE.onEvent(scene, camera);
     let light, object;
 
     // 开灯 亮度
     scene.add( new THREE.AmbientLight( 0x404040 ) );
+
     light = new THREE.DirectionalLight( 0xffffff );
     // 应该就是从y轴看
-    light.position.set( 0, 1, 0 );
+    light.position.set( 0, -1, 0 )
+    scene.add( light )
+
+    light = new THREE.DirectionalLight( 0xffffff );
+    // 应该就是从y轴看
+    light.position.set( 0, 1, 0 )
     scene.add( light );
 
     positionOfBalls.forEach((value, index) => {
@@ -44,7 +52,10 @@ function init() {
         object = new THREE.Mesh( new THREE.SphereGeometry( 15, 75, 75 ), material );
         // 左右, 上下, 斜的？？？？
         object.position.set( value.pos[0], value.pos[1], value.pos[2] );
-        object.name = 'llp' + value.pic;
+        object.name = value.pic;
+        object.on('click', function(e) {
+            window.alert(`你点击了第${index}个球： ${value.pic}`)
+        })
         scene.add( object );
     })
 
@@ -69,7 +80,7 @@ function onWindowResize() {
 function animate() {
     timer = RAF(animate)
     stats.update()
-    moveBody()
+    // moveBody()
     render()
 }
 
@@ -94,31 +105,34 @@ function render() {
     camera.lookAt({ x:0, y:0, z:0 })
 
     for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
-        let object = scene.children[ i ]
+        let object = scene.children[i]
         // 自旋
         object.rotation.x += rotate
         object.rotation.y += rotate
         object.rotation.z += rotate
 
-        // 公转
-        // object.position.set( object.position.x, object.position.y, object.position.z+1 );
+        if (test < 20 && i == 3) {
+            test++;
+            // console.log(object.position, camera.position)
+        }
     }
-
-    if (test < 20) {
-        test++;
-        // console.log(scene.children[2].rotation.x)
-    }
-    renderer.render( scene, camera )
-}
-
-function moveBody(rotation = { clientX: 0, clientY: 0 }) {
-    // cameraPos.y = 
-
+    // 自行转动，绕y轴转动，y轴垂直向上
     cameraRotate -= 0.002
     cameraPos.x = 300 * cos(cameraRotate)
     cameraPos.z = 300 * sin(cameraRotate)
-    
-    // console.log(camera.position.x)
+
+    renderer.render( scene, camera )
+}
+// 手动转动
+function moveBody(rotation = { clientX: 0, clientY: cameraPos.y }) {
+    const { innerWidth, innerHeight } = window
+    let moveHeight = rotation.clientY / 20
+    if (Math.abs(cameraPos.y+moveHeight) > innerHeight) {
+        return;
+    }
+    cameraPos.y += moveHeight
+    // console.log(cameraPos.y)
+
     renderer.render( scene, camera )
 }
 
@@ -131,6 +145,10 @@ window.addEventListener('touchstart', e => {
     startPos.x = clientX;
     startPos.y = clientY;
 })
+// window.addEventListener('click', e => {
+//     console.log(scene.children[3].position, camera.position)
+//     console.log(e.clientX, e.clientY)
+// })
 window.addEventListener('touchend', e => {
     // timer = RAF(animate)
 })
@@ -143,7 +161,7 @@ window.addEventListener('touchmove', e => {
 
     clientX -= startPos.x
     clientY -= startPos.y
-    console.log(clientX, clientY)
+    // console.log(clientX, clientY)
 
     moveBody({ clientX, clientY });
 
