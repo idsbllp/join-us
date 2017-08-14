@@ -1,9 +1,13 @@
 var BlackHole, Particle, _MAX_PARTICLES, _PARTICLE_DECAY_RATE, _animate, _canvas, _clearCanvas, _context, _getRandomInRange, _getRandomIntInRange, _screenHeight, _screenWidth, blackHoles, i, j, mousePosition, move, part, particles, ref, resizeCanvas,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+function getColor() {
+  var random = Math.ceil(Math.random() * 10);
+  // return random%2 == 0 ? 0 : 255
+  return 255
+}
+_MAX_PARTICLES = 10;
 
-_MAX_PARTICLES = 100;
-
-_PARTICLE_DECAY_RATE = 0.005;
+_PARTICLE_DECAY_RATE = 0.0005;
 
 _screenHeight = window.innerHeight;
 
@@ -27,7 +31,7 @@ mousePosition = function(event) {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
   };
-  console.log(_cursorPosition);
+  // console.log(_cursorPosition);
 };
 
 _clearCanvas = function() {
@@ -47,7 +51,7 @@ Particle = (function() {
     this.draw = bind(this.draw, this);
     this.x = _getRandomIntInRange(0, _screenWidth);
     this.y = _getRandomIntInRange(0, _screenHeight);
-    this.size = _getRandomInRange(1.5, 2);
+    this.size = _getRandomInRange(0.5, .7);
     this.lifeForce = 0;
     this.lifePeak = false;
     this.maxLifeForce = _getRandomInRange(0.45, 1);
@@ -80,7 +84,8 @@ Particle = (function() {
     }
     _context.beginPath();
     _context.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
-    _context.fillStyle = "rgba(255, 255, 255, " + this.lifeForce + ")";
+    var color = getColor();
+    _context.fillStyle = "rgba(" + color + ", " + color + ", 255, " + 1 + ")";
     return _context.fill();
   };
 
