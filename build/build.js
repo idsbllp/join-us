@@ -4,18 +4,26 @@ var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpackConfig = require('./webpack.config.js')
 
+process.env.NODE_ENV = 'production';
+
 var newWebpackConfig = merge(webpackConfig, {
-    devtool: '#eval-source-map',
-    plugins: [
-        new HtmlWebpackPlugin({
-          filename: 'app.html',
-          template: 'index.html',
-          inject: true
-        }),
-    ]
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: '../app.html',
+      template: 'index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
+    }),
+  ]
 })
 
-webpack(webpackConfig, function (err, stats) {
+console.log(process.env.NODE_ENV)
+
+webpack(newWebpackConfig, function (err, stats) {
   if (err) throw err
   process.stdout.write(stats.toString({
     colors: true,
