@@ -13,6 +13,7 @@ import { RAF, CRAF } from './utils/index.js'
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
 const { innerWidth, innerHeight, devicePixelRatio } = window
+const canvas = document.querySelector('#canvas');
 
 // 帧
 let stats
@@ -41,13 +42,17 @@ function init() {
     container = document.getElementById( 'container' )
     // document.body.appendChild( container )
     scene = new THREE.Scene()
+    camera = new THREE.PerspectiveCamera( 45, innerWidth / innerHeight, 1, 2000 )
+    renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas
+    })
 
-    renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } )
     renderer.setPixelRatio( devicePixelRatio )
     renderer.setSize( innerWidth, innerHeight )
-    renderer.setClearColor(0xffffff, 0)
+    // renderer.setClearColor(0xffffff, 0)
 
-    camera = new THREE.PerspectiveCamera( 45, innerWidth / innerHeight, 1, 1000 )
     camera.position.x = 0
     camera.position.y = 0
     // 取小的那一个的  2/3
@@ -62,7 +67,7 @@ function init() {
     light.position.set( 1, 0, 1 )
     scene.add( light )
 
-    // 添加五个球
+    // // 添加五个球
     positionOfBalls.forEach((value, index) => {
         let map = new THREE.TextureLoader().load( value.pic )
         map.wrapS = map.wrapT = THREE.RepeatWrapping
@@ -84,28 +89,14 @@ function init() {
         circle.name = `${value.pic}_circle`
         object.add( circle )
         scene.add( object )
-
     })
-    // 小星星
-    // for (let i = 0; i < START_NUM; i++) {
-    //     material = new THREE.MeshBasicMaterial( {color: getRandomColor()} )
-    //     object = new THREE.Mesh(new THREE.SphereGeometry( getRandomNumber(0, 1), 32, 32 ), material)
-    //     object.position.set(getRandomNumber(0, innerWidth/2), getRandomNumber(0, innerHeight/2), getRandomNumber(0, innerHeight/2))
-    //     scene.add( object )
-    // }
-
-
-
-    
-
-
+    drawStars()
 
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls( camera, renderer.domElement, scene.children[2] );
     controls.addEventListener( 'change', render );
     controls.enableZoom = false;
-
-    container.appendChild( renderer.domElement )
+    controls.noPan = true;
 
     stats = new Stats()
     container.appendChild( stats.dom )
@@ -128,18 +119,13 @@ function animate() {
     timer = RAF(animate)
     controls.update()
     stats.update()
-    // moveBody()
-    drawStars()
+    // drawStars()
     render()
+    renderer.render( scene, camera )
 }
 
 var test = 1
 
-const cameraPos = {
-    x: 300,
-    y: 400,
-    z: 300
-}
 const startPos = {
     x: 0,
     y: 0
@@ -152,15 +138,13 @@ function render() {
     let rotate = 0.0028 / 2
     let perimeter = Math.PI * 2
     let per = perimeter / 5
-    // camera.position.x = cameraPos.x
-    // camera.position.y = cameraPos.y
-    // camera.position.z = cameraPos.z
-    // controls.update();
+
     camera.lookAt({ x:0, y:0, z:0 })
 
     for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
         let object = scene.children[i]
         // 自旋
+        if (!object.name) continue
         object.rotation.x += rotate
         object.rotation.y += rotate
         object.rotation.z += rotate
@@ -172,8 +156,9 @@ function render() {
             // object.position.z = 100 * sin(object.rotation.x+per*i)
         }
 
-        if (test < 4) {
+        if (test < 40) {
             test++
+            // console.log(object.name)
             // console.log(scene.children)
             // console.log(object.position, camera.position)
         }
@@ -187,20 +172,7 @@ function render() {
     // cameraPos.x = 300 * cos(cameraRotate)
     // cameraPos.z = 300 * sin(cameraRotate)
 
-    renderer.render( scene, camera )
     // new THREE.OrbitControls(camera)
-}
-// 手动转动
-function moveBody(rotation = { clientX: 0, clientY: cameraPos.y }) {
-    const { innerWidth, innerHeight } = window
-    let moveHeight = rotation.clientY / 20
-    if (Math.abs(cameraPos.y+moveHeight) > innerHeight) {
-        return
-    }
-    cameraPos.y += moveHeight
-    // console.log(cameraPos.y)
-
-    renderer.render( scene, camera )
 }
 
 function drawStars() {
