@@ -11,7 +11,7 @@ import OrbitControls from 'three-orbitcontrols'
 import { RAF, CRAF } from './utils/index.js'
 
 const { PI, cos, sin, random, ceil } = Math
-const START_NUM = 50
+const START_NUM = 200
 const { innerWidth, innerHeight, devicePixelRatio } = window
 
 // 帧
@@ -34,7 +34,7 @@ function getRandomNumber(min, max) {
 }
 
 function getRandomColor() {
-    return ceil(random() * 10)%2 ? 0xffffff : 0x85030b
+    return random() < .5 ? 0xffffff : 0xb1afaf
 }
 
 function init() {
@@ -87,12 +87,18 @@ function init() {
 
     })
     // 小星星
-    for (let i = 0; i < START_NUM; i++) {
-        material = new THREE.MeshBasicMaterial( {color: getRandomColor()} )
-        object = new THREE.Mesh(new THREE.SphereGeometry( 1, 32, 32 ), material)
-        object.position.set(getRandomNumber(0, innerWidth/2), getRandomNumber(0, innerHeight/2), getRandomNumber(0, innerHeight/2))
-        scene.add( object )
-    }
+    // for (let i = 0; i < START_NUM; i++) {
+    //     material = new THREE.MeshBasicMaterial( {color: getRandomColor()} )
+    //     object = new THREE.Mesh(new THREE.SphereGeometry( getRandomNumber(0, 1), 32, 32 ), material)
+    //     object.position.set(getRandomNumber(0, innerWidth/2), getRandomNumber(0, innerHeight/2), getRandomNumber(0, innerHeight/2))
+    //     scene.add( object )
+    // }
+
+
+
+    
+
+
 
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls( camera, renderer.domElement, scene.children[2] );
@@ -123,6 +129,7 @@ function animate() {
     controls.update()
     stats.update()
     // moveBody()
+    drawStars()
     render()
 }
 
@@ -194,6 +201,76 @@ function moveBody(rotation = { clientX: 0, clientY: cameraPos.y }) {
     // console.log(cameraPos.y)
 
     renderer.render( scene, camera )
+}
+
+function drawStars() {
+    /*背景星星*/
+    var particles = 10000;  //星星数量
+    /*buffer做星星*/
+    var bufferGeometry = new THREE.BufferGeometry();
+
+    /*32位浮点整形数组*/
+    var positions = new Float32Array( particles * 3 );
+    var colors = new Float32Array( particles * 3 );
+
+    var color = new THREE.Color();
+
+    var gap = 1000; // 定义星星的最近出现位置
+
+    for ( var i = 0; i < positions.length; i += 3 ) {
+        // positions
+
+        /*-2gap < x < 2gap */
+        var x = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
+        var y = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
+        var z = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
+
+        /*找出x,y,z中绝对值最大的一个数*/
+        var biggest = Math.abs(x) > Math.abs(y) ? (Math.abs(x) > Math.abs(z) ? 'x' : 'z') : (Math.abs(y) > Math.abs(z) ? 'y' : 'z');
+
+        var pos = { x: x, y: y, z: z};
+
+        /*如果最大值比n要小（因为要在一个距离之外才出现星星）则赋值为n（-n）*/
+        if(Math.abs(pos[biggest]) < gap) pos[biggest] = pos[biggest] < 0 ? -gap : gap;
+
+        x = pos['x'];
+        y = pos['y'];
+        z = pos['z'];
+
+        positions[ i ]     = x;
+        positions[ i + 1 ] = y;
+        positions[ i + 2 ] = z;
+
+        /*70%星星有颜色*/
+        var hasColor = Math.random() > 0.3;
+        var vx, vy, vz;
+
+        if(hasColor){
+            vx = (Math.random()+1) / 2 ;
+            vy = (Math.random()+1) / 2 ;
+            vz = (Math.random()+1) / 2 ;
+        }else{
+            vx = 1 ;
+            vy = 1 ;
+            vz = 1 ;
+        }
+
+        color.setRGB( vx, vy, vz );
+
+        colors[ i ]     = color.r;
+        colors[ i + 1 ] = color.g;
+        colors[ i + 2 ] = color.b;
+
+    }
+
+    bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    bufferGeometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+    bufferGeometry.computeBoundingSphere();
+
+    /*星星的material*/
+    var material = new THREE.PointsMaterial( { size: 6, vertexColors: THREE.VertexColors } );
+    var particleSystem = new THREE.Points( bufferGeometry, material );
+    scene.add( particleSystem );
 }
 
 // window.addEventListener('touchstart', e => {
