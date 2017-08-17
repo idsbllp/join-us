@@ -1,4 +1,4 @@
-var canvas = document.querySelector('#canvas');
+var canvas = document.querySelector('#main-canvas');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -22,7 +22,7 @@ var renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias : true
 });
-//renderer.setPixelRatio(window.devicePixelRatio);
+// renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true; //辅助线
 renderer.shadowMapSoft = true; //柔和阴影
 renderer.setClearColor(0x000000, 0);
@@ -44,7 +44,7 @@ controls.noZoom = true;
 
 
 function setOrientationControls(e){
-    console.log(e)
+    alert(e.alpha)
     if (e.alpha) {
         controls = new THREE.DeviceOrientationControls(camera, true);
         controls.connect();
@@ -229,6 +229,6 @@ window.addEventListener( 'resize', function(){
     for(var k in stars){
         revolution(stars[k]);
     }
-    //renderer.render(scene, camera);
+    renderer.render(scene, camera);
     effect.render(scene, camera);
-}());
+})()
