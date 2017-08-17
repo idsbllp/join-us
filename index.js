@@ -6,14 +6,18 @@
 // })
 
 import 'three-onevent'
-import positionOfBalls from './conf/balls.js'
 import OrbitControls from 'three-orbitcontrols'
+// import Detector from './js/Detector.js'
+// import './js/DeviceOrientationControls.js'
+import positionOfBalls from './conf/balls.js'
 import { RAF, CRAF } from './utils/index.js'
 
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
 const { innerWidth, innerHeight, devicePixelRatio } = window
-const canvas = document.querySelector('#canvas');
+const canvas = document.querySelector('#canvas')
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 
 // 帧
 let stats
@@ -38,9 +42,7 @@ function getRandomColor() {
     return random() < .5 ? 0xffffff : 0xb1afaf
 }
 
-function init() {
-    container = document.getElementById( 'container' )
-    // document.body.appendChild( container )
+function init() {}
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera( 45, innerWidth / innerHeight, 1, 2000 )
     renderer = new THREE.WebGLRenderer({
@@ -53,10 +55,12 @@ function init() {
     renderer.setSize( innerWidth, innerHeight )
     // renderer.setClearColor(0xffffff, 0)
 
-    camera.position.x = 0
-    camera.position.y = 0
+    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5)
+    camera.lookAt(new THREE.Vector3(0,0,0))
+    // camera.position.x = 0
+    // camera.position.y = 0
     // 取小的那一个的  2/3
-    camera.position.z = innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5
+    // camera.position.z = innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5
 
     // 给小球添加点击事件
     THREE.onEvent(scene, camera)
@@ -67,7 +71,7 @@ function init() {
     light.position.set( 1, 0, 1 )
     scene.add( light )
 
-    // // 添加五个球
+    // 添加五个球
     positionOfBalls.forEach((value, index) => {
         let map = new THREE.TextureLoader().load( value.pic )
         map.wrapS = map.wrapT = THREE.RepeatWrapping
@@ -76,7 +80,7 @@ function init() {
 
         object = new THREE.Mesh( new THREE.SphereGeometry( value.radius, 75, 75 ), material )
         // 左右, 上下, 斜的？？？？
-        console.log(value.pos)
+        // console.log(value.pos)
         object.position.set( value.pos[0], value.pos[1], value.pos[2] )
         object.name = `${value.pic}_ball`
         object.on('click', function(e) {
@@ -93,17 +97,13 @@ function init() {
     drawStars()
 
     // 给屏幕添加手指拖动事件
-    controls = new OrbitControls( camera, renderer.domElement, scene.children[2] );
-    controls.addEventListener( 'change', render );
+    controls = new OrbitControls(camera, canvas);
+
+    controls.enablePan = false;
     controls.enableZoom = false;
-    controls.noPan = true;
 
-    stats = new Stats()
-    container.appendChild( stats.dom )
-
-    window.addEventListener( 'resize', onWindowResize, false )
     function setOrientationControls(e){
-        alert(e.alpha)
+        console.log(e)
         if (e.alpha) {
             controls = new THREE.DeviceOrientationControls(camera, true);
             controls.connect();
@@ -112,7 +112,11 @@ function init() {
         window.removeEventListener('deviceorientation', setOrientationControls, true);
     }
     window.addEventListener('deviceorientation', setOrientationControls, true);
-}
+
+    scene.add(camera);
+
+    window.addEventListener( 'resize', onWindowResize, false )
+// }
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
@@ -128,8 +132,6 @@ function showDetail(index = 5) {
 function animate() {
     timer = RAF(animate)
     controls.update()
-    stats.update()
-    // drawStars()
     render()
     renderer.render( scene, camera )
 }
@@ -148,8 +150,6 @@ function render() {
     let rotate = 0.0028 / 2
     let perimeter = Math.PI * 2
     let per = perimeter / 5
-
-    camera.lookAt({ x:0, y:0, z:0 })
 
     for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
         let object = scene.children[i]
@@ -173,16 +173,11 @@ function render() {
             // console.log(object.position, camera.position)
         }
     }
-    // positionOfBalls.forEach((value, index) => {
-    //     object.position.x = 100 * cos(Math.PI * 2.5*i)
-    //     object.position.z = 100 * sin(Math.PI * 2.5*i)
-    // })
+
     // 自行转动，绕y轴转动，y轴垂直向上
     cameraRotate -= 0.005
     // cameraPos.x = 300 * cos(cameraRotate)
     // cameraPos.z = 300 * sin(cameraRotate)
-
-    // new THREE.OrbitControls(camera)
 }
 
 function drawStars() {
@@ -255,31 +250,7 @@ function drawStars() {
     scene.add( particleSystem );
 }
 
-// window.addEventListener('touchstart', e => {
-//     // CRAF(timer)
-//     let { clientX, clientY } = e.changedTouches[0]
-//     if (clientX < 0 || clientY < 0 || clientX > window.innerWidth || clientY > window.innerHeight) {
-//         return
-//     }
-//     startPos.x = clientX
-//     startPos.y = clientY
-// })
-
-// window.addEventListener('touchmove', e => {
-//     let { clientX, clientY } = e.changedTouches[0]
-//     if (clientX < 0 || clientY < 0 || clientX > window.innerWidth || clientY > window.innerHeight) {
-//         return
-//     }
-
-//     clientX -= startPos.x
-//     clientY -= startPos.y
-
-//     // moveBody({ clientX, clientY })
-
-// })
-
 init()
-render();
 animate()
 
 export default 'llp'
