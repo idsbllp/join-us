@@ -102,6 +102,16 @@ function init() {
     container.appendChild( stats.dom )
 
     window.addEventListener( 'resize', onWindowResize, false )
+    function setOrientationControls(e){
+        alert(e.alpha)
+        if (e.alpha) {
+            controls = new THREE.DeviceOrientationControls(camera, true);
+            controls.connect();
+            controls.update();
+        }
+        window.removeEventListener('deviceorientation', setOrientationControls, true);
+    }
+    window.addEventListener('deviceorientation', setOrientationControls, true);
 }
 
 function onWindowResize() {

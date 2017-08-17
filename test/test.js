@@ -55,7 +55,7 @@ function setOrientationControls(e){
 window.addEventListener('deviceorientation', setOrientationControls, true);
 
 // Apply VR stereo rendering to renderer.
-var effect = new THREE.StereoEffect(renderer);
+// var effect = new THREE.StereoEffect(renderer);
 
 scene.add(camera);
 
@@ -215,7 +215,7 @@ window.addEventListener( 'resize', function(){
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
-    effect.setSize(window.innerWidth, window.innerHeight);
+    // effect.setSize(window.innerWidth, window.innerHeight);
 }, false );
 
 
@@ -230,5 +230,5 @@ window.addEventListener( 'resize', function(){
         revolution(stars[k]);
     }
     renderer.render(scene, camera);
-    effect.render(scene, camera);
+    // effect.render(scene, camera);
 })()
