@@ -7,10 +7,10 @@
 
 import 'three-onevent'
 import OrbitControls from 'three-orbitcontrols'
-// import Detector from './js/Detector.js'
-// import './js/DeviceOrientationControls.js'
+import Detector from './utils/Detector.js'
+import './utils/DeviceOrientationControls.js'
+import { RAF, CRAF, getRandomNumber, getRandomColor } from './utils/index.js'
 import positionOfBalls from './conf/balls.js'
-import { RAF, CRAF } from './utils/index.js'
 
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
@@ -33,16 +33,7 @@ let timer = null
 
 if ( !Detector.webgl ) Detector.addGetWebGLMessage()
 
-function getRandomNumber(min, max) {
-    let randomNum = ceil(random() * max + min)
-    return randomNum%2 ? -randomNum : randomNum
-}
-
-function getRandomColor() {
-    return random() < .5 ? 0xffffff : 0xb1afaf
-}
-
-function init() {}
+function init() {
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera( 45, innerWidth / innerHeight, 1, 2000 )
     renderer = new THREE.WebGLRenderer({
@@ -53,14 +44,10 @@ function init() {}
 
     renderer.setPixelRatio( devicePixelRatio )
     renderer.setSize( innerWidth, innerHeight )
-    // renderer.setClearColor(0xffffff, 0)
 
+    // z 轴取小的那一个的  2/3
     camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5)
     camera.lookAt(new THREE.Vector3(0,0,0))
-    // camera.position.x = 0
-    // camera.position.y = 0
-    // 取小的那一个的  2/3
-    // camera.position.z = innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5
 
     // 给小球添加点击事件
     THREE.onEvent(scene, camera)
@@ -80,7 +67,6 @@ function init() {}
 
         object = new THREE.Mesh( new THREE.SphereGeometry( value.radius, 75, 75 ), material )
         // 左右, 上下, 斜的？？？？
-        // console.log(value.pos)
         object.position.set( value.pos[0], value.pos[1], value.pos[2] )
         object.name = `${value.pic}_ball`
         object.on('click', function(e) {
@@ -94,6 +80,7 @@ function init() {}
         object.add( circle )
         scene.add( object )
     })
+    // 背景星星
     drawStars()
 
     // 给屏幕添加手指拖动事件
@@ -102,6 +89,7 @@ function init() {}
     controls.enablePan = false;
     controls.enableZoom = false;
 
+    // 陀螺仪
     function setOrientationControls(e){
         console.log(e)
         if (e.alpha) {
@@ -116,7 +104,7 @@ function init() {}
     scene.add(camera);
 
     window.addEventListener( 'resize', onWindowResize, false )
-// }
+}
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
@@ -182,72 +170,72 @@ function render() {
 
 function drawStars() {
     /*背景星星*/
-    var particles = 10000;  //星星数量
+    let particles = 10000  //星星数量
     /*buffer做星星*/
-    var bufferGeometry = new THREE.BufferGeometry();
+    let bufferGeometry = new THREE.BufferGeometry()
 
     /*32位浮点整形数组*/
-    var positions = new Float32Array( particles * 3 );
-    var colors = new Float32Array( particles * 3 );
+    let positions = new Float32Array( particles * 3 )
+    let colors = new Float32Array( particles * 3 )
 
-    var color = new THREE.Color();
+    let color = new THREE.Color()
 
-    var gap = 1000; // 定义星星的最近出现位置
+    let gap = 1000 // 定义星星的最近出现位置
 
-    for ( var i = 0; i < positions.length; i += 3 ) {
+    for ( let i = 0; i < positions.length; i += 3 ) {
         // positions
 
         /*-2gap < x < 2gap */
-        var x = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
-        var y = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
-        var z = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1);
+        let x = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1)
+        let y = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1)
+        let z = ( Math.random() * gap *2 )* (Math.random()<.5? -1 : 1)
 
         /*找出x,y,z中绝对值最大的一个数*/
-        var biggest = Math.abs(x) > Math.abs(y) ? (Math.abs(x) > Math.abs(z) ? 'x' : 'z') : (Math.abs(y) > Math.abs(z) ? 'y' : 'z');
+        let biggest = Math.abs(x) > Math.abs(y) ? (Math.abs(x) > Math.abs(z) ? 'x' : 'z') : (Math.abs(y) > Math.abs(z) ? 'y' : 'z')
 
-        var pos = { x: x, y: y, z: z};
+        let pos = { x: x, y: y, z: z}
 
         /*如果最大值比n要小（因为要在一个距离之外才出现星星）则赋值为n（-n）*/
-        if(Math.abs(pos[biggest]) < gap) pos[biggest] = pos[biggest] < 0 ? -gap : gap;
+        if(Math.abs(pos[biggest]) < gap) pos[biggest] = pos[biggest] < 0 ? -gap : gap
 
-        x = pos['x'];
-        y = pos['y'];
-        z = pos['z'];
+        x = pos['x']
+        y = pos['y']
+        z = pos['z']
 
-        positions[ i ]     = x;
-        positions[ i + 1 ] = y;
-        positions[ i + 2 ] = z;
+        positions[ i ]     = x
+        positions[ i + 1 ] = y
+        positions[ i + 2 ] = z
 
         /*70%星星有颜色*/
-        var hasColor = Math.random() > 0.3;
-        var vx, vy, vz;
+        let hasColor = Math.random() > 0.3
+        let vx, vy, vz
 
         if(hasColor){
-            vx = (Math.random()+1) / 2 ;
-            vy = (Math.random()+1) / 2 ;
-            vz = (Math.random()+1) / 2 ;
+            vx = (Math.random()+1) / 2 
+            vy = (Math.random()+1) / 2 
+            vz = (Math.random()+1) / 2 
         }else{
-            vx = 1 ;
-            vy = 1 ;
-            vz = 1 ;
+            vx = 1 
+            vy = 1 
+            vz = 1 
         }
 
-        color.setRGB( vx, vy, vz );
+        color.setRGB( vx, vy, vz )
 
-        colors[ i ]     = color.r;
-        colors[ i + 1 ] = color.g;
-        colors[ i + 2 ] = color.b;
+        colors[ i ]     = color.r
+        colors[ i + 1 ] = color.g
+        colors[ i + 2 ] = color.b
 
     }
 
-    bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    bufferGeometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
-    bufferGeometry.computeBoundingSphere();
+    bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) )
+    bufferGeometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) )
+    bufferGeometry.computeBoundingSphere()
 
     /*星星的material*/
-    var material = new THREE.PointsMaterial( { size: 6, vertexColors: THREE.VertexColors } );
-    var particleSystem = new THREE.Points( bufferGeometry, material );
-    scene.add( particleSystem );
+    let material = new THREE.PointsMaterial( { size: 6, vertexColors: THREE.VertexColors } )
+    let particleSystem = new THREE.Points( bufferGeometry, material )
+    scene.add( particleSystem )
 }
 
 init()
