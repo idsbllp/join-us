@@ -6,9 +6,11 @@
 // })
 
 import 'three-onevent'
-import OrbitControls from 'three-orbitcontrols'
+import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/DeviceOrientationControls.js'
+
+import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor } from './utils/index.js'
 import positionOfBalls from './conf/balls.js'
 
@@ -24,7 +26,7 @@ let stats
 // 容器和三要素
 let container, camera, scene, renderer
 // scene 里面的内容
-let light, object, circle, material
+let light, object, circle, material, ring
 
 // controls
 let controls
@@ -52,6 +54,15 @@ function init() {
     // 给小球添加点击事件
     THREE.onEvent(scene, camera)
 
+    // test 
+    // var geometry = new THREE.PlaneGeometry(innerWidth, innerHeight, 100, 100);
+    // var maps = new THREE.TextureLoader().load( './img/q.jpg' )
+    // maps.wrapS = maps.wrapT = THREE.RepeatWrapping
+    // maps.anisotropy = 16
+    // material = new THREE.MeshLambertMaterial( { map: maps, side: THREE.DoubleSide } )
+    // var plane = new THREE.Mesh( geometry, material );
+    // scene.add( plane );
+
     // 开灯 亮度
     scene.add( new THREE.AmbientLight( 0x404040 ) )
     light = new THREE.DirectionalLight( 0xdcc794 )
@@ -69,39 +80,54 @@ function init() {
         // 左右, 上下, 斜的？？？？
         object.position.set( value.pos[0], value.pos[1], value.pos[2] )
         object.name = `${value.pic}_ball`
-        object.on('click', function(e) {
-            console.log(`你点击了第${index}个球： ${value.pic}`)
-            showDetail(index)
+        object.on('click', e => {
+            console.log(index)
+            showDetail(index, object)
         })
         // 球周围的圆
-        circle = new THREE.Mesh( new THREE.TorusGeometry((value.radius+7), 0.4, 5, 60), material )
-        circle.position.set( 0,0,0, )
-        circle.name = `${value.pic}_circle`
-        object.add( circle )
+        if (index != 4) {
+            circle = new THREE.Mesh( new THREE.TorusGeometry((value.radius+7), 0.4, 5, 60), material )
+            circle.position.set( 0,0,0, )
+            circle.name = `${value.pic}_circle`
+            object.add( circle )
+        } else {
+            ring = new Ring({
+                radius: value.radius-5,
+                length: 10,
+                wavesMinAmp : 5,
+                wavesMaxAmp : 20,
+                wavesMinSpeed : 0.001,
+                wavesMaxSpeed : 0.003,
+            })
+            ring.mesh.position.y = 0
+            object.add(ring.mesh);
+        }
         scene.add( object )
     })
     // 背景星星
     drawStars()
 
     // 给屏幕添加手指拖动事件
-    controls = new OrbitControls(camera, canvas);
-
-    controls.enablePan = false;
-    controls.enableZoom = false;
+    controls = new OrbitControls(camera, canvas)
+    // console.log(controls)
+    // controls.autoRotate = true
+    // controls.autoRotateSpeed = 0.5
+    controls.enablePan = false
+    controls.enableZoom = true
+    // controls.maxDistance = 600
 
     // 陀螺仪
-    function setOrientationControls(e){
-        console.log(e)
-        if (e.alpha) {
-            controls = new THREE.DeviceOrientationControls(camera, true);
-            controls.connect();
-            controls.update();
-        }
-        window.removeEventListener('deviceorientation', setOrientationControls, true);
-    }
-    window.addEventListener('deviceorientation', setOrientationControls, true);
+    // function setOrientationControls(e){
+    //     console.log(e.alpha)
+    //     if (e.alpha) {
+    //         controls = new THREE.DeviceOrientationControls(camera, true);
+    //         controls.connect();
+    //         controls.update();
+    //     }
+    //     window.removeEventListener('deviceorientation', setOrientationControls, true);
+    // }
+    // window.addEventListener('deviceorientation', setOrientationControls, true);
 
-    scene.add(camera);
 
     window.addEventListener( 'resize', onWindowResize, false )
 }
@@ -111,16 +137,21 @@ function onWindowResize() {
     camera.updateProjectionMatrix()
     renderer.setSize( window.innerWidth, window.innerHeight )
 }
-function showDetail(index = 5) {
-    // console.log(index)
+// 点击球弹出详情，
+function showDetail(index = 5, object) {
     if (0 < index >= 5) {
         return
     }
+    const originalPostion = new THREE.Vector3().copy(camera.position);
+
+    console.log(originalPostion, camera.position, camera.rotation)
+
 }
 function animate() {
     timer = RAF(animate)
     controls.update()
     render()
+    ring.moveWaves();
     renderer.render( scene, camera )
 }
 
@@ -237,6 +268,17 @@ function drawStars() {
     let particleSystem = new THREE.Points( bufferGeometry, material )
     scene.add( particleSystem )
 }
+
+// 缩放
+// window.addEventListener('touchstart', e => {
+//     console.log('1111 ', e)
+// })
+// window.addEventListener('touchmove', e => {
+//     console.log('2222 ', e)
+// })
+// window.addEventListener('touchend ', e => {
+//     console.log('3333 ', e)
+// })
 
 init()
 animate()
