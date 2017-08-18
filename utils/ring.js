@@ -33,7 +33,7 @@ export default class Ring {
         let mat = new THREE.MeshPhongMaterial({
             color: Colors.blue,
             transparent: true,
-            opacity: 0.6,
+            opacity: .8,
             shading: THREE.FlatShading,
 
         })

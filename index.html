@@ -18,14 +18,21 @@
                 z-index: -1;
             }
             audio {
-                display: none;
+                /*display: none;*/
+            }
+            div {
+                color: #fff;
+                font-size: 30px;
             }
         </style>
     </head>
     <body>
-        <audio controls autoplay loop>
+        <audio controls loop id="music">
             <source src="./mp3/music.mp3" type="audio/wav">
         </audio>
+        <div id="play">开始</div>
+        <div id="pause">暂停</div>
+
         <canvas id="canvas"></canvas>
 
         <script src="./js/three.min.js"></script>

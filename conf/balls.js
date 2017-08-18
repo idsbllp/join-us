@@ -12,6 +12,8 @@ const per = (h > w ? w : h) / 375
 
 const radius = [per*17, per*10, per*7, per*20, per*30]
 
+const seg = [10, 10, 10, 10, 9]
+
 // 球的位置: y 应该为0，在同一水平面
 const ballPos = [
     [-25*per, -40*per, 70*per],
@@ -27,6 +29,7 @@ function getPos() {
         pos.push({
             pic: pics[i],
             pos: ballPos[i],
+            seg: seg[i],
             radius: radius[i]
         })
     }

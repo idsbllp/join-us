@@ -1,11 +1,10 @@
-// 避免小黑框
-// $(window).on('scroll.elasticity', (e) => {
-//     e.preventDefault()
-// }).on('touchmove.elasticity', (e) => {
-//     e.preventDefault()
-// })
+// 避免 QQ浏览器 下拉出现小黑框
+document.addEventListener('touchmove', e => {
+    e.preventDefault();
+}, false)
 
 import 'three-onevent'
+import './utils/music.js'
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/DeviceOrientationControls.js'
@@ -18,8 +17,8 @@ const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
 const { innerWidth, innerHeight, devicePixelRatio } = window
 const canvas = document.querySelector('#canvas')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = innerWidth
+canvas.height = innerHeight
 
 // 帧
 let stats
@@ -54,15 +53,6 @@ function init() {
     // 给小球添加点击事件
     THREE.onEvent(scene, camera)
 
-    // test 
-    // var geometry = new THREE.PlaneGeometry(innerWidth, innerHeight, 100, 100);
-    // var maps = new THREE.TextureLoader().load( './img/q.jpg' )
-    // maps.wrapS = maps.wrapT = THREE.RepeatWrapping
-    // maps.anisotropy = 16
-    // material = new THREE.MeshLambertMaterial( { map: maps, side: THREE.DoubleSide } )
-    // var plane = new THREE.Mesh( geometry, material );
-    // scene.add( plane );
-
     // 开灯 亮度
     scene.add( new THREE.AmbientLight( 0x404040 ) )
     light = new THREE.DirectionalLight( 0xdcc794 )
@@ -76,7 +66,7 @@ function init() {
         map.anisotropy = 16
         material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } )
 
-        object = new THREE.Mesh( new THREE.SphereGeometry( value.radius, 75, 75 ), material )
+        object = new THREE.Mesh( new THREE.SphereBufferGeometry( value.radius, value.seg, value.seg ), material )
         // 左右, 上下, 斜的？？？？
         object.position.set( value.pos[0], value.pos[1], value.pos[2] )
         object.name = `${value.pic}_ball`
@@ -85,7 +75,7 @@ function init() {
             showDetail(index, object)
         })
         // 球周围的圆
-        if (index != 4) {
+        if (index != 0) {
             circle = new THREE.Mesh( new THREE.TorusGeometry((value.radius+7), 0.4, 5, 60), material )
             circle.position.set( 0,0,0, )
             circle.name = `${value.pic}_circle`
@@ -93,11 +83,11 @@ function init() {
         } else {
             ring = new Ring({
                 radius: value.radius-5,
-                length: 10,
+                length: 2,
                 wavesMinAmp : 5,
                 wavesMaxAmp : 20,
                 wavesMinSpeed : 0.001,
-                wavesMaxSpeed : 0.003,
+                wavesMaxSpeed : 0.003
             })
             ring.mesh.position.y = 0
             object.add(ring.mesh);
@@ -109,14 +99,11 @@ function init() {
 
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
-    // console.log(controls)
-    // controls.autoRotate = true
-    // controls.autoRotateSpeed = 0.5
-    controls.enablePan = false
+    controls.autoRotate = true
+    controls.autoRotateSpeed = 0.1
     controls.enableZoom = true
-    // controls.maxDistance = 600
 
-    // 陀螺仪
+    // 陀螺仪, 听说不用了
     // function setOrientationControls(e){
     //     console.log(e.alpha)
     //     if (e.alpha) {
@@ -128,16 +115,16 @@ function init() {
     // }
     // window.addEventListener('deviceorientation', setOrientationControls, true);
 
-
     window.addEventListener( 'resize', onWindowResize, false )
 }
 
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight
+    const { innerWidth, innerHeight } = window
+    camera.aspect = innerWidth / innerHeight
     camera.updateProjectionMatrix()
-    renderer.setSize( window.innerWidth, window.innerHeight )
+    renderer.setSize( innerWidth, innerHeight )
 }
-// 点击球弹出详情，
+// 点击球弹出详情， doing
 function showDetail(index = 5, object) {
     if (0 < index >= 5) {
         return
@@ -155,20 +142,9 @@ function animate() {
     renderer.render( scene, camera )
 }
 
-var test = 1
-
-const startPos = {
-    x: 0,
-    y: 0
-}
-let cameraRotate = 0
-// http://www.cnblogs.com/v-weiwang/p/6072235.html
+// 相机位置理解: http://www.cnblogs.com/v-weiwang/p/6072235.html
 function render() {
-    // let rotate = 0.004
-    // 1 / 360 /2 2 (0.5度)
-    let rotate = 0.0028 / 2
-    let perimeter = Math.PI * 2
-    let per = perimeter / 5
+    let rotate = 0.0014
 
     for ( let i = 0, l = scene.children.length; i < l; i ++ ) {
         let object = scene.children[i]
@@ -177,35 +153,17 @@ function render() {
         object.rotation.x += rotate
         object.rotation.y += rotate
         object.rotation.z += rotate
-        // 公转
-        if (object.name && test < 20) {
-            // test++
-            // console.log(object.position.x)
-            // object.position.x = 100 * cos(object.rotation.x+per*i)
-            // object.position.z = 100 * sin(object.rotation.x+per*i)
-        }
-
-        if (test < 40) {
-            test++
-            // console.log(object.name)
-            // console.log(scene.children)
-            // console.log(object.position, camera.position)
-        }
     }
-
-    // 自行转动，绕y轴转动，y轴垂直向上
-    cameraRotate -= 0.005
-    // cameraPos.x = 300 * cos(cameraRotate)
-    // cameraPos.z = 300 * sin(cameraRotate)
 }
 
 function drawStars() {
-    /*背景星星*/
-    let particles = 10000  //星星数量
-    /*buffer做星星*/
+    // http://test.nie.163.com/test_html/test/test/test_vr_20161130
+    // 背景星星
+    let particles = 10000  // 星星数量
+    // buffer做星星
     let bufferGeometry = new THREE.BufferGeometry()
 
-    /*32位浮点整形数组*/
+    // 32位浮点整形数组
     let positions = new Float32Array( particles * 3 )
     let colors = new Float32Array( particles * 3 )
 
@@ -269,19 +227,8 @@ function drawStars() {
     scene.add( particleSystem )
 }
 
-// 缩放
-// window.addEventListener('touchstart', e => {
-//     console.log('1111 ', e)
-// })
-// window.addEventListener('touchmove', e => {
-//     console.log('2222 ', e)
-// })
-// window.addEventListener('touchend ', e => {
-//     console.log('3333 ', e)
-// })
-
 init()
 animate()
 
-export default 'llp'
+export default 'idsbllp'
 
