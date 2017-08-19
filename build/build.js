@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var Px2remWebpackPlugin = require('px2rem-webpack-plugin')
 var webpackConfig = require('./webpack.config.js')
 
 process.env.NODE_ENV = 'production';
@@ -18,6 +19,7 @@ var newWebpackConfig = merge(webpackConfig, {
         removeAttributeQuotes: true
       },
     }),
+    // new Px2remWebpackPlugin({originScreenWidth: 750})
   ]
 })
 

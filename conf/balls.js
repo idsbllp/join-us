@@ -1,4 +1,4 @@
-const pics = ['./img/asd.jpg', './img/q.jpg', './img/bg.jpg', './img/bl.png', './img/sea.jpg']
+const pics = ['./img/ball/ball1.jpg', './img/ball/ball2.jpg', './img/ball/ball3.jpg', './img/ball/ball4.jpg', './img/ball/ball5.jpg']
 // 左下角， 中间
 const theta = Math.PI / 4
 

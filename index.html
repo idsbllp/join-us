@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>小弟球</title>
         <meta charset="utf-8">
+        <title>小弟球</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <style>
-            body {
-                font-family: Monospace;
-                background-color: #000;
-                margin: 0px;
-                overflow: hidden;
-            }
-            #canvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: -1;
-            }
-            audio {
-                /*display: none;*/
-            }
-            div {
-                color: #fff;
-                font-size: 30px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="./styles/index.css">
+        <script>
+            !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
+        </script>
     </head>
     <body>
         <audio controls loop id="music">
-            <source src="./mp3/music.mp3" type="audio/wav">
+            <source src="./mp3/music1.mp3" type="audio/wav">
         </audio>
-        <div id="play">开始</div>
-        <div id="pause">暂停</div>
-
+        <div class="controls">
+            <div class="play"></div>
+            <div class="pause"></div>
+        </div>
+        <div class="bg"></div>
+        <!-- 加载打开门的场景 -->
+        <div class="prospect">
+            <div class="door"></div>
+            <div class="message">
+                <p class="m m1"></p>
+                <p class="m m2"></p>
+                <p class="m m3"></p>
+                <p class="m m4"></p>
+                <p class="m m5"></p>
+                <p class="m m6"></p>
+            </div>
+            <div class="redrock">
+                <img class="logo" src="./img/png/redrock.png">
+                <img class="down" src="./img/png/down.png">
+            </div>
+        </div>
+        <!-- 球 -->
         <canvas id="canvas"></canvas>
 
         <script src="./js/three.min.js"></script>
-
         <!-- built files will be auto injected -->
-
    </body>
 </html>

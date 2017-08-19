@@ -4,7 +4,6 @@ document.addEventListener('touchmove', e => {
 }, false)
 
 import 'three-onevent'
-import './utils/music.js'
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/DeviceOrientationControls.js'
@@ -75,7 +74,7 @@ function init() {
             showDetail(index, object)
         })
         // 球周围的圆
-        if (index != 0) {
+        if (index != 12) {
             circle = new THREE.Mesh( new THREE.TorusGeometry((value.radius+7), 0.4, 5, 60), material )
             circle.position.set( 0,0,0, )
             circle.name = `${value.pic}_circle`
@@ -138,7 +137,7 @@ function animate() {
     timer = RAF(animate)
     controls.update()
     render()
-    ring.moveWaves();
+    // ring.moveWaves();
     renderer.render( scene, camera )
 }
 

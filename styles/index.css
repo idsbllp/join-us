@@ -1,0 +1,219 @@
+body {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #17324b;
+}
+.bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(../img/png/bg.png);
+    background-size: cover;
+    opacity: .5;
+}
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+}
+/* 音乐 */
+#music {
+    opacity: 0;
+    display: none;
+}
+.controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    z-index: 999;
+}
+.play {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: url(../img/png/play.png);
+    background-size: 100% 100%;
+}
+.pause {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    width: 95%;
+    height: 95%;
+    background: url(../img/png/pause.png);
+    background-size: 100% 100%;
+    opacity: 1;
+    transition: all 2s ease;
+}
+.none {
+    opacity: 0;
+    display: none;
+}
+
+/* 前景（门）和消息块 */
+.prospect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    trsnsfrom: translate3d(0,0,0);
+    z-index: 2;
+}
+.door {
+    height: 100%;
+    background: url(../img/png/prospect.png);
+    background-size: 100% 100%;
+    z-index: 2;
+}
+.easeIn {
+    animation: 7s linear 0 easeIn;
+    -o-animation: easeIn 7s;
+    -moz-animation: easeIn 7s;
+    -webkit-animation: easeIn 7s;
+}
+@-webkit-keyframes easeIn {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(6);
+        opacity: 0;
+    }
+}
+@keyframes easeIn {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(6);
+        opacity: 0;
+    }
+}
+.message {
+    margin: 0 auto;
+    padding-top: 5.333333rem;
+    width: 6.4rem;
+    text-align: center;
+}
+.m {
+    margin: 0.2rem;
+    display: inline-block;
+    width: 100%;
+    height: 0.533333rem;
+    background-size:  100% 100%;
+    opacity: 0;
+    animation: 3.5s fide;
+}
+.m1 {
+    background-image: url(../img/png/1.png);
+    animation-delay: 7s;
+}
+.m2 {
+    background-image: url(../img/png/2.png);
+    animation-delay: 7.8s;
+}
+.m3 {
+    background-image: url(../img/png/3.png);
+    animation-delay: 8.6s;
+}
+.m4 {
+    margin-top: 1.066667rem;
+    width: 4.133333rem;
+    background-image: url(../img/png/4.png);
+    transform: translateY(-3rem);
+    animation: 3.5s nofide;
+    animation-delay: 10.5s;
+}
+.m5 {
+    width: 4.933333rem;
+    background-image: url(../img/png/5.png);
+    transform: translateY(-3rem);
+    animation: 3.5s nofide;
+    animation-delay: 11.5s;
+}
+.m6 {
+    background-image: url(../img/png/6.png);
+    transform: translateY(-3rem);
+    animation: 3.5s nofide;
+    animation-delay: 12.5s;
+}
+@keyframes fide {
+    0% {
+        transform: translateY(3rem);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+}
+@keyframes nofide {
+    0% {
+        transform: translateY(3rem);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-3rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-3rem);
+    }
+}
+.redrock {
+    position: absolute;
+    bottom: 0.8rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 3.6rem;
+    text-align: center;
+}
+.logo {
+    width: 100%;
+    opacity: 0;
+    transition: all 1s;
+}
+.down {
+    width: 30%;
+    opacity: 0;
+}
+.fideInOut {
+    animation: 2s fideInOut infinite;
+}
+@keyframes fideInOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

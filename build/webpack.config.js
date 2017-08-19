@@ -1,10 +1,9 @@
 var path = require('path')
 var webpack = require('webpack')
 
-console.log(process.env.NODE_ENV)
-
 module.exports = {
     entry: {
+        prospect: path.resolve(__dirname, '../prospect.js'),
         app: path.resolve(__dirname, '../index.js')
     },
     output: {
@@ -19,10 +18,14 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/
             },
-            {
-               test: /\.(jpe?g|png|gif|)$/i,
-               loader: 'file!tinypng'
-            },
+            // {
+            //     test: /\.(png|jpe?g|gif|svg)$/,
+            //     loader: 'url-loader',
+            //     query: {
+            //         limit: 10000,
+            //         name: './dist/[name].[ext]'
+            //     }
+            // },
         ],
     },
     plugins: [

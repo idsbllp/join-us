@@ -18,3 +18,8 @@ export function getRandomNumber(min, max) {
 export function getRandomColor() {
     return random() < .5 ? 0xffffff : 0xb1afaf
 }
+
+export function $(el) {
+    const els = document.querySelectorAll(el);
+    return els.length > 1 ? els : els[0];
+} 
