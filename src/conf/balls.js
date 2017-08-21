@@ -1,4 +1,13 @@
-const pics = ['./img/ball/ball1.jpg', './img/ball/ball2.jpg', './img/ball/ball3.jpg', './img/ball/ball4.jpg', './img/ball/ball5.jpg']
+import { loadpic } from '../utils/index.js'
+
+import '../img/ball1.jpg'
+import '../img/ball2.jpg'
+import '../img/ball3.jpg'
+import '../img/ball4.jpg'
+import '../img/ball5.jpg'
+
+const pics = ['./img/ball1.jpg', './img/ball2.jpg', './img/ball3.jpg', './img/ball4.jpg', './img/ball5.jpg']
+
 // 左下角， 中间
 const theta = Math.PI / 4
 

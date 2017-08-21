@@ -10,13 +10,13 @@ process.env.NODE_ENV = 'production';
 var newWebpackConfig = merge(webpackConfig, {
   plugins: [
     new HtmlWebpackPlugin({
-      filename: '../app.html',
-      template: 'index.html',
+      filename: 'index.html',
+      template: './src/index.html',
       inject: true,
       minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
+        // removeComments: true,
+        // collapseWhitespace: true,
+        // removeAttributeQuotes: true
       },
     }),
     // new Px2remWebpackPlugin({originScreenWidth: 750})

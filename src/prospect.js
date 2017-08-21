@@ -1,11 +1,14 @@
 import './utils/music.js'
-import loadpic from './utils/loadpic.js'
-import { $ } from './utils/index.js'
+import { $, loadpic } from './utils/index.js'
+
+import './styles/index.less'
+import './img/prospect.png'
+import './img/redrock.png'
+import './img/down.png'
 
 const door = $('.door')
 
 // 门
-loadpic('../img/png/prospect.png')
 
 door.classList.add('easeIn')
 setTimeout(() => {

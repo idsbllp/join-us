@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
-hhh
-app.html
-js/app.js
-mp3
+src/mp3
 design
+dist
+js

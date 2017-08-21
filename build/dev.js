@@ -13,8 +13,8 @@ var newWebpackConfig = merge(webpackConfig, {
     devtool: '#eval-source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
+            filename: './src/index.html',
+            template: './src/index.html',
             inject: true
         }),
         // new Px2remWebpackPlugin({ originScreenWidth: 750 }),
@@ -55,7 +55,7 @@ module.exports = app.listen(port, function(err) {
         return console.log(err)
     }
 
-    var uri = 'http://localhost:' + port
+    var uri = 'http://localhost:' + port + '/src/index.html'
     console.log('Listening at ' + uri + '\n')
 
     opn(uri)

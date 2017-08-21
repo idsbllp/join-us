@@ -10,16 +10,16 @@ export const CRAF = window.cancelAnimationFrame
              || window.mscancelAnimationFrame
              || ( timerId => clearTimeout(timerId) )
 
-export function getRandomNumber(min, max) {
+export const getRandomNumber = (min, max) => {
     let randomNum = ceil(random() * max + min)
     return randomNum%2 ? -randomNum : randomNum
 }
 
-export function getRandomColor() {
+export const getRandomColor = () => {
     return random() < .5 ? 0xffffff : 0xb1afaf
 }
 
-export function $(el) {
+export const $ = (el ) => {
     const els = document.querySelectorAll(el);
     return els.length > 1 ? els : els[0];
-} 
+}
