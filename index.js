@@ -74,15 +74,37 @@ function init() {
             showDetail(index, object)
         })
         // 球周围的圆
-        if (index != 12) {
-            circle = new THREE.Mesh( new THREE.TorusGeometry((value.radius+7), 0.4, 5, 60), material )
+        // function CustomSinCurve( scale ) {
+        //     THREE.Curve.call( this )
+        // }
+
+        // CustomSinCurve.prototype = Object.create( THREE.Curve.prototype )
+        // CustomSinCurve.prototype.constructor = CustomSinCurve
+
+        // CustomSinCurve.prototype.getPoint = function ( t ) {
+        //     return new THREE.Vector3( t, t, t )
+        // };
+
+        // var path = new CustomSinCurve( 10 )
+        // var geometry = new THREE.TubeGeometry( path, 64, value.radius+6, 64, true )
+        // // material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+        // var mesh = new THREE.Mesh( geometry, material )
+        // object.add( mesh )
+
+        // geometry = new THREE.TubeGeometry( path, 64, value.radius+3, 64, true )
+        // // material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+        // mesh = new THREE.Mesh( geometry, material )
+        // object.add( mesh )
+
+        if (index != 0) {
+            circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+5, value.radius+5, .5, 64, 64), material )
             circle.position.set( 0,0,0, )
             circle.name = `${value.pic}_circle`
             object.add( circle )
         } else {
             ring = new Ring({
-                radius: value.radius-5,
-                length: 2,
+                radius: value.radius-10,
+                length: 8,
                 wavesMinAmp : 5,
                 wavesMaxAmp : 20,
                 wavesMinSpeed : 0.001,
@@ -137,7 +159,7 @@ function animate() {
     timer = RAF(animate)
     controls.update()
     render()
-    // ring.moveWaves();
+    ring.moveWaves();
     renderer.render( scene, camera )
 }
 

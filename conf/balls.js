@@ -10,9 +10,9 @@ const h = window.innerHeight
 // 选取小的一个作为单位
 const per = (h > w ? w : h) / 375
 
-const radius = [per*17, per*10, per*7, per*20, per*30]
+const radius = [per*17, per*10, per*14, per*20, per*30]
 
-const seg = [10, 10, 10, 10, 9]
+const seg = [20, 20, 20, 20, 9]
 
 // 球的位置: y 应该为0，在同一水平面
 const ballPos = [

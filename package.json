@@ -5,6 +5,7 @@
   "main": "Detector.js",
   "scripts": {
     "start": "node build/dev.js",
+    "dev": "node build/dev.js",
     "build": "export NODE_ENV=production && node build/build.js"
   },
   "keywords": [],

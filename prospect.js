@@ -1,11 +1,8 @@
 import './utils/music.js'
 import loadpic from './utils/loadpic.js'
 import { $ } from './utils/index.js'
-// const prospect = $('.prospect')
-const door = $('.door')
-// const pause = $('.pause')
 
-// console.log(new Date().getTime())
+const door = $('.door')
 
 // 门
 loadpic('../img/png/prospect.png')
@@ -31,6 +28,10 @@ setTimeout(() => {
 }, 12500)
 
 $('.redrock').addEventListener('click', e => {
-    $('.prospect').remove()
-    $('#canvas').style.opacity = 1
+    const prospect = $('.prospect')
+    prospect.style.opacity = 0
+    setTimeout(() => {
+        $('.prospect').remove()
+        $('#canvas').style.opacity = 1
+    }, 900)
 })

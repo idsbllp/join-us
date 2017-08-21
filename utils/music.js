@@ -7,12 +7,12 @@ music.addEventListener('error', e => {
 })
 
 pause.addEventListener('click', e => {
-    music.pause()
-    pause.classList.add('none')
+    music.play()
+    pause.style.display = 'none'
 })
 
 play.addEventListener('click', e => {
-    music.play()
-    pause.classList.remove('none')
+    music.pause()
+    pause.style.display = 'block'
 })
 

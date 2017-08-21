@@ -4,15 +4,23 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #17324b;
+    background-color: #111c1d;
+}
+.door {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../img/png/prospect.png);
+    background-size: 100% 100%;
+    z-index: 2;
 }
 .bg {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url(../img/png/bg.png);
+    background: url(../img/png/bga.png);
     background-size: cover;
-    opacity: .5;
 }
 #canvas {
     position: absolute;
@@ -20,6 +28,7 @@ body {
     left: 0;
     z-index: 1;
     opacity: 0;
+    transition: opacity 1s;
 }
 /* 音乐 */
 #music {
@@ -30,8 +39,8 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     z-index: 999;
 }
 .play {
@@ -51,27 +60,75 @@ body {
     height: 95%;
     background: url(../img/png/pause.png);
     background-size: 100% 100%;
-    opacity: 1;
+    display: none;
     transition: all 2s ease;
 }
 .none {
-    opacity: 0;
     display: none;
 }
 
 /* 前景（门）和消息块 */
+/* 门写前面加载 */
 .prospect {
     position: absolute;
     width: 100%;
     height: 100%;
-    trsnsfrom: translate3d(0,0,0);
     z-index: 2;
+    opacity: 1;
+    transition: opacity 1s;
 }
-.door {
-    height: 100%;
-    background: url(../img/png/prospect.png);
+.line {
+    position: absolute;
+    width: 3rem;
+    height: 4rem;
+    background: url(../img/png/line.png);
+    background-size: cover;
+}
+.ball_ring {
+    width: 1.7rem;
+    height: .8rem;
+    background: url(../img/png/ball_ring.png);
     background-size: 100% 100%;
-    z-index: 2;
+    transform: translate(3rem,1.3rem) rotate(0);
+
+    animation: rotation 18s infinite linear;
+}
+@keyframes rotation {
+    from {
+        transform: translate(3rem,1.3rem) rotate(0);
+    }
+    to {
+        transform: translate(3rem,1.3rem) rotate(360deg);
+    }
+}
+.ball_right {
+    width: .4rem;
+    height: .3rem;
+    background: url(../img/png/ball_left.png);
+    background-size: 100% 100%;
+        transform: translate(3rem,13rem);
+
+    animation: randomWalk 12s infinite linear;
+}
+@keyframes randomWalk {
+    0% {
+        transform: translate(3rem,13rem);
+    }
+    20% {
+        transform: translate(4.1rem,12.9rem);
+    }
+    40% {
+        transform: translate(5.3rem,12.6rem);
+    }
+    60% {
+        transform: translate(3.8rem,12.3rem);
+    }
+    80% {
+        transform: translate(3.1rem,12.5rem);
+    }
+    100% {
+        transform: translate(3rem,13rem);
+    }
 }
 .easeIn {
     animation: 7s linear 0 easeIn;
@@ -101,15 +158,15 @@ body {
 }
 .message {
     margin: 0 auto;
-    padding-top: 5.333333rem;
-    width: 6.4rem;
+    padding-top: 4rem;
+    width: 5.8rem;
     text-align: center;
 }
 .m {
     margin: 0.2rem;
     display: inline-block;
     width: 100%;
-    height: 0.533333rem;
+    height: .42rem;
     background-size:  100% 100%;
     opacity: 0;
     animation: 3.5s fide;
@@ -128,14 +185,14 @@ body {
 }
 .m4 {
     margin-top: 1.066667rem;
-    width: 4.133333rem;
+    width: 3.33333rem;
     background-image: url(../img/png/4.png);
     transform: translateY(-3rem);
     animation: 3.5s nofide;
     animation-delay: 10.5s;
 }
 .m5 {
-    width: 4.933333rem;
+    width: 4.33333rem;
     background-image: url(../img/png/5.png);
     transform: translateY(-3rem);
     animation: 3.5s nofide;
