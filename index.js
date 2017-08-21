@@ -57,6 +57,9 @@ function init() {
     light = new THREE.DirectionalLight( 0xdcc794 )
     light.position.set( 1, 0, 1 )
     scene.add( light )
+    light = new THREE.DirectionalLight( 0x9e9681 )
+    light.position.set( -1, 0, -1 )
+    scene.add( light )
 
     // 添加五个球
     positionOfBalls.forEach((value, index) => {
@@ -96,12 +99,7 @@ function init() {
         // mesh = new THREE.Mesh( geometry, material )
         // object.add( mesh )
 
-        if (index != 0) {
-            circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+5, value.radius+5, .5, 64, 64), material )
-            circle.position.set( 0,0,0, )
-            circle.name = `${value.pic}_circle`
-            object.add( circle )
-        } else {
+        if (index == 3 || index == 4) {
             ring = new Ring({
                 radius: value.radius-10,
                 length: 8,
@@ -110,8 +108,23 @@ function init() {
                 wavesMinSpeed : 0.001,
                 wavesMaxSpeed : 0.003
             })
-            ring.mesh.position.y = 0
             object.add(ring.mesh);
+        } else {
+            map = new THREE.TextureLoader().load( value.pic.replace('/ball/', '/') )
+            material = new THREE.MeshPhongMaterial({
+                map: map,
+                transparent: true,
+                opacity: 1,
+                shading: THREE.FlatShading
+            })
+            circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+5, value.radius+5, .2, 64, 64), material )
+            circle.name = `${value.pic}_circle`
+            object.add( circle )
+            // 透明
+            // map = new THREE.TextureLoader().load('./img/png/transparent.png')
+            // material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } )
+            // circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+3, value.radius+3, .2, 64, 64), material )
+            // object.add( circle )
         }
         scene.add( object )
     })
@@ -121,7 +134,7 @@ function init() {
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
     controls.autoRotate = true
-    controls.autoRotateSpeed = 0.1
+    controls.autoRotateSpeed = 0.23
     controls.enableZoom = true
 
     // 陀螺仪, 听说不用了

@@ -20,7 +20,6 @@ export default class Ring {
 
         for (let i = 0; i < l; i++) {
             let v = this.geom.vertices[i]
-            //v.y = Math.random()*30
             this.waves.push({
                 y: v.y,
                 x: v.x,
@@ -33,7 +32,7 @@ export default class Ring {
         let mat = new THREE.MeshPhongMaterial({
             color: Colors.blue,
             transparent: true,
-            opacity: .8,
+            opacity: .5,
             shading: THREE.FlatShading,
 
         })
@@ -42,11 +41,6 @@ export default class Ring {
         this.mesh.name = "ring"
         this.mesh.receiveShadow = true
     }
-    // create(scene) {
-    //     sea = new Sea();
-    //     sea.mesh.position.y = -ball.radius;
-    //     scene.add(sea.mesh);
-    // }
     moveWaves() {
         let verts = this.mesh.geometry.vertices
         let l = verts.length

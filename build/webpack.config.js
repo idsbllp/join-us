@@ -3,7 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
     entry: {
-        prospect: path.resolve(__dirname, '../prospect.js'),
+        // prospect: path.resolve(__dirname, '../prospect.js'),
         app: path.resolve(__dirname, '../index.js')
     },
     output: {
