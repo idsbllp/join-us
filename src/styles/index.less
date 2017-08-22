@@ -23,6 +23,7 @@ body {
     background-size: cover;
 }
 #canvas {
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -83,6 +84,22 @@ body {
     height: 4rem;
     background: url(../img/line.png);
     background-size: cover;
+}
+.fly {
+    animation: fly 1.4s infinite linear;
+}
+@keyframes fly {
+    0% {
+        transform: translate(10rem, -2rem);
+        opacity: 1
+    }
+    50% {
+        opacity: .6
+    }
+    100% {
+        transform: translate(-3rem, 11rem);
+        opacity: 1
+    }
 }
 .ball_ring {
     width: 1.7rem;
@@ -158,7 +175,7 @@ body {
 }
 .message {
     margin: 0 auto;
-    padding-top: 4rem;
+    padding-top: 3.2rem;
     width: 5.8rem;
     text-align: center;
 }

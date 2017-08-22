@@ -1,3 +1,4 @@
+const { random, ceil } = Math
 export const RAF = window.requestAnimationFrame
                    || window.webkitRequestAnimationFrame
                    || window.msRequestAnimationFrame
@@ -11,7 +12,7 @@ export const CRAF = window.cancelAnimationFrame
              || ( timerId => clearTimeout(timerId) )
 
 export const getRandomNumber = (min, max) => {
-    let randomNum = ceil(random() * max + min)
+    const randomNum = ceil(random() * max + min)
     return randomNum%2 ? -randomNum : randomNum
 }
 

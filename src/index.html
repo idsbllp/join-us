@@ -6,6 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <script>
             !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
+            // 避免 QQ浏览器 下拉出现小黑框
+            document.addEventListener('touchmove', e => {
+                e.preventDefault();
+            }, false)
         </script>
     </head>
     <body>
@@ -17,12 +21,12 @@
             <div class="pause"></div>
         </div>
             <!-- 加载打开门的场景 -->
+        <div class="bg"></div>
         <div class="prospect">
-            <div class="bg"></div>
             <div class="line"></div>
             <div class="ball_ring"></div>
             <div class="ball_right"></div>
-            <div class="door"></div>
+            <div class="door easeIn"></div>
             <div class="message">
                 <p class="m m1"></p>
                 <p class="m m2"></p>
@@ -39,6 +43,9 @@
         <!-- 球 -->
         <canvas id="canvas"></canvas>
 
+        <script>
+            
+        </script>
         <script src="./js/three.min.js"></script>
         <!-- built files will be auto injected -->
    </body>

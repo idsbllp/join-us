@@ -1,8 +1,3 @@
-// 避免 QQ浏览器 下拉出现小黑框
-document.addEventListener('touchmove', e => {
-    e.preventDefault();
-}, false)
-
 import 'three-onevent'
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
