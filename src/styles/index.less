@@ -19,11 +19,10 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('../img/bg.png');
+    background-image: url('../img/bg.png');
     background-size: cover;
 }
-#canvas {
-    display: none;
+canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -85,20 +84,34 @@ body {
     background: url(../img/line.png);
     background-size: cover;
 }
-.fly {
-    animation: fly 1.4s infinite linear;
+.line1 {
+    top: 3rem;
+    animation: flya 2.8s infinite linear;
 }
-@keyframes fly {
+@keyframes flya {
     0% {
         transform: translate(10rem, -2rem);
-        opacity: 1
     }
     50% {
-        opacity: .6
+        transform: translate(-3rem, 11rem);
     }
     100% {
         transform: translate(-3rem, 11rem);
-        opacity: 1
+    }
+}
+.line2 {
+    animation: flyb 2.8s infinite linear;
+    animation-delay: 2.8s;
+}
+@keyframes flyb {
+    0% {
+        transform: translate(10rem, -2rem);
+    }
+    50% {
+        transform: translate(10rem, -2rem);
+    }
+    100% {
+        transform: translate(-3rem, 11rem);
     }
 }
 .ball_ring {

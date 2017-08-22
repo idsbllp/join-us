@@ -6,15 +6,30 @@ import './utils/DeviceOrientationControls.js'
 import './styles/index.less'
 
 import Ring from './utils/ring.js'
-import { RAF, CRAF, getRandomNumber, getRandomColor } from './utils/index.js'
+import { RAF, CRAF, getRandomNumber, getRandomColor, $ } from './utils/index.js'
 import positionOfBalls from './conf/balls.js'
 
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
 const { innerWidth, innerHeight, devicePixelRatio } = window
-const canvas = document.querySelector('#canvas')
+const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
+
+import './img/bg_cp.png'
+
+// // 点击按钮载入canvas
+// $('.redrock').addEventListener('click', e => {
+//     const prospect = $('.prospect')
+//     prospect.style.opacity = 0
+//     setTimeout(() => {
+//         clearInterval(timer)
+//         $('.prospect').remove()
+        $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
+        document.body.appendChild(canvas)
+        canvas.style.opacity = 1
+//     }, 900)
+// })
 
 // 帧
 let stats
@@ -74,29 +89,30 @@ function init() {
             showDetail(index, object)
         })
         // 球周围的圆
-        // function CustomSinCurve( scale ) {
-        //     THREE.Curve.call( this )
-        // }
+        if (index === 2 || index === 1) {
+            function CustomSinCurve( scale ) {
+                THREE.Curve.call( this )
+            }
 
-        // CustomSinCurve.prototype = Object.create( THREE.Curve.prototype )
-        // CustomSinCurve.prototype.constructor = CustomSinCurve
+            CustomSinCurve.prototype = Object.create( THREE.Curve.prototype )
+            CustomSinCurve.prototype.constructor = CustomSinCurve
 
-        // CustomSinCurve.prototype.getPoint = function ( t ) {
-        //     return new THREE.Vector3( t, t, t )
-        // };
+            CustomSinCurve.prototype.getPoint = function ( t ) {
+                return new THREE.Vector3( t, t, t )
+            };
 
-        // var path = new CustomSinCurve( 10 )
-        // var geometry = new THREE.TubeGeometry( path, 64, value.radius+6, 64, true )
-        // // material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
-        // var mesh = new THREE.Mesh( geometry, material )
-        // object.add( mesh )
+            let path = new CustomSinCurve( 20 )
+            let geometry, mesh
+            for (let i = 0; i < 20; i++) {
+                geometry = new THREE.TubeGeometry( path, 64, value.radius+4+i/10, 64, true )
+                mesh = new THREE.Mesh( geometry, material )
+                object.add( mesh )
+            }
 
-        // geometry = new THREE.TubeGeometry( path, 64, value.radius+3, 64, true )
-        // // material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
-        // mesh = new THREE.Mesh( geometry, material )
-        // object.add( mesh )
-
-        if (index == 3 || index == 4) {
+            // geometry = new THREE.TubeGeometry( path, 64, value.radius+3, 64, true )
+            // mesh = new THREE.Mesh( geometry, material )
+            // object.add( mesh )
+        } else if (index == 0) {
             ring = new Ring({
                 radius: value.radius-10,
                 length: 8,
@@ -106,6 +122,8 @@ function init() {
                 wavesMaxSpeed : 0.003
             })
             object.add(ring.mesh);
+        } else if (index ===3) {
+
         } else {
             map = new THREE.TextureLoader().load( value.pic.replace('/ball/', '/') )
             material = new THREE.MeshPhongMaterial({
@@ -118,10 +136,10 @@ function init() {
             circle.name = `${value.pic}_circle`
             object.add( circle )
             // 透明
-            // map = new THREE.TextureLoader().load('./img/png/transparent.png')
-            // material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } )
-            // circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+3, value.radius+3, .2, 64, 64), material )
-            // object.add( circle )
+            map = new THREE.TextureLoader().load('./img/transparent.png')
+            material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } )
+            circle = new THREE.Mesh( new THREE.CylinderGeometry(value.radius+3, value.radius+3, .2, 64, 64), material )
+            object.add( circle )
         }
         scene.add( object )
     })
