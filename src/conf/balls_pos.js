@@ -23,7 +23,7 @@ const per = (h > w ? w : h) / 375
 const radius = [per*17, per*10, per*14, per*20, per*30]
 
 // 球的分段数
-const seg = [20, 20, 12, 8, 9]
+const seg = [20, 20, 12, 15, 9]
 
 // 球的位置: y为0则在同一水平面
 const ballPos = [

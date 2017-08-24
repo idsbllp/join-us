@@ -2,12 +2,12 @@ import './utils/music.js'
 import { $, getRandomNumber, loadpic } from './utils/index.js'
 
 import './styles/index.less'
+
 import './img/prospect.png'
 import './img/redrock.png'
 import './img/down.png'
 
-// const door = $('.door')
-const line = $('.line')
+// const line = $('.line')
 
 // 门
 setTimeout(() => {
@@ -24,5 +24,5 @@ setTimeout(() => {
             val.classList.add('fideInOut')
         }
     })
-}, 12500)
+}, 13000)
 

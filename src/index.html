@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>小弟球</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <script>
             !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
             // 避免 QQ浏览器 下拉出现小黑框
@@ -15,7 +15,7 @@
     <body>
         <div class="bg"></div>
             <!-- 加载打开门的场景 -->
-      <!--   <div class="prospect">
+        <div class="prospect">
             <div class="line line1 fly"></div>
             <div class="line line2 fly"></div>
             <div class="ball_ring"></div>
@@ -33,7 +33,7 @@
                 <img src="./img/redrock.png" class="logo">
                 <img src="./img/down.png" class="down">
             </div>
-        </div> -->
+        </div>
 
         <!-- 球之后载入 -->
         <!-- 音乐 -->
@@ -43,6 +43,30 @@
         <div class="controls">
             <div class="play"></div>
             <div class="pause"></div>
+        </div>
+
+        <div class="department">
+            <div class="round-outer"></div>
+            <div class="round-inner"></div>
+            <div class="department-con">
+                <p class="department-title"> 产品策划及运营部 </p>
+                <p class="department-intro"> 美学设计的创意者，视觉体验的执行者。 </p>
+                <p class="department-intro"> 网页宣传海报设计、网校产品的动画动效设计、跟踪产品视觉及体验。 </p>
+                <p class="department-intro"> 一切美的设计工厂。 </p>
+                <div class="department-logo yidong"></div>
+            </div>
+            <div class="hand lefthand">
+                <div class="bar bar1 bar-active"></div>
+                <div class="bar bar2"></div>
+                <div class="bar bar3"></div>
+                <div class="bar bar4"></div>
+            </div>
+            <div class="hand righthand">
+                <div class="bar bar1"></div>
+                <div class="bar bar2"></div>
+                <div class="bar bar3"></div>
+                <div class="bar bar4"></div>
+            </div>
         </div>
         
         <script src="./js/three.min.js"></script>

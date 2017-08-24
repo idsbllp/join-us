@@ -12,7 +12,7 @@ import './styles/index.less'
 
 import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor } from './utils/index.js'
-import positionOfBalls from './conf/balls.js'
+import positionOfBalls from './conf/balls_pos.js'
 
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200

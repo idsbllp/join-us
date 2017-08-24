@@ -83,9 +83,9 @@ canvas {
     height: 4rem;
     background: url(../img/line.png);
     background-size: cover;
+    transform: translate(10rem, -2rem);
 }
 .line1 {
-    top: 3rem;
     animation: flya 2.8s infinite linear;
 }
 @keyframes flya {
@@ -93,10 +93,10 @@ canvas {
         transform: translate(10rem, -2rem);
     }
     50% {
-        transform: translate(-3rem, 11rem);
+        transform: translate(-4rem, 8.73rem);
     }
     100% {
-        transform: translate(-3rem, 11rem);
+        transform: translate(-4rem, 8.73rem);
     }
 }
 .line2 {
@@ -105,13 +105,13 @@ canvas {
 }
 @keyframes flyb {
     0% {
-        transform: translate(10rem, -2rem);
+        transform: translate(10rem, 2rem);
     }
     50% {
-        transform: translate(10rem, -2rem);
+        transform: translate(10rem, 2rem);
     }
     100% {
-        transform: translate(-3rem, 11rem);
+        transform: translate(-4rem, 12.73rem);
     }
 }
 .ball_ring {
@@ -165,16 +165,6 @@ canvas {
     -o-animation: easeIn 7s;
     -moz-animation: easeIn 7s;
     -webkit-animation: easeIn 7s;
-}
-@-webkit-keyframes easeIn {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(6);
-        opacity: 0;
-    }
 }
 @keyframes easeIn {
     from {
@@ -262,7 +252,7 @@ canvas {
 }
 .redrock {
     position: absolute;
-    bottom: 0.8rem;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
@@ -275,6 +265,8 @@ canvas {
     transition: all 1s;
 }
 .down {
+    position: relative;
+    top: -0.66667rem;
     width: 30%;
     opacity: 0;
 }
@@ -293,8 +285,171 @@ canvas {
     }
 }
 
+/* 部门简介 */
+.department {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/bg_department.png);
+    background-size: 100% 100%;
 
+    &-con {
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 8.16rem;
+        height: 9.986667rem;
+        background-image: url(../img/data_bg.png);
+        background-size: 100% 100%;
+    }
+    &-title {
+        margin: 2rem 0 .5rem;
+        text-align: center;
+        color: #fff;
+        font-size: .7rem;
+        animation: fideIn 1.5s ease;
+    }
+    &-intro {
+        margin: .4rem auto;
+        width: 4.8rem;
+        color: #5ab5d2;
+        font-size: 0.36rem;
+        animation: fideIn 1.5s ease;
+    }
+    &-logo {
+        position: absolute;
+        z-index: -1;
+        right: 1.2rem;
+        bottom: 1.1rem;
+        background-size: 100% 100%;
+        animation: fideIn 1.5s ease;
+    }
+    .sre {
+        width: 1.826667rem;
+        height: 1.2rem;
+        background-image: url(../img/sre.png);
+    }
+    .chanpin {
+        width: 2.08rem;
+        height: 1.706667rem;
+        background-image: url(../img/chanpin.png);
+    }
+    .shijue {
+        width: 1.64rem;
+        height: 1.666667rem;
+        background-image: url(../img/shijue.png);
+    }
+    .web {
+        width: 1.586667rem;
+        height: 1.333333rem;
+        background-image: url(../img/web.png);
+    }
+    .yidong {
+        width: 1.973333rem;
+        height: 1.226667rem;
+        background-image: url(../img/yidong.png);
+    }
+}
+@keyframes fideIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.round-otuer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 14.4rem;
+    height: 14.4rem;
+    border: 2px dotted #285966;
+    border-radius: 50%;
+    transform: translateX(-2.2rem);
+}
+.round-inner {
+    position: absolute;
+    top: 0;
+    left: -1.33rem;
+    bottom: 0;
+    margin: auto;
+    width: 12.66rem;
+    height: 12.66rem;
+    background-image: url(../img/round.png);
+    background-size: 100% 100%;
 
+    animation: turn 12s infinite linear;
+}
+@keyframes turn {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.hand {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 0.933333rem;
+    height: 1.066667rem;
+    line-height: 1.066667rem;
+    display: flex;
+    align-items: center;
+}
+.bar {
+    float: left;
+    display: inline-block;
+    margin-left: 0.133333rem;
+    width: 1px;
+    background-color: #97979b;
+    box-shadow: 1px 0 #5f5f65, -1px 0 #5f5f65, 0 -1px #5f5f65, 0 1px #5f5f65;
+
+    animation: flash 1s infinite linear;
+
+}
+@keyframes flash {
+    0% {
+        background-color: #fff;
+    }
+    40% {
+        background-color: #97979b;
+    }
+}
+.bar1 {
+    height: 0.133333rem;
+}
+.bar2 {
+    height: 0.333333rem;
+    animation-delay: .09s;
+}
+.bar3 {
+    height: 0.666667rem;
+    animation-delay: .18s;
+}
+.bar4 {
+    height: 1.066667rem;
+    animation-delay: .27s;
+}
+.lefthand {
+    left: 0.15rem;
+}
+.righthand {
+    right: 0.2rem;
+    transform: rotate(180deg);
+}
 
 
 
