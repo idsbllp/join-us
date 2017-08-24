@@ -36,6 +36,22 @@ module.exports = {
                     publicPath: process.env.NODE_ENV === 'production' ? '../' : '/'
                 })
             },
+            {
+                test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: 'mp3/[name].[ext]'
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: 'font/[name].[ext]'
+                }
+            },
         ],
     },
     plugins: [

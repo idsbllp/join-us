@@ -3,7 +3,8 @@ import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/DeviceOrientationControls.js'
 
-import './styles/index.less'
+import './mp3/music.mp3'
+import './font/go.otf'
 
 import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor, $ } from './utils/index.js'
@@ -175,7 +176,7 @@ function init() {
         cube.position.set(x, y, z)
         return cube
     }
-    // console.log(createSmallBall(10, 23, 65, 0x68c3c0))
+
     scene.add(createSmallBall(45, 12, -87, 0xffffff))
     scene.add(createSmallBall(76, 54, 46, 0x68c3c0))
     scene.add(createSmallBall(-10, -75, 12, 0x68c3c0))
@@ -219,12 +220,10 @@ const departmentCon = $('.department-con')
 const departmentIntro = departmentCon.children
 
 function showDetail(index = 5, object) {
-    // console.log(index)
     if (index < 0 || index >= 5) {
         return
     }
     const ballIntro = ballsIntro[index]
-    // console.log(ballIntro)
     $('.department').style.display = 'block'
     let intro = `
         <p class="department-title"> ${ballIntro.name} </p>
@@ -252,7 +251,6 @@ $('.lefthand').addEventListener('click', e => {
 const hiddenDepartment = e => {
     let classList = e.target.classList
 
-    // console.log(classList)
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
 
         $('.department').style.display = 'none'
