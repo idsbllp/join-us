@@ -3,8 +3,7 @@ import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/DeviceOrientationControls.js'
 
-import './mp3/music.mp3'
-import './font/go.otf'
+import './img/transparent.png'
 
 import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor, $ } from './utils/index.js'
@@ -24,14 +23,20 @@ import './img/bg_cp.png'
 $('.redrock').addEventListener('click', e => {
     const prospect = $('.prospect')
     prospect.style.opacity = 0
+    canvas.classList.add('canvas')
     setTimeout(() => {
         clearInterval(timer)
         $('.prospect').remove()
         $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
+        // 为了点击 redrock 时不点击球
+        addBalls()
         document.body.appendChild(canvas)
         canvas.style.opacity = 1
     }, 900)
-})
+}, false)
+
+// 为了让垃圾 IOS 能变得可点击
+canvas.addEventListener('click', e => {})
 
 // 帧
 let stats
@@ -47,46 +52,7 @@ let timer = null
 
 if (!Detector.webgl) Detector.addGetWebGLMessage()
 
-function init() {
-    scene = new THREE.Scene()
-    // scene.fog = new THREE.FogExp2( 0xaaccff, 0.0015 )
-    camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2000)
-    renderer = new THREE.WebGLRenderer({
-        antialias: true,
-        alpha: true,
-        canvas
-    })
-
-    renderer.setPixelRatio(devicePixelRatio)
-    renderer.setSize(innerWidth, innerHeight)
-    // shadow 开启阴影
-    renderer.shadowMap.enabled = true
-
-    // z 轴取小的那一个的  2/3
-    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5)
-    camera.lookAt(new THREE.Vector3(0,0,0))
-
-    // 给小球添加点击事件
-    THREE.onEvent(scene, camera)
-
-    // 开灯 亮度
-    // scene.add(new THREE.AmbientLight(0x404040))
-    light = new THREE.DirectionalLight(0xdcc794, 1.7)
-    light.position.set(1, 0, 1)
-    // shadow 产生阴影
-    light.castShadow = true
-    light.shadow.camera.near = 1
-    light.shadow.camera.far = 300
-    light.shadow.camera.visible = true
-    light.shadow.mapSize.Width = 1024
-    light.shadow.mapSize.Height = 1024
-
-    scene.add(light)
-
-    light = new THREE.DirectionalLight(0x9e9681)
-    light.position.set(-1, 0, -1)
-    scene.add(light)
-
+function addBalls() {
     // 添加五个球
     positionOfBalls.forEach((value, index) => {
         let map = new THREE.TextureLoader().load(value.pic)
@@ -99,16 +65,14 @@ function init() {
         }
 
         object = new THREE.Mesh(new THREE.SphereBufferGeometry(value.radius, value.seg, value.seg), material)
+
+        object.name = `${value.pic}_ball`
+        object.on('click', object => {
+            showDetail(index)
+        })
         // 左右, 上下, 斜的？？？？
         object.position.set(value.pos[0], value.pos[1], value.pos[2])
 
-        // shadow 发出与接受阴影
-        object.receiveShadow = true
-
-        object.name = `${value.pic}_ball`
-        object.on('click', e => {
-            showDetail(index)
-        })
         // 球周围的圆
         if (index === 2 || index === 1) {
             function CustomSinCurve(scale) {
@@ -126,7 +90,6 @@ function init() {
             for (let i = 0; i < 20; i++) {
                 geometry = new THREE.TubeGeometry(path, 64, value.radius+4+i/10, 64, true)
                 mesh = new THREE.Mesh(geometry, material)
-                mesh.castShadow = true
                 object.add(mesh)
             }
         } else if (index == 0) {
@@ -138,7 +101,6 @@ function init() {
                 wavesMinSpeed : 0.001,
                 wavesMaxSpeed : 0.003
             })
-            ring.mesh.castShadow = true
             object.add(ring.mesh);
         } else if (index ===3) {
 
@@ -157,11 +119,44 @@ function init() {
             map = new THREE.TextureLoader().load('./img/transparent.png')
             material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
             circle = new THREE.Mesh(new THREE.CylinderGeometry(value.radius+3, value.radius+3, .2, 64, 64), material)
-            circle.castShadow = true
+
             object.add(circle)
         }
         scene.add(object)
     })
+}
+
+function init() {
+    scene = new THREE.Scene()
+
+    camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2000)
+    renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        canvas
+    })
+
+    renderer.setPixelRatio(devicePixelRatio)
+    renderer.setSize(innerWidth, innerHeight)
+
+    // z 轴取小的那一个的  2/3
+    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5)
+    camera.lookAt(new THREE.Vector3(0,0,0))
+
+    // 给小球添加点击事件
+    THREE.onEvent(scene, camera)
+
+    // 开灯 亮度
+    // scene.add(new THREE.AmbientLight(0x404040))
+    light = new THREE.DirectionalLight(0xdcc794, 1.7)
+    light.position.set(1, 0, 1)
+
+    scene.add(light)
+
+    light = new THREE.DirectionalLight(0x9e9681)
+    light.position.set(-1, 0, -1)
+    scene.add(light)
+    
     // 背景星星
     drawStars()
 
@@ -252,7 +247,6 @@ const hiddenDepartment = e => {
     let classList = e.target.classList
 
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
-
         $('.department').style.display = 'none'
     }
 }
@@ -264,18 +258,18 @@ $('.round-outer').addEventListener('click', hiddenDepartment)
 function animate() {
     timer = RAF(animate)
     controls.update()
-    render()
-    ring.moveWaves();
+    selfRotate()
+    // ring.moveWaves()
     renderer.render(scene, camera)
 }
 
 // 相机位置理解: http://www.cnblogs.com/v-weiwang/p/6072235.html
-function render() {
+function selfRotate() {
     let rotate = 0.0014
 
     for (let i = 0, l = scene.children.length; i < l; i ++) {
         let object = scene.children[i]
-        // 自旋
+        // 自转
         if (!object.name) continue
         object.rotation.x += rotate
         object.rotation.y += rotate
@@ -299,8 +293,6 @@ function drawStars() {
     let gap = 1000 // 定义星星的最近出现位置
 
     for (let i = 0; i < positions.length; i += 3) {
-        // positions
-
         /*-2gap < x < 2gap */
         let x = (Math.random() * gap *2)* (Math.random()<.5? -1 : 1)
         let y = (Math.random() * gap *2)* (Math.random()<.5? -1 : 1)
@@ -326,11 +318,11 @@ function drawStars() {
         let hasColor = Math.random() > 0.3
         let vx, vy, vz
 
-        if(hasColor){
+        if (hasColor) {
             vx = (Math.random()+1) / 2 
             vy = (Math.random()+1) / 2 
             vz = (Math.random()+1) / 2 
-        }else{
+        } else {
             vx = 1 
             vy = 1 
             vz = 1 
@@ -358,4 +350,3 @@ init()
 animate()
 
 export default 'idsbllp'
-

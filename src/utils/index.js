@@ -20,7 +20,13 @@ export const getRandomColor = () => {
     return random() < .5 ? 0xffffff : 0xb1afaf
 }
 
-export const $ = (el ) => {
+export const $ = el => {
     const els = document.querySelectorAll(el);
     return els.length > 1 ? els : els[0];
+}
+
+export const loadJS = url => {
+    const script = document.createElement('script')
+    script.src = url
+    document.body.appendChild(script)
 }

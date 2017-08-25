@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://threejs.org/docs/#api/lights/DirectionalLight -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>three.js docs - DirectionalLight</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="./as_files/index.css">
+	</head>
+	<body>
+		<script type="text/javascript" async="" src="./as_files/ga.js"></script><script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-86951-15']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+
+		<div id="panel" class="collapsed">
+
+			<h1><a href="http://threejs.org/">three.js</a> / docs</h1>
+
+			<a id="expandButton" href="https://threejs.org/docs/#">
+				<span></span>
+				<span></span>
+				<span></span>
+			</a>
+
+			<div class="filterBlock">
+				<input type="text" id="filterInput" placeholder="Type to filter">
+				<a href="https://threejs.org/docs/#" id="clearFilterButton">x</a>
+			</div>
+			<div id="content"><div><h2>Manual</h2><div><h3>Getting Started</h3><ul><li><a href="https://threejs.org/docs/manual/introduction/Creating-a-scene.html" target="viewer">Creating a scene</a></li><li><a href="https://threejs.org/docs/manual/introduction/Import-via-modules.html" target="viewer">Import via modules</a></li><li><a href="https://threejs.org/docs/manual/introduction/WebGL-compatibility-check.html" target="viewer">WebGL compatibility check</a></li><li><a href="https://threejs.org/docs/manual/introduction/How-to-run-thing-locally.html" target="viewer">How to run things locally</a></li><li><a href="https://threejs.org/docs/manual/introduction/Drawing-lines.html" target="viewer">Drawing Lines</a></li><li><a href="https://threejs.org/docs/manual/introduction/Creating-text.html" target="viewer">Creating Text</a></li><li><a href="https://threejs.org/docs/manual/introduction/Migration-guide.html" target="viewer">Migration Guide</a></li><li><a href="https://threejs.org/docs/manual/introduction/Code-style-guide.html" target="viewer">Code Style Guide</a></li><li><a href="https://threejs.org/docs/manual/introduction/FAQ.html" target="viewer">FAQ</a></li><li><a href="https://threejs.org/docs/manual/introduction/Useful-links.html" target="viewer">Useful links</a></li></ul></div><div><h3>Next Steps</h3><ul><li><a href="https://threejs.org/docs/manual/introduction/How-to-update-things.html" target="viewer">How to update things</a></li><li><a href="https://threejs.org/docs/manual/introduction/Matrix-transformations.html" target="viewer">Matrix transformations</a></li><li><a href="https://threejs.org/docs/manual/introduction/Animation-system.html" target="viewer">Animation System</a></li></ul></div><div><h3>Build Tools</h3><ul><li><a href="https://threejs.org/docs/manual/buildTools/Testing-with-NPM.html" target="viewer">Testing with NPM</a></li></ul></div><h2>Reference</h2><div><h3>Animation</h3><ul><li><a href="https://threejs.org/docs/api/animation/AnimationAction.html" target="viewer">AnimationAction</a></li><li><a href="https://threejs.org/docs/api/animation/AnimationClip.html" target="viewer">AnimationClip</a></li><li><a href="https://threejs.org/docs/api/animation/AnimationMixer.html" target="viewer">AnimationMixer</a></li><li><a href="https://threejs.org/docs/api/animation/AnimationObjectGroup.html" target="viewer">AnimationObjectGroup</a></li><li><a href="https://threejs.org/docs/api/animation/AnimationUtils.html" target="viewer">AnimationUtils</a></li><li><a href="https://threejs.org/docs/api/animation/KeyframeTrack.html" target="viewer">KeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/PropertyBinding.html" target="viewer">PropertyBinding</a></li><li><a href="https://threejs.org/docs/api/animation/PropertyMixer.html" target="viewer">PropertyMixer</a></li></ul></div><div><h3>Animation / Tracks</h3><ul><li><a href="https://threejs.org/docs/api/animation/tracks/BooleanKeyframeTrack.html" target="viewer">BooleanKeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/tracks/ColorKeyframeTrack.html" target="viewer">ColorKeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/tracks/NumberKeyframeTrack.html" target="viewer">NumberKeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/tracks/QuaternionKeyframeTrack.html" target="viewer">QuaternionKeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/tracks/StringKeyframeTrack.html" target="viewer">StringKeyframeTrack</a></li><li><a href="https://threejs.org/docs/api/animation/tracks/VectorKeyframeTrack.html" target="viewer">VectorKeyframeTrack</a></li></ul></div><div><h3>Audio</h3><ul><li><a href="https://threejs.org/docs/api/audio/Audio.html" target="viewer">Audio</a></li><li><a href="https://threejs.org/docs/api/audio/AudioAnalyser.html" target="viewer">AudioAnalyser</a></li><li><a href="https://threejs.org/docs/api/audio/AudioContext.html" target="viewer">AudioContext</a></li><li><a href="https://threejs.org/docs/api/audio/AudioListener.html" target="viewer">AudioListener</a></li><li><a href="https://threejs.org/docs/api/audio/PositionalAudio.html" target="viewer">PositionalAudio</a></li></ul></div><div><h3>Cameras</h3><ul><li><a href="https://threejs.org/docs/api/cameras/Camera.html" target="viewer">Camera</a></li><li><a href="https://threejs.org/docs/api/cameras/CubeCamera.html" target="viewer">CubeCamera</a></li><li><a href="https://threejs.org/docs/api/cameras/OrthographicCamera.html" target="viewer">OrthographicCamera</a></li><li><a href="https://threejs.org/docs/api/cameras/PerspectiveCamera.html" target="viewer">PerspectiveCamera</a></li><li><a href="https://threejs.org/docs/api/cameras/StereoCamera.html" target="viewer">StereoCamera</a></li></ul></div><div><h3>Constants</h3><ul><li><a href="https://threejs.org/docs/api/constants/Animation.html" target="viewer">Animation</a></li><li><a href="https://threejs.org/docs/api/constants/Core.html" target="viewer">Core</a></li><li><a href="https://threejs.org/docs/api/constants/CustomBlendingEquations.html" target="viewer">CustomBlendingEquation</a></li><li><a href="https://threejs.org/docs/api/constants/DrawModes.html" target="viewer">DrawModes</a></li><li><a href="https://threejs.org/docs/api/constants/Materials.html" target="viewer">Materials</a></li><li><a href="https://threejs.org/docs/api/constants/Renderer.html" target="viewer">Renderer</a></li><li><a href="https://threejs.org/docs/api/constants/Textures.html" target="viewer">Textures</a></li></ul></div><div><h3>Core</h3><ul><li><a href="https://threejs.org/docs/api/core/BufferAttribute.html" target="viewer">BufferAttribute</a></li><li><a href="https://threejs.org/docs/api/core/BufferGeometry.html" target="viewer">BufferGeometry</a></li><li><a href="https://threejs.org/docs/api/core/Clock.html" target="viewer">Clock</a></li><li><a href="https://threejs.org/docs/api/core/DirectGeometry.html" target="viewer">DirectGeometry</a></li><li><a href="https://threejs.org/docs/api/core/EventDispatcher.html" target="viewer">EventDispatcher</a></li><li><a href="https://threejs.org/docs/api/core/Face3.html" target="viewer">Face3</a></li><li><a href="https://threejs.org/docs/api/core/Geometry.html" target="viewer">Geometry</a></li><li><a href="https://threejs.org/docs/api/core/InstancedBufferAttribute.html" target="viewer">InstancedBufferAttribute</a></li><li><a href="https://threejs.org/docs/api/core/InstancedBufferGeometry.html" target="viewer">InstancedBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/core/InstancedInterleavedBuffer.html" target="viewer">InstancedInterleavedBuffer</a></li><li><a href="https://threejs.org/docs/api/core/InterleavedBuffer.html" target="viewer">InterleavedBuffer</a></li><li><a href="https://threejs.org/docs/api/core/InterleavedBufferAttribute.html" target="viewer">InterleavedBufferAttribute</a></li><li><a href="https://threejs.org/docs/api/core/Layers.html" target="viewer">Layers</a></li><li><a href="https://threejs.org/docs/api/core/Object3D.html" target="viewer">Object3D</a></li><li><a href="https://threejs.org/docs/api/core/Raycaster.html" target="viewer">Raycaster</a></li><li><a href="https://threejs.org/docs/api/core/Uniform.html" target="viewer">Uniform</a></li></ul></div><div><h3>Core / BufferAttributes</h3><ul><li><a href="https://threejs.org/docs/api/core/bufferAttributeTypes/BufferAttributeTypes.html" target="viewer">BufferAttribute Types</a></li></ul></div><div><h3>Deprecated</h3><ul><li><a href="https://threejs.org/docs/api/deprecated/DeprecatedList.html" target="viewer">DeprecatedList</a></li></ul></div><div><h3>Extras</h3><ul><li><a href="https://threejs.org/docs/api/extras/CurveUtils.html" target="viewer">CurveUtils</a></li><li><a href="https://threejs.org/docs/api/extras/SceneUtils.html" target="viewer">SceneUtils</a></li><li><a href="https://threejs.org/docs/api/extras/ShapeUtils.html" target="viewer">ShapeUtils</a></li></ul></div><div><h3>Extras / Core</h3><ul><li><a href="https://threejs.org/docs/api/extras/core/Curve.html" target="viewer">Curve</a></li><li><a href="https://threejs.org/docs/api/extras/core/CurvePath.html" target="viewer">CurvePath</a></li><li><a href="https://threejs.org/docs/api/extras/core/Font.html" target="viewer">Font</a></li><li><a href="https://threejs.org/docs/api/extras/core/Path.html" target="viewer">Path</a></li><li><a href="https://threejs.org/docs/api/extras/core/Shape.html" target="viewer">Shape</a></li><li><a href="https://threejs.org/docs/api/extras/core/ShapePath.html" target="viewer">ShapePath</a></li></ul></div><div><h3>Extras / Curves</h3><ul><li><a href="https://threejs.org/docs/api/extras/curves/ArcCurve.html" target="viewer">ArcCurve</a></li><li><a href="https://threejs.org/docs/api/extras/curves/CatmullRomCurve3.html" target="viewer">CatmullRomCurve3</a></li><li><a href="https://threejs.org/docs/api/extras/curves/CubicBezierCurve.html" target="viewer">CubicBezierCurve</a></li><li><a href="https://threejs.org/docs/api/extras/curves/CubicBezierCurve3.html" target="viewer">CubicBezierCurve3</a></li><li><a href="https://threejs.org/docs/api/extras/curves/EllipseCurve.html" target="viewer">EllipseCurve</a></li><li><a href="https://threejs.org/docs/api/extras/curves/LineCurve.html" target="viewer">LineCurve</a></li><li><a href="https://threejs.org/docs/api/extras/curves/LineCurve3.html" target="viewer">LineCurve3</a></li><li><a href="https://threejs.org/docs/api/extras/curves/QuadraticBezierCurve.html" target="viewer">QuadraticBezierCurve</a></li><li><a href="https://threejs.org/docs/api/extras/curves/QuadraticBezierCurve3.html" target="viewer">QuadraticBezierCurve3</a></li><li><a href="https://threejs.org/docs/api/extras/curves/SplineCurve.html" target="viewer">SplineCurve</a></li></ul></div><div><h3>Extras / Objects</h3><ul><li><a href="https://threejs.org/docs/api/extras/objects/ImmediateRenderObject.html" target="viewer">ImmediateRenderObject</a></li></ul></div><div><h3>Geometries</h3><ul><li><a href="https://threejs.org/docs/api/geometries/BoxBufferGeometry.html" target="viewer">BoxBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/BoxGeometry.html" target="viewer">BoxGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/CircleBufferGeometry.html" target="viewer">CircleBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/CircleGeometry.html" target="viewer">CircleGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ConeBufferGeometry.html" target="viewer">ConeBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ConeGeometry.html" target="viewer">ConeGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/CylinderBufferGeometry.html" target="viewer">CylinderBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/CylinderGeometry.html" target="viewer">CylinderGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/DodecahedronBufferGeometry.html" target="viewer">DodecahedronBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/DodecahedronGeometry.html" target="viewer">DodecahedronGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/EdgesGeometry.html" target="viewer">EdgesGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ExtrudeGeometry.html" target="viewer">ExtrudeGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ExtrudeBufferGeometry.html" target="viewer">ExtrudeBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/IcosahedronBufferGeometry.html" target="viewer">IcosahedronBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/IcosahedronGeometry.html" target="viewer">IcosahedronGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/LatheBufferGeometry.html" target="viewer">LatheBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/LatheGeometry.html" target="viewer">LatheGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/OctahedronBufferGeometry.html" target="viewer">OctahedronBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/OctahedronGeometry.html" target="viewer">OctahedronGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ParametricBufferGeometry.html" target="viewer">ParametricBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ParametricGeometry.html" target="viewer">ParametricGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/PlaneBufferGeometry.html" target="viewer">PlaneBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/PlaneGeometry.html" target="viewer">PlaneGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/PolyhedronBufferGeometry.html" target="viewer">PolyhedronBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/PolyhedronGeometry.html" target="viewer">PolyhedronGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/RingBufferGeometry.html" target="viewer">RingBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/RingGeometry.html" target="viewer">RingGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ShapeBufferGeometry.html" target="viewer">ShapeBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/ShapeGeometry.html" target="viewer">ShapeGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/SphereBufferGeometry.html" target="viewer">SphereBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/SphereGeometry.html" target="viewer">SphereGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TetrahedronBufferGeometry.html" target="viewer">TetrahedronBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TetrahedronGeometry.html" target="viewer">TetrahedronGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TextBufferGeometry.html" target="viewer">TextBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TextGeometry.html" target="viewer">TextGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TorusBufferGeometry.html" target="viewer">TorusBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TorusGeometry.html" target="viewer">TorusGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TorusKnotBufferGeometry.html" target="viewer">TorusKnotBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TorusKnotGeometry.html" target="viewer">TorusKnotGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TubeGeometry.html" target="viewer">TubeGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/TubeBufferGeometry.html" target="viewer">TubeBufferGeometry</a></li><li><a href="https://threejs.org/docs/api/geometries/WireframeGeometry.html" target="viewer">WireframeGeometry</a></li></ul></div><div><h3>Helpers</h3><ul><li><a href="https://threejs.org/docs/api/helpers/ArrowHelper.html" target="viewer">ArrowHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/AxisHelper.html" target="viewer">AxisHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/BoxHelper.html" target="viewer">BoxHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/CameraHelper.html" target="viewer">CameraHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/DirectionalLightHelper.html" target="viewer">DirectionalLightHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/FaceNormalsHelper.html" target="viewer">FaceNormalsHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/GridHelper.html" target="viewer">GridHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/PolarGridHelper.html" target="viewer">PolarGridHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/HemisphereLightHelper.html" target="viewer">HemisphereLightHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/PointLightHelper.html" target="viewer">PointLightHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/RectAreaLightHelper.html" target="viewer">RectAreaLightHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/SkeletonHelper.html" target="viewer">SkeletonHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/SpotLightHelper.html" target="viewer">SpotLightHelper</a></li><li><a href="https://threejs.org/docs/api/helpers/VertexNormalsHelper.html" target="viewer">VertexNormalsHelper</a></li></ul></div><div><h3>Lights</h3><ul><li><a href="https://threejs.org/docs/api/lights/AmbientLight.html" target="viewer">AmbientLight</a></li><li><a href="https://threejs.org/docs/api/lights/DirectionalLight.html" target="viewer">DirectionalLight</a></li><li><a href="https://threejs.org/docs/api/lights/HemisphereLight.html" target="viewer">HemisphereLight</a></li><li><a href="https://threejs.org/docs/api/lights/Light.html" target="viewer">Light</a></li><li><a href="https://threejs.org/docs/api/lights/PointLight.html" target="viewer">PointLight</a></li><li><a href="https://threejs.org/docs/api/lights/RectAreaLight.html" target="viewer">RectAreaLight</a></li><li><a href="https://threejs.org/docs/api/lights/SpotLight.html" target="viewer">SpotLight</a></li></ul></div><div><h3>Lights / Shadows</h3><ul><li><a href="https://threejs.org/docs/api/lights/shadows/DirectionalLightShadow.html" target="viewer">DirectionalLightShadow</a></li><li><a href="https://threejs.org/docs/api/lights/shadows/LightShadow.html" target="viewer">LightShadow</a></li><li><a href="https://threejs.org/docs/api/lights/shadows/RectAreaLightShadow.html" target="viewer">RectAreaLightShadow</a></li><li><a href="https://threejs.org/docs/api/lights/shadows/SpotLightShadow.html" target="viewer">SpotLightShadow</a></li></ul></div><div><h3>Loaders</h3><ul><li><a href="https://threejs.org/docs/api/loaders/AnimationLoader.html" target="viewer">AnimationLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/AudioLoader.html" target="viewer">AudioLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/BufferGeometryLoader.html" target="viewer">BufferGeometryLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/Cache.html" target="viewer">Cache</a></li><li><a href="https://threejs.org/docs/api/loaders/CompressedTextureLoader.html" target="viewer">CompressedTextureLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/CubeTextureLoader.html" target="viewer">CubeTextureLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/DataTextureLoader.html" target="viewer">DataTextureLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/FileLoader.html" target="viewer">FileLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/FontLoader.html" target="viewer">FontLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/ImageLoader.html" target="viewer">ImageLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/JSONLoader.html" target="viewer">JSONLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/Loader.html" target="viewer">Loader</a></li><li><a href="https://threejs.org/docs/api/loaders/MaterialLoader.html" target="viewer">MaterialLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/ObjectLoader.html" target="viewer">ObjectLoader</a></li><li><a href="https://threejs.org/docs/api/loaders/TextureLoader.html" target="viewer">TextureLoader</a></li></ul></div><div><h3>Loaders / Managers</h3><ul><li><a href="https://threejs.org/docs/api/loaders/managers/DefaultLoadingManager.html" target="viewer">DefaultLoadingManager</a></li><li><a href="https://threejs.org/docs/api/loaders/managers/LoadingManager.html" target="viewer">LoadingManager</a></li></ul></div><div><h3>Materials</h3><ul><li><a href="https://threejs.org/docs/api/materials/LineBasicMaterial.html" target="viewer">LineBasicMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/LineDashedMaterial.html" target="viewer">LineDashedMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/Material.html" target="viewer">Material</a></li><li><a href="https://threejs.org/docs/api/materials/MeshBasicMaterial.html" target="viewer">MeshBasicMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshDepthMaterial.html" target="viewer">MeshDepthMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshLambertMaterial.html" target="viewer">MeshLambertMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshNormalMaterial.html" target="viewer">MeshNormalMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshPhongMaterial.html" target="viewer">MeshPhongMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshPhysicalMaterial.html" target="viewer">MeshPhysicalMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshStandardMaterial.html" target="viewer">MeshStandardMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/MeshToonMaterial.html" target="viewer">MeshToonMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/PointsMaterial.html" target="viewer">PointsMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/RawShaderMaterial.html" target="viewer">RawShaderMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/ShaderMaterial.html" target="viewer">ShaderMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/ShadowMaterial.html" target="viewer">ShadowMaterial</a></li><li><a href="https://threejs.org/docs/api/materials/SpriteMaterial.html" target="viewer">SpriteMaterial</a></li></ul></div><div><h3>Math</h3><ul><li><a href="https://threejs.org/docs/api/math/Box2.html" target="viewer">Box2</a></li><li><a href="https://threejs.org/docs/api/math/Box3.html" target="viewer">Box3</a></li><li><a href="https://threejs.org/docs/api/math/Color.html" target="viewer">Color</a></li><li><a href="https://threejs.org/docs/api/math/Cylindrical.html" target="viewer">Cylindrical</a></li><li><a href="https://threejs.org/docs/api/math/Euler.html" target="viewer">Euler</a></li><li><a href="https://threejs.org/docs/api/math/Frustum.html" target="viewer">Frustum</a></li><li><a href="https://threejs.org/docs/api/math/Interpolant.html" target="viewer">Interpolant</a></li><li><a href="https://threejs.org/docs/api/math/Line3.html" target="viewer">Line3</a></li><li><a href="https://threejs.org/docs/api/math/Math.html" target="viewer">Math</a></li><li><a href="https://threejs.org/docs/api/math/Matrix3.html" target="viewer">Matrix3</a></li><li><a href="https://threejs.org/docs/api/math/Matrix4.html" target="viewer">Matrix4</a></li><li><a href="https://threejs.org/docs/api/math/Plane.html" target="viewer">Plane</a></li><li><a href="https://threejs.org/docs/api/math/Quaternion.html" target="viewer">Quaternion</a></li><li><a href="https://threejs.org/docs/api/math/Ray.html" target="viewer">Ray</a></li><li><a href="https://threejs.org/docs/api/math/Sphere.html" target="viewer">Sphere</a></li><li><a href="https://threejs.org/docs/api/math/Spherical.html" target="viewer">Spherical</a></li><li><a href="https://threejs.org/docs/api/math/Triangle.html" target="viewer">Triangle</a></li><li><a href="https://threejs.org/docs/api/math/Vector2.html" target="viewer">Vector2</a></li><li><a href="https://threejs.org/docs/api/math/Vector3.html" target="viewer">Vector3</a></li><li><a href="https://threejs.org/docs/api/math/Vector4.html" target="viewer">Vector4</a></li></ul></div><div><h3>Math / Interpolants</h3><ul><li><a href="https://threejs.org/docs/api/math/interpolants/CubicInterpolant.html" target="viewer">CubicInterpolant</a></li><li><a href="https://threejs.org/docs/api/math/interpolants/DiscreteInterpolant.html" target="viewer">DiscreteInterpolant</a></li><li><a href="https://threejs.org/docs/api/math/interpolants/LinearInterpolant.html" target="viewer">LinearInterpolant</a></li><li><a href="https://threejs.org/docs/api/math/interpolants/QuaternionLinearInterpolant.html" target="viewer">QuaternionLinearInterpolant</a></li></ul></div><div><h3>Objects</h3><ul><li><a href="https://threejs.org/docs/api/objects/Bone.html" target="viewer">Bone</a></li><li><a href="https://threejs.org/docs/api/objects/Group.html" target="viewer">Group</a></li><li><a href="https://threejs.org/docs/api/objects/LensFlare.html" target="viewer">LensFlare</a></li><li><a href="https://threejs.org/docs/api/objects/Line.html" target="viewer">Line</a></li><li><a href="https://threejs.org/docs/api/objects/LineLoop.html" target="viewer">LineLoop</a></li><li><a href="https://threejs.org/docs/api/objects/LineSegments.html" target="viewer">LineSegments</a></li><li><a href="https://threejs.org/docs/api/objects/LOD.html" target="viewer">LOD</a></li><li><a href="https://threejs.org/docs/api/objects/Mesh.html" target="viewer">Mesh</a></li><li><a href="https://threejs.org/docs/api/objects/Points.html" target="viewer">Points</a></li><li><a href="https://threejs.org/docs/api/objects/Skeleton.html" target="viewer">Skeleton</a></li><li><a href="https://threejs.org/docs/api/objects/SkinnedMesh.html" target="viewer">SkinnedMesh</a></li><li><a href="https://threejs.org/docs/api/objects/Sprite.html" target="viewer">Sprite</a></li></ul></div><div><h3>Renderers</h3><ul><li><a href="https://threejs.org/docs/api/renderers/WebGLRenderer.html" target="viewer">WebGLRenderer</a></li><li><a href="https://threejs.org/docs/api/renderers/WebGLRenderTarget.html" target="viewer">WebGLRenderTarget</a></li><li><a href="https://threejs.org/docs/api/renderers/WebGLRenderTargetCube.html" target="viewer">WebGLRenderTargetCube</a></li></ul></div><div><h3>Renderers / Shaders</h3><ul><li><a href="https://threejs.org/docs/api/renderers/shaders/ShaderChunk.html" target="viewer">ShaderChunk</a></li><li><a href="https://threejs.org/docs/api/renderers/shaders/ShaderLib.html" target="viewer">ShaderLib</a></li><li><a href="https://threejs.org/docs/api/renderers/shaders/UniformsLib.html" target="viewer">UniformsLib</a></li><li><a href="https://threejs.org/docs/api/renderers/shaders/UniformsUtils.html" target="viewer">UniformsUtils</a></li></ul></div><div><h3>Scenes</h3><ul><li><a href="https://threejs.org/docs/api/scenes/Fog.html" target="viewer">Fog</a></li><li><a href="https://threejs.org/docs/api/scenes/FogExp2.html" target="viewer">FogExp2</a></li><li><a href="https://threejs.org/docs/api/scenes/Scene.html" target="viewer">Scene</a></li></ul></div><div><h3>Textures</h3><ul><li><a href="https://threejs.org/docs/api/textures/CanvasTexture.html" target="viewer">CanvasTexture</a></li><li><a href="https://threejs.org/docs/api/textures/CompressedTexture.html" target="viewer">CompressedTexture</a></li><li><a href="https://threejs.org/docs/api/textures/CubeTexture.html" target="viewer">CubeTexture</a></li><li><a href="https://threejs.org/docs/api/textures/DataTexture.html" target="viewer">DataTexture</a></li><li><a href="https://threejs.org/docs/api/textures/DepthTexture.html" target="viewer">DepthTexture</a></li><li><a href="https://threejs.org/docs/api/textures/Texture.html" target="viewer">Texture</a></li><li><a href="https://threejs.org/docs/api/textures/VideoTexture.html" target="viewer">VideoTexture</a></li></ul></div><h2>Examples</h2><div><h3>Geometries</h3><ul><li><a href="https://threejs.org/docs/examples/geometries/ConvexBufferGeometry.html" target="viewer">ConvexBufferGeometry</a></li><li><a href="https://threejs.org/docs/examples/geometries/ConvexGeometry.html" target="viewer">ConvexGeometry</a></li></ul></div><div><h3>Loaders</h3><ul><li><a href="https://threejs.org/docs/examples/loaders/BabylonLoader.html" target="viewer">BabylonLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/ColladaLoader.html" target="viewer">ColladaLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/GLTFLoader.html" target="viewer">GLTFLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/MTLLoader.html" target="viewer">MTLLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/OBJLoader.html" target="viewer">OBJLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/OBJLoader2.html" target="viewer">OBJLoader2</a></li><li><a href="https://threejs.org/docs/examples/loaders/WWOBJLoader2.html" target="viewer">WWOBJLoader2</a></li><li><a href="https://threejs.org/docs/examples/loaders/PCDLoader.html" target="viewer">PCDLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/PDBLoader.html" target="viewer">PDBLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/SVGLoader.html" target="viewer">SVGLoader</a></li><li><a href="https://threejs.org/docs/examples/loaders/TGALoader.html" target="viewer">TGALoader</a></li></ul></div><div><h3>Plugins</h3><ul><li><a href="https://threejs.org/docs/examples/cameras/CombinedCamera.html" target="viewer">CombinedCamera</a></li><li><a href="https://threejs.org/docs/examples/Lut.html" target="viewer">LookupTable</a></li><li><a href="https://threejs.org/docs/examples/SpriteCanvasMaterial.html" target="viewer">SpriteCanvasMaterial</a></li></ul></div><div><h3>QuickHull</h3><ul><li><a href="https://threejs.org/docs/examples/quickhull/Face.html" target="viewer">Face</a></li><li><a href="https://threejs.org/docs/examples/quickhull/HalfEdge.html" target="viewer">HalfEdge</a></li><li><a href="https://threejs.org/docs/examples/quickhull/QuickHull.html" target="viewer">QuickHull</a></li><li><a href="https://threejs.org/docs/examples/quickhull/VertexNode.html" target="viewer">VertexNode</a></li><li><a href="https://threejs.org/docs/examples/quickhull/VertexList.html" target="viewer">VertexList</a></li></ul></div><div><h3>Renderers</h3><ul><li><a href="https://threejs.org/docs/examples/renderers/CanvasRenderer.html" target="viewer">CanvasRenderer</a></li></ul></div><h2>Developer Reference</h2><div><h3>Polyfills</h3><ul><li><a href="https://threejs.org/docs/api/Polyfills.html" target="viewer">Polyfills</a></li></ul></div><div><h3>WebGLRenderer</h3><ul><li><a href="https://threejs.org/docs/api/renderers/webgl/WebGLProgram.html" target="viewer">WebGLProgram</a></li><li><a href="https://threejs.org/docs/api/renderers/webgl/WebGLShader.html" target="viewer">WebGLShader</a></li><li><a href="https://threejs.org/docs/api/renderers/webgl/WebGLState.html" target="viewer">WebGLState</a></li></ul></div><div><h3>WebGLRenderer / Plugins</h3><ul><li><a href="https://threejs.org/docs/api/renderers/webgl/plugins/LensFlarePlugin.html" target="viewer">LensFlarePlugin</a></li><li><a href="https://threejs.org/docs/api/renderers/webgl/plugins/SpritePlugin.html" target="viewer">SpritePlugin</a></li></ul></div></div></div>
+
+		</div>
+
+		<iframe name="viewer" src="./as_files/DirectionalLight.html"></iframe>
+
+		<script src="./as_files/list.js"></script>
+
+		<script>
+
+			var panel = document.getElementById( 'panel' );
+			var content = document.getElementById( 'content' );
+			var clearFilterButton = document.getElementById( 'clearFilterButton' );
+			var expandButton = document.getElementById( 'expandButton' );
+			var filterInput = document.getElementById( 'filterInput' );
+			var iframe = document.querySelector( 'iframe' );
+
+			var pageProperties = {};
+			var titles = {};
+			var categoryElements = [];
+
+
+			// Functionality for hamburger button (on small devices)
+
+			expandButton.onclick = function ( event ) {
+
+				event.preventDefault();
+				panel.classList.toggle( 'collapsed' );
+
+			};
+
+
+			// Functionality for search/filter input field
+
+			filterInput.oninput = function ( event ) {
+
+				updateFilter();
+
+			};
+
+
+			// Functionality for filter clear button
+
+			clearFilterButton.onclick = function ( event ) {
+
+				event.preventDefault();
+
+				filterInput.value = '';
+				updateFilter();
+
+			};
+
+			// Activate content and title change on browser navigation
+
+			window.onpopstate = createNewIframe;
+
+			// Create the navigation panel and configure the iframe
+
+			createNavigation();
+			createNewIframe();
+
+			// Navigation Panel
+
+			function createLink( pageName, pageURL ) {
+
+				var link = document.createElement( 'a' );
+				link.href = pageURL + '.html';
+				link.textContent = pageName;
+				link.setAttribute( 'target', 'viewer' );
+				link.addEventListener( 'click', function ( event ) {
+
+					window.location.hash = pageURL;
+					panel.classList.add( 'collapsed' );
+
+				} );
+
+				return link;
+
+			}
+
+			function createNavigation() {
+
+				// Create the navigation panel using data from list.js
+
+				var navigation = document.createElement( 'div' );
+				content.appendChild( navigation );
+
+				for ( var section in list ) {
+
+					// Create sections
+
+					var categories = list[ section ];
+
+					var sectionHead = document.createElement( 'h2' );
+					sectionHead.textContent = section;
+					navigation.appendChild( sectionHead );
+
+					for ( var category in categories ) {
+
+						// Create categories
+
+						var pages = categories[ category ];
+
+						var categoryContainer = document.createElement( 'div' );
+						navigation.appendChild( categoryContainer );
+
+						var categoryHead = document.createElement( 'h3' );
+						categoryHead.textContent = category;
+						categoryContainer.appendChild( categoryHead );
+
+						var categoryContent = document.createElement( 'ul' );
+						categoryContainer.appendChild( categoryContent );
+
+						for ( var pageName in pages ) {
+
+							// Create page links
+
+							var pageURL = pages[ pageName ];
+
+							var listElement = document.createElement( 'li' );
+							categoryContent.appendChild( listElement );
+
+							var linkElement = createLink( pageName, pageURL )
+							listElement.appendChild( linkElement );
+
+							// Gather the main properties for the current subpage
+
+							pageProperties[ pageName ] = {
+								section: section,
+								category: category,
+								pageURL: pageURL,
+								linkElement: linkElement
+							};
+
+						// Gather the document titles (used for easy access on browser navigation)
+
+						titles[ pageURL ] = pageName;
+
+						}
+
+						// Gather the category elements for easy access on filtering
+
+						categoryElements.push( categoryContent );
+
+					}
+
+				}
+
+			}
+
+
+			// Filtering
+
+			function updateFilter() {
+
+				// (uncomment the following line and the "Query strings" section, if you want query strings):
+				// updateQueryString();
+
+				var regExp = new RegExp( filterInput.value, 'gi' );
+
+				for ( var pageName in pageProperties ) {
+
+					var linkElement = pageProperties[ pageName ].linkElement;
+					var categoryClassList = linkElement.parentElement.classList;
+					var filterResults = pageName.match( regExp );
+
+					if ( filterResults && filterResults.length > 0 ) {
+
+						// Accentuate matching characters
+
+						for ( var i = 0; i < filterResults.length; i++ ) {
+
+							var result = filterResults[ i ];
+
+							if ( result !== '' ) {
+								pageName = pageName.replace( result, '<b>' + result + '</b>' );
+							}
+
+						}
+
+						categoryClassList.remove( 'hidden' );
+						linkElement.innerHTML = pageName;
+
+					} else {
+
+						// Hide all non-matching page names
+
+						categoryClassList.add( 'hidden' );
+
+					}
+
+				}
+
+				displayFilteredPanel();
+
+			}
+
+			function displayFilteredPanel() {
+
+				// Show/hide categories depending on their content
+				// First check if at least one page in this category is not hidden
+
+				categoryElements.forEach( function ( category ) {
+
+					var pages = category.children;
+					var pagesLength = pages.length;
+					var sectionClassList = category.parentElement.classList;
+
+					var hideCategory = true;
+
+					for ( var i = 0; i < pagesLength; i ++ ) {
+
+						var pageClassList = pages[ i ].classList;
+
+						if ( ! pageClassList.contains( 'hidden' ) ) {
+
+							hideCategory = false;
+
+						}
+
+					}
+
+					// If and only if all page names are hidden, hide the whole category
+
+					if ( hideCategory ) {
+
+						sectionClassList.add( 'hidden' );
+
+					} else {
+
+						sectionClassList.remove( 'hidden' );
+
+					}
+
+				} );
+
+			}
+
+
+			// Routing
+
+			function setUrlFragment( pageName ) {
+
+				// Handle navigation from the subpages (iframes):
+				// First separate the memeber (if existing) from the page name,
+				// then identify the subpage's URL and set it as URL fragment (re-adding the member)
+
+				var splitPageName = decomposePageName( pageName, '.', '.' );
+
+				var currentProperties = pageProperties[ splitPageName[ 0 ] ];
+
+				if ( currentProperties ) {
+
+					window.location.hash = currentProperties.pageURL + splitPageName[ 1 ];
+
+					createNewIframe();
+
+				}
+
+			}
+
+			function createNewIframe() {
+
+				// Change the content displayed in the iframe
+				// First separate the member part of the fragment (if existing)
+
+				var hash = window.location.hash.substring( 1 );
+				var splitHash = decomposePageName( hash, '.', '#' );
+
+				// Creating a new Iframe instead of assigning a new src is
+				// a cross-browser solution to allow normal browser navigation;
+				// - only assigning a new src would result in two history states each time.
+
+				// Note: iframe.contentWindow.location.replace(hash) should work, too,
+				// but it doesn't work in Edge with links from the subpages!
+
+				var oldIframe;
+				var subtitle;
+
+				oldIframe = iframe;
+				iframe = oldIframe.cloneNode();
+
+				if(hash) {
+
+					iframe.src = splitHash[ 0 ] + '.html' + splitHash[ 1 ];
+					subtitle = ' - ' + titles[ splitHash[ 0 ] ] + splitHash[ 1 ];
+
+				} else {
+
+					iframe.src = '';
+					subtitle = '';
+
+				}
+
+				document.body.replaceChild( iframe, oldIframe );
+				document.title = 'three.js docs' + subtitle;
+
+			}
+
+			function decomposePageName( pageName, oldDelimiter, newDelimiter ) {
+
+				// Helper function for separating the member (if existing) from the pageName
+				// For example: 'Geometry.morphTarget' can be converted to
+				// ['Geometry', '.morphTarget'] or ['Geometry', '#morphTarget']
+				// Note: According RFC 3986 no '#' allowed inside of an URL fragment!
+
+				var parts = [];
+
+				var dotIndex = pageName.indexOf( oldDelimiter );
+
+				if ( dotIndex !== -1 ) {
+
+					parts = pageName.split( oldDelimiter );
+					parts[ 1 ] = newDelimiter + parts[ 1 ];
+
+				} else {
+
+					parts[ 0 ] = pageName;
+					parts[ 1 ] = '';
+
+				}
+
+				return parts;
+
+			}
+
+			//
+
+			console.log([
+				'    __     __',
+				' __/ __\\  / __\\__   ____   _____   _____',
+				'/ __/  /\\/ /  /___\\/ ____\\/ _____\\/ _____\\',
+				'\\/_   __/ /   _   / /  __/ / __  / / __  /_   __   _____',
+				'/ /  / / /  / /  / /  / / /  ___/ /  ___/\\ _\\/ __\\/ _____\\',
+				'\\/__/  \\/__/\\/__/\\/__/  \\/_____/\\/_____/\\/__/ /  / /  ___/',
+				'                                         / __/  /  \\__  \\',
+				'                                         \\/____/\\/_____/'
+			].join('\n'));
+
+
+		</script>
+
+		<script src="./as_files/three.min.js"></script> <!-- console sandbox -->
+
+	
+
+
+</body></html>

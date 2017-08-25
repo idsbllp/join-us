@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://threejs.org/docs/api/lights/DirectionalLight.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<!--<base href="../../">--><base href=".">
+		<script src="./list.js"></script>
+		<script src="./page.js"></script>
+		<link type="text/css" rel="stylesheet" href="./page.css">
+	<link href="./prettify.css" rel="stylesheet"><link href="./threejs.css" rel="stylesheet"><script src="./prettify.js"></script></head>
+	<body>
+		<a onclick="window.parent.setUrlFragment(&#39;Object3D&#39;)" title="Object3D">Object3D</a> → <a onclick="window.parent.setUrlFragment(&#39;Light&#39;)" title="Light">Light</a> →
+
+		<h1>DirectionalLight</h1>
+
+		<div class="desc">
+			A light that gets emitted in a specific direction. This light will behave as though it is
+			infinitely far away and the rays produced from it are all parallel. The common use case
+			for this is to simulate daylight; the sun is far enough away that its position can be
+			considered to be infinite, and all light rays coming from it are parallel.<br><br>
+
+			This light can cast shadows - see the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLightShadow&#39;)" title="DirectionalLightShadow">DirectionalLightShadow</a> page for details.
+		</div>
+
+		<h2>A Note about Position, Target and rotation</h2>
+		<div>
+			A common point of confusion for directional lights is that setting the rotation has no effect.
+			This is because three.js's DirectionalLight is the equivalent to what is often called a 'Target
+			Direct Light' in other applications.<br><br>
+
+			This means that its direction is calculated as pointing
+			from the light's <a onclick="window.parent.setUrlFragment(&#39;Object3D.position&#39;)" title="Object3D.position">position</a> to	the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.target&#39;)" title="DirectionalLight.target">target</a>'s position
+			(as opposed to a 'Free Direct Light' that just has a rotation component).<br><br>
+
+			The reason for this is to allow the light to cast shadows - the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.shadow&#39;)" title="DirectionalLight.shadow">shadow</a>
+			camera needs a position to calculate shadows from.<br><br>
+
+			See the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.target&#39;)" title="DirectionalLight.target">target</a> property below for details on updating the target.
+		</div>
+
+
+		<h2>Example</h2>
+		<div>
+			<a href="https://threejs.org/examples/#canvas_morphtargets_horse" target="_blank">morphtargets / horse </a><br>
+			<a href="https://threejs.org/examples/#misc_controls_fly" target="_blank">controls / fly </a><br>
+			<a href="https://threejs.org/examples/#misc_lights_test" target="_blank">lights / test </a><br>
+			<a href="https://threejs.org/examples/#webvr_cubes" target="_blank">cubes </a><br>
+			<a href="https://threejs.org/examples/#webgl_effects_parallaxbarrier" target="_blank">effects / parallaxbarrier </a><br>
+			<a href="https://threejs.org/examples/#webgl_effects_stereo" target="_blank">effects / stereo </a><br>
+			<a href="https://threejs.org/examples/#webgl_geometry_extrude_splines" target="_blank">geometry / extrude / splines </a><br>
+			<a href="https://threejs.org/examples/#webgl_materials_bumpmap" target="_blank">materials / bumpmap </a><br>
+			<a href="https://threejs.org/examples/#webgl_materials_cubemap_balls_reflection" target="_blank">materials / cubemap / balls / reflection </a>
+		</div>
+
+		<code class=" prettyprint"><span class="com">// White directional light at half intensity shining from the top.</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> directionalLight </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> THREE</span><span class="pun">.</span><span class="typ">DirectionalLight</span><span class="pun">(</span><span class="pln"> </span><span class="lit">0xffffff</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0.5</span><span class="pln"> </span><span class="pun">);</span><span class="pln">
+scene</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln"> directionalLight </span><span class="pun">);</span></code>
+
+
+		<h2>Constructor</h2>
+
+		<h3>DirectionalLight( <a onclick="window.parent.setUrlFragment(&#39;Integer&#39;)" title="Integer">hex</a>, <a onclick="window.parent.setUrlFragment(&#39;Float&#39;)" title="Float">intensity</a> )</h3>
+		<div>
+			<a onclick="window.parent.setUrlFragment(&#39;Integer&#39;)" title="Integer">color</a> - (optional) hexadecimal color of the light. Default is 0xffffff (white).<br>
+			<a onclick="window.parent.setUrlFragment(&#39;Float&#39;)" title="Float">intensity</a> - (optional) numeric value of the light's strength/intensity. Default is 1.<br><br>
+
+			Creates a new DirectionalLight.
+		</div>
+
+		<h2>Properties</h2>
+
+		See the base <a onclick="window.parent.setUrlFragment(&#39;Light&#39;)" title="Light">Light</a> class for common properties.
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.castShadow&#39;)" target="_parent" title="DirectionalLight.castShadow" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;Boolean&#39;)" title="Boolean" id="castShadow">castShadow</a> </h3>
+		<div>
+			If set to <strong>true</strong> light will cast dynamic shadows. <strong>Warning</strong>: This is expensive and
+			requires tweaking to get shadows looking right. See the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLightShadow&#39;)" title="DirectionalLightShadow">DirectionalLightShadow</a> for details.
+			The default is <strong>false</strong>.
+		</div>
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.isDirectionalLight&#39;)" target="_parent" title="DirectionalLight.isDirectionalLight" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;Boolean&#39;)" title="Boolean" id="isDirectionalLight">isDirectionalLight</a> </h3>
+		<div>
+			Used to check whether this or derived classes are directional lights. Default is <strong>true</strong>.<br><br>
+
+			You should not change this, as it is used internally for optimisation.
+		</div>
+
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.position&#39;)" target="_parent" title="DirectionalLight.position" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;Vector3&#39;)" title="Vector3" id="position">position</a> </h3>
+		<div>
+			This is set equal to <a onclick="window.parent.setUrlFragment(&#39;Object3D.DefaultUp&#39;)" title="Object3D.DefaultUp">Object3D.DefaultUp</a> (0, 1, 0), so that the light shines from the top down.
+		</div>
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.shadow&#39;)" target="_parent" title="DirectionalLight.shadow" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;DirectionalLightShadow&#39;)" title="DirectionalLightShadow" id="shadow">shadow</a> </h3>
+		<div>
+			A <a onclick="window.parent.setUrlFragment(&#39;DirectionalLightShadow&#39;)" title="DirectionalLightShadow">DirectionalLightShadow</a> used to calculate shadows for this light.
+		</div>
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.target&#39;)" target="_parent" title="DirectionalLight.target" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;Object3D&#39;)" title="Object3D" id="target">target</a> </h3>
+		<div>
+			The DirectionalLight points from its <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.position&#39;)" title="DirectionalLight.position">position</a> to target.position. The default
+			position of the target is <strong>(0, 0, 0)</strong>.<br>
+
+			<strong>Note</strong>: For the target's position to be changed to anything other than the default,
+			it must be added to the <a onclick="window.parent.setUrlFragment(&#39;Scene&#39;)" title="Scene">scene</a> using
+			<code class=" prettyprint"><span class="pln">scene</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln"> light</span><span class="pun">.</span><span class="pln">target </span><span class="pun">);</span></code>
+
+			This is so that the target's <a onclick="window.parent.setUrlFragment(&#39;Object3D.matrixWorld&#39;)" title="Object3D.matrixWorld">matrixWorld</a> gets automatically
+			updated each frame.<br><br>
+
+			It is also possible to set the target to be another object in the scene (anything with a
+			<a onclick="window.parent.setUrlFragment(&#39;Object3D.position&#39;)" title="Object3D.position">position</a> property), like so:
+			<code class=" prettyprint"><span class="kwd">var</span><span class="pln"> targetObject </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> THREE</span><span class="pun">.</span><span class="typ">Object3D</span><span class="pun">();</span><span class="pln">
+	scene</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="pln">targetObject</span><span class="pun">);</span><span class="pln">
+
+	light</span><span class="pun">.</span><span class="pln">target </span><span class="pun">=</span><span class="pln"> targetObject</span><span class="pun">;</span></code>
+			The directionalLight will now track the target object.
+		</div>
+
+
+
+		<h2>Methods</h2>
+
+		See the base <a onclick="window.parent.setUrlFragment(&#39;Light&#39;)" title="Light">Light</a> class for common methods.
+
+		<h3><a onclick="window.parent.setUrlFragment(&#39;DirectionalLight.copy&#39;)" target="_parent" title="DirectionalLight.copy" class="permalink">#</a> .<a onclick="window.parent.setUrlFragment(&#39;DirectionalLight&#39;)" title="DirectionalLight" id="copy">copy</a> ( <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight&#39;)" title="DirectionalLight">source</a> )</h3>
+		<div>
+		Copies value of all the properties from the <a onclick="window.parent.setUrlFragment(&#39;DirectionalLight&#39;)" title="DirectionalLight">source</a> to this
+		DirectionalLight.
+		</div>
+
+		<h2>Source</h2>
+
+		<a href="https://github.com/mrdoob/three.js/blob/master/src/lights/DirectionalLight.js" target="_blank">src/lights/DirectionalLight.js</a>
+	
+
+<div id="button">Edit</div></body></html>
