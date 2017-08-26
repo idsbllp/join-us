@@ -1,7 +1,6 @@
 import './utils/music.js'
 import { $, getRandomNumber, loadpic, loadJS } from './utils/index.js'
 
-import './styles/index.less'
 import './mp3/music.mp3'
 import './font/go.otf'
 
@@ -10,28 +9,25 @@ import './img/redrock.png'
 import './img/down.png'
 import './img/load_effect.png'
 
-// loding
-const loadingTime = 5000
+const loadingTime = 7000
 // loading
 setTimeout(() => {
     $('.loading-effect').style.opacity = 1
-}, 2000)
+    $('.bg').style.backgroundImage = 'url(./img/bg.png)'
+}, 4000)
 
 // 前景
 const door = $('.door')
 
 setTimeout(() => {
     door.classList.add('easeIn')
-    $('#loading').remove();
+    $('#loading').remove()
+    document.body.style.background = '#0f0f18'
 }, loadingTime)
 
 setTimeout(() => {
-    // loadJS('./js/app.js')
-}, loadingTime+1000)
-
-setTimeout(() => {
     door.remove()
-}, loadingTime+6000)
+}, loadingTime+6500)
 
 // 消息
 const messages = $('.message p')
@@ -43,7 +39,4 @@ setTimeout(() => {
             val.classList.add('fideInOut')
         }
     })
-}, loadingTime+13000)
-
-// e 😄
-// loadJS('./app.js')
+}, loadingTime+15000)

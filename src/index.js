@@ -1,9 +1,13 @@
-import 'three-onevent'
+// hacked js (删掉一些没用的)
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
-import './utils/DeviceOrientationControls.js'
+import './utils/onEvent.js'
+// import './utils/DeviceOrientationControls.js'
 
+import './styles/index.less'
 import './img/transparent.png'
+import './img/load_effect.png'
+import './img/bg_cp.png'
 
 import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor, $ } from './utils/index.js'
@@ -17,25 +21,31 @@ const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-import './img/bg_cp.png'
-
 // 点击按钮载入canvas
-$('.redrock').addEventListener('click', e => {
-    const prospect = $('.prospect')
-    prospect.style.opacity = 0
-    canvas.classList.add('canvas')
-    setTimeout(() => {
-        clearInterval(timer)
-        $('.prospect').remove()
-        $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
-        // 为了点击 redrock 时不点击球
-        addBalls()
-        document.body.appendChild(canvas)
-        canvas.style.opacity = 1
-    }, 900)
-}, false)
+// $('.redrock').addEventListener('click', e => {
+//     const prospect = $('.prospect')
+//     prospect.style.opacity = 0
+//     canvas.classList.add('canvas')
+//     document.body.appendChild(canvas)
+    
+//     setTimeout(() => {
+//         prospect.remove()
+//         $('.bg').remove()
+//         canvas.style.opacity = 1
+//         animate()
+//     }, 500)
+// }, false)
 
-// 为了让垃圾 IOS 能变得可点击
+// for test
+canvas.classList.add('canvas')
+$('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
+document.body.appendChild(canvas)
+canvas.style.opacity = 1
+
+setTimeout(() => {
+    animate()
+})
+// 为了让 IOS 能变得可点击
 canvas.addEventListener('click', e => {})
 
 // 帧
@@ -43,35 +53,53 @@ let stats
 // 容器和三要素
 let container, camera, scene, renderer
 // scene 里面的内容
-let light, object, circle, material, ring
+let light, object, circle, material, geometry, mesh, ring
 
 // controls
 let controls
-// 定时器
-let timer = null
 
 if (!Detector.webgl) Detector.addGetWebGLMessage()
+
+const addFont = (department, radius, pos, ballName) => {
+    // new THREE.FontLoader().load('https://threejs.org/examples/fonts/droid/droid_serif_regular.typeface.json', font => {
+    new THREE.FontLoader().load('./font/HYZhuZiTongNianTiW_Regular.json', font => {
+        let departmentName = new THREE.TextGeometry(ballName, {
+            font: font,
+            size: 7,
+            color: 0xffffff,
+            height: 1,
+            curveSegments: 22,
+        })
+        material = new THREE.MeshPhongMaterial({color: 0xffffff}),
+        object = new THREE.Mesh(departmentName, material)
+        object.position.set(pos[0]-radius, pos[1]+radius+5, pos[2])
+        scene.add(object)
+    })
+}
 
 function addBalls() {
     // 添加五个球
     positionOfBalls.forEach((value, index) => {
-        let map = new THREE.TextureLoader().load(value.pic)
+        let { pic, radius, seg, material, pos, ballName } = value
+        let map = new THREE.TextureLoader().load(pic)
         map.wrapS = map.wrapT = THREE.RepeatWrapping
         map.anisotropy = 16
+
         if (index === 3) {
             material = new THREE.MeshLambertMaterial({ color: 0x3978ef, map: map, side: THREE.DoubleSide })
         } else {
             material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
         }
 
-        object = new THREE.Mesh(new THREE.SphereBufferGeometry(value.radius, value.seg, value.seg), material)
+        object = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, seg, seg), material)
 
-        object.name = `${value.pic}_ball`
+        object.name = `${pic}_ball`
         object.on('click', object => {
+            console.log('index ', index)
             showDetail(index)
         })
         // 左右, 上下, 斜的？？？？
-        object.position.set(value.pos[0], value.pos[1], value.pos[2])
+        object.position.set(pos[0], pos[1], pos[2])
 
         // 球周围的圆
         if (index === 2 || index === 1) {
@@ -86,9 +114,8 @@ function addBalls() {
             };
 
             let path = new CustomSinCurve(20)
-            let geometry, mesh
             for (let i = 0; i < 20; i++) {
-                geometry = new THREE.TubeGeometry(path, 64, value.radius+4+i/10, 64, true)
+                geometry = new THREE.TubeGeometry(path, 64, radius+4+i/10, 64, true)
                 mesh = new THREE.Mesh(geometry, material)
                 object.add(mesh)
             }
@@ -105,23 +132,26 @@ function addBalls() {
         } else if (index ===3) {
 
         } else {
-            map = new THREE.TextureLoader().load(value.pic)
+            map = new THREE.TextureLoader().load(pic)
             material = new THREE.MeshPhongMaterial({
                 map: map,
                 transparent: true,
                 opacity: 1,
                 shading: THREE.FlatShading
             })
-            circle = new THREE.Mesh(new THREE.CylinderGeometry(value.radius+5, value.radius+5, .2, 64, 64), material)
-            circle.name = `${value.pic}_circle`
+            circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+5, radius+5, .2, 64, 64), material)
+            circle.name = `${pic}_circle`
             object.add(circle)
             // 透明
             map = new THREE.TextureLoader().load('./img/transparent.png')
             material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
-            circle = new THREE.Mesh(new THREE.CylinderGeometry(value.radius+3, value.radius+3, .2, 64, 64), material)
+            circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+3, radius+3, .2, 64, 64), material)
 
             object.add(circle)
         }
+
+        addFont(object, radius, pos, ballName)
+
         scene.add(object)
     })
 }
@@ -144,26 +174,26 @@ function init() {
     camera.lookAt(new THREE.Vector3(0,0,0))
 
     // 给小球添加点击事件
-    THREE.onEvent(scene, camera)
+    THREE.onEvent(scene, camera, canvas)
 
     // 开灯 亮度
-    // scene.add(new THREE.AmbientLight(0x404040))
-    light = new THREE.DirectionalLight(0xdcc794, 1.7)
+    scene.add(new THREE.AmbientLight(0x404040))
+    light = new THREE.DirectionalLight(0x7db8c0, 1.7)
     light.position.set(1, 0, 1)
 
     scene.add(light)
 
-    light = new THREE.DirectionalLight(0x9e9681)
+    light = new THREE.DirectionalLight(0x7db8c0)
     light.position.set(-1, 0, -1)
     scene.add(light)
     
     // 背景星星
     drawStars()
-
+    addBalls()
     // 添加装饰小球
 
     const createSmallBall = (x, y, z, color) => {
-        let geometry = new THREE.SphereGeometry(1.4)
+        let geometry = new THREE.SphereGeometry(getRandomNumber(0.5, 0.8))
         let material = new THREE.MeshBasicMaterial({
             color: color
         })
@@ -172,15 +202,10 @@ function init() {
         return cube
     }
 
-    scene.add(createSmallBall(45, 12, -87, 0xffffff))
-    scene.add(createSmallBall(76, 54, 46, 0x68c3c0))
-    scene.add(createSmallBall(-10, -75, 12, 0x68c3c0))
-    scene.add(createSmallBall(85, 83, -18, 0x68c3c0))
-    scene.add(createSmallBall(29, -93, 69, 0x68c3c0))
-    scene.add(createSmallBall(-126, 92, 72, 0xffffff))
-    scene.add(createSmallBall(-96, 122, -123, 0xffffff))
-    scene.add(createSmallBall(-106, 352, 42, 0xffffff))
-    scene.add(createSmallBall(-174, 102, 122, 0xffffff))
+    for (let i = 0; i < 30; i++) {
+        let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
+        scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
+    }
 
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
@@ -234,6 +259,7 @@ $('.righthand').addEventListener('click', e => {
     if (ballIndex >= 5) {
         ballIndex = 0
     }
+    console.log('3333333')
     showDetail(ballIndex)
 })
 $('.lefthand').addEventListener('click', e => {
@@ -241,6 +267,7 @@ $('.lefthand').addEventListener('click', e => {
     if (ballIndex < 0) {
         ballIndex = 4
     }
+    console.log('22222222')
     showDetail(ballIndex)
 })
 const hiddenDepartment = e => {
@@ -256,7 +283,7 @@ $('.round-inner').addEventListener('click', hiddenDepartment)
 $('.round-outer').addEventListener('click', hiddenDepartment)
 
 function animate() {
-    timer = RAF(animate)
+    RAF(animate)
     controls.update()
     selfRotate()
     // ring.moveWaves()
@@ -280,7 +307,7 @@ function selfRotate() {
 function drawStars() {
     // http://test.nie.163.com/test_html/test/test/test_vr_20161130
     // 背景星星
-    let particles = 2000  // 星星数量
+    let particles = 8000  // 星星数量
     // buffer做星星
     let bufferGeometry = new THREE.BufferGeometry()
 
@@ -347,6 +374,5 @@ function drawStars() {
 }
 
 init()
-animate()
 
 export default 'idsbllp'

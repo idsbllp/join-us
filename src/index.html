@@ -12,8 +12,8 @@
             }, false)
         </script>
     </head>
-    <body>
-        <div id="loading">
+    <body style="background: url(./img/load_bg_effect.png);">
+        <!-- <div id="loading">
             <img src="./img/load_effect.png" class="loading-effect">
             <div class="loading">
                 <div class="loading-stars">
@@ -21,10 +21,10 @@
                     <div class="ball_ring"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="bg"></div>
             <!-- 加载打开门的场景 -->
-        <div class="prospect">
+        <!-- <div class="prospect">
             <div class="line line1 fly"></div>
             <div class="line line2 fly"></div>
             <div class="ball_ring"></div>
@@ -42,11 +42,11 @@
                 <img src="./img/redrock.png" class="logo">
                 <img src="./img/down.png" class="down">
             </div>
-        </div>
+        </div> -->
 
         <!-- 球之后载入 -->
         <!-- 音乐 -->
-        <audio controls loop id="music">
+        <audio loop autoplay id="music">
             <source src="./mp3/music.mp3" type="audio/wav">
         </audio>
         <div class="controls">
@@ -77,7 +77,9 @@
                 <div class="bar bar4"></div>
             </div>
         </div>
-        
+        <script>
+            // document.querySelector('.loading-effect').src = ''
+        </script>
         <script src="./js/three.min.js"></script>
         <!-- built files will be auto injected -->
    </body>

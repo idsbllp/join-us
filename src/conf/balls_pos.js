@@ -8,24 +8,30 @@ import '../img/ball5.jpg'
 
 const pics = ['./img/ball1.jpg', './img/ball2.jpg', './img/ball3.jpg', './img/ball4.jpg', './img/ball5.jpg']
 
-// 左下角， 中间
+// 左下角， 中间 
 const theta = Math.PI / 4
 
-// w = 375
+// w = 375 
 const w = window.innerWidth
-// h = 667
+// h = 667 
 const h = window.innerHeight
 
-// 选取小的一个作为单位
+// 选取小的一个作为单位 
 const per = (h > w ? w : h) / 375
 
-// 球半径
+// 球半径 
 const radius = [per*17, per*10, per*14, per*20, per*30]
 
-// 球的分段数
+// 球的分段数 
 const seg = [20, 20, 12, 15, 9]
 
-// 球的位置: y为0则在同一水平面
+// 球的名字 
+const ballName = ['运维安全部', '移动开发部', '视觉设计部', 'WEB研发部', '产品策划及运营部']
+
+// 名字的颜色 
+const color = []
+
+// 球的位置: y为0则在同一水平面 
 const ballPos = [
     [-25*per, -40*per, 70*per],
     [-50*per, 0, 0],
@@ -41,6 +47,7 @@ const getPos = () => {
             pic: pics[i],
             pos: ballPos[i],
             seg: seg[i],
+            ballName: ballName[i],
             radius: radius[i]
         })
     }

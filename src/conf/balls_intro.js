@@ -15,13 +15,13 @@ export default [
         logo: 'sre'
     },
     {
-        name: '产品策划及运营部',
+        name: '移动开发部',
         intro: [
-            '用户心理的倾听者，产品需求的挖掘者。',
-            '产品原型设计、活动策划运营、网校文化的传播窗口，各部门沟通的桥梁。',
-            '一切创意的集中营。'
+            '移动端的狩猎者，App开发的追求者。',
+            '以 Java，OC&Swift，C#为主要开发语言，涵盖Android，iOS，Windows 三个平台。',
+            '一切应用软件的输出工厂。'
         ],
-        logo: 'chanpin'
+        logo: 'yidong'
     },
     {
         name: '视觉设计部',
@@ -42,12 +42,12 @@ export default [
         logo: 'web'
     },
     {
-        name: '移动开发部',
+        name: '产品策划及运营部',
         intro: [
-            '移动端的狩猎者，App开发的追求者。',
-            '以 Java，OC&Swift，C#为主要开发语言，涵盖Android，iOS，Windows 三个平台。',
-            '一切应用软件的输出工厂。'
+            '用户心理的倾听者，产品需求的挖掘者。',
+            '产品原型设计、活动策划运营、网校文化的传播窗口，各部门沟通的桥梁。',
+            '一切创意的集中营。'
         ],
-        logo: 'yidong'
+        logo: 'chanpin'
     }
 ]
