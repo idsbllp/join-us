@@ -39,4 +39,4 @@ setTimeout(() => {
             val.classList.add('fideInOut')
         }
     })
-}, loadingTime+15000)
+}, loadingTime+13500)

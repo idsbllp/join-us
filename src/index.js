@@ -86,8 +86,8 @@ CustomSinCurve.prototype.getPoint = function (t) {
 
 function addBalls() {
     // 添加五个球
+    console.log('11111', new Date())
     positionOfBalls.forEach((value, index) => {
-        console.log(index, new Date())
         let { pic, radius, seg, material, pos, ballName } = value
         let map = new THREE.TextureLoader().load(pic)
         map.wrapS = map.wrapT = THREE.RepeatWrapping
@@ -152,6 +152,7 @@ function addBalls() {
 
         scene.add(object)
     })
+    console.log('22222', new Date())
 }
 const createSmallBall = (x, y, z, color) => {
     let geometry = new THREE.SphereGeometry(getRandomNumber(0.5, 0.8))
@@ -194,7 +195,7 @@ const createSmallBall = (x, y, z, color) => {
     scene.add(light)
 
     // 背景星星
-    // drawStars()
+    drawStars()
     addBalls()
     // 添加装饰小球
 
@@ -326,9 +327,9 @@ function selfRotate() {
         let object = scene.children[i]
         // 自转
         if (!object.name) continue
-        object.rotation.x += rotate
-        object.rotation.y += rotate
-        object.rotation.z += rotate
+        object.rotation.x += rotate/devicePixelRatio
+        object.rotation.y += rotate/devicePixelRatio
+        object.rotation.z += rotate/devicePixelRatio
     }
 }
 
