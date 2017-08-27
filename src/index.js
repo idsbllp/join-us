@@ -32,6 +32,7 @@ $('.redrock').addEventListener('click', e => {
     setTimeout(() => {
         prospect.remove()
         $('.bg').remove()
+        $('.enroll').style.display = 'block'
         canvas.style.opacity = 1
         animate()
     }, 500)
@@ -154,15 +155,23 @@ function addBalls() {
     })
     console.log('22222', new Date())
 }
+
+const blueBallImgMap = new THREE.TextureLoader().load('./img/ball1.jpg')
+const whiteBallImgMap = new THREE.TextureLoader().load('./img/ball7.jpg')
+
 const createSmallBall = (x, y, z, color) => {
-    let geometry = new THREE.SphereGeometry(getRandomNumber(0.5, 0.8))
-    let material = new THREE.MeshBasicMaterial({
-        color: color
-    })
+    let geometry = new THREE.SphereGeometry(getRandomNumber(0.3, 0.6))
+    let material
+    if (color === 0xffffff) {
+        material = new THREE.MeshLambertMaterial({color: 0xffffff, map: whiteBallImgMap, side: THREE.DoubleSide })
+    } else {
+        material = new THREE.MeshLambertMaterial({color: 0xffffff, map: blueBallImgMap, side: THREE.DoubleSide })
+    }
     let cube = new THREE.Mesh(geometry, material)
     cube.position.set(x, y, z)
     return cube
 }
+
 (function init() {
     scene = new THREE.Scene()
 
@@ -199,7 +208,7 @@ const createSmallBall = (x, y, z, color) => {
     addBalls()
     // 添加装饰小球
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 100; i++) {
         let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
         scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
     }
@@ -294,7 +303,7 @@ $('.lefthand').addEventListener('click', e => {
     }
     showDetail(ballIndex, 'left')
 })
-const hiddenDepartment = e => {
+const hidDepartment = e => {
     let classList = e.target.classList
 
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
@@ -307,9 +316,9 @@ const hiddenDepartment = e => {
     }
 }
 
-$('.department').addEventListener('click', hiddenDepartment)
-$('.round-inner').addEventListener('click', hiddenDepartment)
-$('.round-outer').addEventListener('click', hiddenDepartment)
+$('.department').addEventListener('click', hidDepartment)
+$('.round-inner').addEventListener('click', hidDepartment)
+$('.round-outer').addEventListener('click', hidDepartment)
 
 function animate() {
     timer = RAF(animate)

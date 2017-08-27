@@ -7,6 +7,7 @@ import './font/go.otf'
 import './img/prospect.png'
 import './img/redrock.png'
 import './img/down.png'
+import './img/enroll1.png'
 import './img/load_effect.png'
 
 const loadingTime = 7000

@@ -5,6 +5,7 @@ import '../img/ball2.jpg'
 import '../img/ball3.jpg'
 import '../img/ball4.jpg'
 import '../img/ball5.jpg'
+import '../img/ball7.jpg'
 
 const pics = ['./img/ball1.jpg', './img/ball2.jpg', './img/ball3.jpg', './img/ball4.jpg', './img/ball5.jpg']
 
@@ -23,7 +24,7 @@ const per = (h > w ? w : h) / 375
 const radius = [per*17, per*10, per*14, per*20, per*30]
 
 // 球的分段数 
-const seg = [20, 20, 12, 15, 9]
+const seg = [20, 20, 12, 15, 14]
 
 // 球的名字 
 const ballName = ['运维安全部', '移动开发部', '视觉设计部', 'WEB研发部', '产品策划及运营部']
