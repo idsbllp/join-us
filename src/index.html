@@ -5,6 +5,8 @@
         <title>小弟球</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
         <script>
+            var load_bg_effect = new Image();
+            load_bg_effect.src = './img/load_bg_effect.png';
             !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
             // 避免 QQ浏览器 下拉出现小黑框
             document.addEventListener('touchmove', e => {
@@ -12,8 +14,8 @@
             }, false)
         </script>
     </head>
-    <body style="background: url(./img/load_bg_effect.png);">
-        <!-- <div id="loading">
+    <body>
+        <div id="loading">
             <img src="./img/load_effect.png" class="loading-effect">
             <div class="loading">
                 <div class="loading-stars">
@@ -21,10 +23,10 @@
                     <div class="ball_ring"></div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="bg"></div>
             <!-- 加载打开门的场景 -->
-        <!-- <div class="prospect">
+        <div class="prospect">
             <div class="line line1 fly"></div>
             <div class="line line2 fly"></div>
             <div class="ball_ring"></div>
@@ -42,11 +44,11 @@
                 <img src="./img/redrock.png" class="logo">
                 <img src="./img/down.png" class="down">
             </div>
-        </div> -->
+        </div>
 
         <!-- 球之后载入 -->
         <!-- 音乐 -->
-        <audio loop autoplay id="music">
+        <audio loop id="music">
             <source src="./mp3/music.mp3" type="audio/wav">
         </audio>
         <div class="controls">
@@ -58,11 +60,13 @@
             <div class="round-outer"></div>
             <div class="round-inner"></div>
             <div class="department-con">
-                <!-- <p class="department-title"> 产品策划及运营部 </p>
-                <p class="department-intro"> 美学设计的创意者，视觉体验的执行者。 </p>
-                <p class="department-intro"> 网页宣传海报设计、网校产品的动画动效设计、跟踪产品视觉及体验。 </p>
-                <p class="department-intro"> 一切美的设计工厂。 </p>
-                <div class="department-logo yidong"></div> -->
+               <!--  <div class="department-active">
+                    <p class="department-title"> 产品策划及运营部 </p>
+                    <p class="department-intro"> 美学设计的创意者，视觉体验的执行者。 </p>
+                    <p class="department-intro"> 网页宣传海报设计、网校产品的动画动效设计、跟踪产品视觉及体验。 </p>
+                    <p class="department-intro"> 一切美的设计工厂。 </p>
+                    <div class="department-logo yidong"></div>
+                </div> -->
             </div>
             <div class="hand lefthand">
                 <div class="bar bar1 bar-active"></div>
@@ -77,9 +81,7 @@
                 <div class="bar bar4"></div>
             </div>
         </div>
-        <script>
-            // document.querySelector('.loading-effect').src = ''
-        </script>
+
         <script src="./js/three.min.js"></script>
         <!-- built files will be auto injected -->
    </body>

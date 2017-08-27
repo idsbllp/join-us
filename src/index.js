@@ -13,6 +13,7 @@ import Ring from './utils/ring.js'
 import { RAF, CRAF, getRandomNumber, getRandomColor, $ } from './utils/index.js'
 import positionOfBalls from './conf/balls_pos.js'
 import ballsIntro from './conf/balls_intro.js'
+import './font/HYZhuZiTongNianTiW_Regular.json'
 
 const { PI, cos, sin, random, ceil } = Math
 const START_NUM = 200
@@ -22,29 +23,29 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 // 点击按钮载入canvas
-// $('.redrock').addEventListener('click', e => {
-//     const prospect = $('.prospect')
-//     prospect.style.opacity = 0
-//     canvas.classList.add('canvas')
-//     document.body.appendChild(canvas)
+$('.redrock').addEventListener('click', e => {
+    const prospect = $('.prospect')
+    prospect.style.opacity = 0
+    canvas.classList.add('canvas')
+    document.body.appendChild(canvas)
     
-//     setTimeout(() => {
-//         prospect.remove()
-//         $('.bg').remove()
-//         canvas.style.opacity = 1
-//         animate()
-//     }, 500)
-// }, false)
+    setTimeout(() => {
+        prospect.remove()
+        $('.bg').remove()
+        canvas.style.opacity = 1
+        animate()
+    }, 500)
+}, false)
 
-// for test
-canvas.classList.add('canvas')
-$('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
-document.body.appendChild(canvas)
-canvas.style.opacity = 1
+// // for test
+// canvas.classList.add('canvas')
+// $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
+// document.body.appendChild(canvas)
+// canvas.style.opacity = 1
+// setTimeout(() => {
+//     animate()
+// })
 
-setTimeout(() => {
-    animate()
-})
 // 为了让 IOS 能变得可点击
 canvas.addEventListener('click', e => {})
 
@@ -54,19 +55,16 @@ let stats
 let container, camera, scene, renderer
 // scene 里面的内容
 let light, object, circle, material, geometry, mesh, ring
-
-// controls
-let controls
+// 手势滑动和定时器
+let controls, timer
 
 if (!Detector.webgl) Detector.addGetWebGLMessage()
 
 const addFont = (department, radius, pos, ballName) => {
-    // new THREE.FontLoader().load('https://threejs.org/examples/fonts/droid/droid_serif_regular.typeface.json', font => {
     new THREE.FontLoader().load('./font/HYZhuZiTongNianTiW_Regular.json', font => {
         let departmentName = new THREE.TextGeometry(ballName, {
             font: font,
             size: 7,
-            color: 0xffffff,
             height: 1,
             curveSegments: 22,
         })
@@ -76,10 +74,20 @@ const addFont = (department, radius, pos, ballName) => {
         scene.add(object)
     })
 }
+function CustomSinCurve(scale) {
+    THREE.Curve.call(this)
+}
+CustomSinCurve.prototype = Object.create(THREE.Curve.prototype)
+CustomSinCurve.prototype.constructor = CustomSinCurve
+
+CustomSinCurve.prototype.getPoint = function (t) {
+    return new THREE.Vector3(t, t, t)
+};
 
 function addBalls() {
     // 添加五个球
     positionOfBalls.forEach((value, index) => {
+        console.log(index, new Date())
         let { pic, radius, seg, material, pos, ballName } = value
         let map = new THREE.TextureLoader().load(pic)
         map.wrapS = map.wrapT = THREE.RepeatWrapping
@@ -95,68 +103,66 @@ function addBalls() {
 
         object.name = `${pic}_ball`
         object.on('click', object => {
-            console.log('index ', index)
+            ballIndex = index
             showDetail(index)
         })
         // 左右, 上下, 斜的？？？？
         object.position.set(pos[0], pos[1], pos[2])
 
-        // 球周围的圆
-        if (index === 2 || index === 1) {
-            function CustomSinCurve(scale) {
-                THREE.Curve.call(this)
-            }
-            CustomSinCurve.prototype = Object.create(THREE.Curve.prototype)
-            CustomSinCurve.prototype.constructor = CustomSinCurve
+        // // 球周围的圆
+        // if (index === 2 || index === 1) {
+        //     let path = new CustomSinCurve(20)
+        //     for (let i = 0; i < 10; i++) {
+        //         geometry = new THREE.TubeGeometry(path, 64, radius+4+i/10, 64, true)
+        //         mesh = new THREE.Mesh(geometry, material)
+        //         object.add(mesh)
+        //     }
+        // } else if (index == 0) {
+        //     ring = new Ring({
+        //         radius: 1,
+        //         length: 8,
+        //         wavesMinAmp : 5,
+        //         wavesMaxAmp : 20,
+        //         wavesMinSpeed : 0.001,
+        //         wavesMaxSpeed : 0.003
+        //     })
+        //     object.add(ring.mesh);
+        // } else if (index ===3) {
 
-            CustomSinCurve.prototype.getPoint = function (t) {
-                return new THREE.Vector3(t, t, t)
-            };
+        // } else {
+        //     map = new THREE.TextureLoader().load(pic)
+        //     material = new THREE.MeshPhongMaterial({
+        //         map: map,
+        //         transparent: true,
+        //         opacity: 1,
+        //         shading: THREE.FlatShading
+        //     })
+        //     circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+5, radius+5, .2, 64, 64), material)
+        //     circle.name = `${pic}_circle`
+        //     object.add(circle)
+        //     // 透明
+        //     map = new THREE.TextureLoader().load('./img/transparent.png')
+        //     material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
+        //     circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+3, radius+3, .2, 64, 64), material)
 
-            let path = new CustomSinCurve(20)
-            for (let i = 0; i < 20; i++) {
-                geometry = new THREE.TubeGeometry(path, 64, radius+4+i/10, 64, true)
-                mesh = new THREE.Mesh(geometry, material)
-                object.add(mesh)
-            }
-        } else if (index == 0) {
-            ring = new Ring({
-                radius: 1,
-                length: 8,
-                wavesMinAmp : 5,
-                wavesMaxAmp : 20,
-                wavesMinSpeed : 0.001,
-                wavesMaxSpeed : 0.003
-            })
-            object.add(ring.mesh);
-        } else if (index ===3) {
-
-        } else {
-            map = new THREE.TextureLoader().load(pic)
-            material = new THREE.MeshPhongMaterial({
-                map: map,
-                transparent: true,
-                opacity: 1,
-                shading: THREE.FlatShading
-            })
-            circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+5, radius+5, .2, 64, 64), material)
-            circle.name = `${pic}_circle`
-            object.add(circle)
-            // 透明
-            map = new THREE.TextureLoader().load('./img/transparent.png')
-            material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
-            circle = new THREE.Mesh(new THREE.CylinderGeometry(radius+3, radius+3, .2, 64, 64), material)
-
-            object.add(circle)
-        }
+        //     object.add(circle)
+        // }
 
         addFont(object, radius, pos, ballName)
 
         scene.add(object)
     })
 }
-
-function init() {
+const createSmallBall = (x, y, z, color) => {
+    let geometry = new THREE.SphereGeometry(getRandomNumber(0.5, 0.8))
+    let material = new THREE.MeshBasicMaterial({
+        color: color
+    })
+    let cube = new THREE.Mesh(geometry, material)
+    cube.position.set(x, y, z)
+    return cube
+}
+(function init() {
     scene = new THREE.Scene()
 
     camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2000)
@@ -178,7 +184,7 @@ function init() {
 
     // 开灯 亮度
     scene.add(new THREE.AmbientLight(0x404040))
-    light = new THREE.DirectionalLight(0x7db8c0, 1.7)
+    light = new THREE.DirectionalLight(0x4ab0c7, 1.7)
     light.position.set(1, 0, 1)
 
     scene.add(light)
@@ -186,27 +192,16 @@ function init() {
     light = new THREE.DirectionalLight(0x7db8c0)
     light.position.set(-1, 0, -1)
     scene.add(light)
-    
+
     // 背景星星
-    drawStars()
+    // drawStars()
     addBalls()
     // 添加装饰小球
-
-    const createSmallBall = (x, y, z, color) => {
-        let geometry = new THREE.SphereGeometry(getRandomNumber(0.5, 0.8))
-        let material = new THREE.MeshBasicMaterial({
-            color: color
-        })
-        let cube = new THREE.Mesh(geometry, material)
-        cube.position.set(x, y, z)
-        return cube
-    }
 
     for (let i = 0; i < 30; i++) {
         let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
         scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
     }
-
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
     controls.autoRotate = true
@@ -226,7 +221,7 @@ function init() {
     // window.addEventListener('deviceorientation', setOrientationControls, true);
 
     window.addEventListener('resize', onWindowResize, false)
-}
+})()
 
 function onWindowResize() {
     const { innerWidth, innerHeight } = window
@@ -236,45 +231,78 @@ function onWindowResize() {
 }
 // 点击球弹出详情， done
 let ballIndex = 0
-const departmentCon = $('.department-con')
-const departmentIntro = departmentCon.children
+const department = $('.department')
 
-function showDetail(index = 5, object) {
+function showDetail(index = 5, direction) {
+    CRAF(timer)
     if (index < 0 || index >= 5) {
         return
     }
     const ballIntro = ballsIntro[index]
     $('.department').style.display = 'block'
+    // 之前的 departmentCon 和复制
+    const departmentCon = $('.department-con')
+
     let intro = `
-        <p class="department-title"> ${ballIntro.name} </p>
-        <p class="department-intro"> ${ballIntro.intro[0]} </p>
-        <p class="department-intro"> ${ballIntro.intro[1]} </p>
-        <p class="department-intro"> ${ballIntro.intro[2]} </p>
-        <div class="department-logo ${ballIntro.logo}"></div>
+        <div class="department-active">
+            <p class="department-title"> ${ballIntro.name} </p>
+            <p class="department-intro"> ${ballIntro.intro[0]} </p>
+            <p class="department-intro"> ${ballIntro.intro[1]} </p>
+            <p class="department-intro"> ${ballIntro.intro[2]} </p>
+            <div class="department-logo ${ballIntro.logo}"></div>
+        </div>
     `
-    departmentCon.innerHTML = intro
+
+    // 如果是点球进来进来
+    if (!direction) {
+        departmentCon.innerHTML = intro
+        $('.department').classList.add('linearIn')
+        setTimeout(() => {
+            $('.department').classList.remove('linearIn')
+        }, 900)
+        return
+    }
+    // 如果上一个未移除
+    if (departmentCon.length >= 2) return
+
+    const departmentCopy = departmentCon.cloneNode(true)
+
+    departmentCon.classList.add(`show-${direction}`)
+    // 改变复制的 departmentCon 元素并添加到 原来的位置 中
+    departmentCopy.innerHTML = intro
+    departmentCopy.classList.add(`show-${direction}-copy`)
+
+    department.insertBefore(departmentCopy, $('.lefthand'))
+    // 动画完之后删去原来的 departmentCon
+    setTimeout(() => {
+        departmentCopy.classList.remove(`show-${direction}-copy`)
+        department.removeChild(departmentCon)
+    }, 900)
 }
 $('.righthand').addEventListener('click', e => {
     ballIndex++
     if (ballIndex >= 5) {
         ballIndex = 0
     }
-    console.log('3333333')
-    showDetail(ballIndex)
+    showDetail(ballIndex, 'right')
 })
 $('.lefthand').addEventListener('click', e => {
     ballIndex--
     if (ballIndex < 0) {
         ballIndex = 4
     }
-    console.log('22222222')
-    showDetail(ballIndex)
+    showDetail(ballIndex, 'left')
 })
 const hiddenDepartment = e => {
     let classList = e.target.classList
 
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
-        $('.department').style.display = 'none'
+        animate()
+        $('.department').classList.add('linearOut')
+        setTimeout(() => {
+            $('.department').classList.remove('linearOut')
+            $('.department').style.display = 'none'
+        }, 900)
     }
 }
 
@@ -283,7 +311,7 @@ $('.round-inner').addEventListener('click', hiddenDepartment)
 $('.round-outer').addEventListener('click', hiddenDepartment)
 
 function animate() {
-    RAF(animate)
+    timer = RAF(animate)
     controls.update()
     selfRotate()
     // ring.moveWaves()
@@ -372,7 +400,5 @@ function drawStars() {
     let particleSystem = new THREE.Points(bufferGeometry, material)
     scene.add(particleSystem)
 }
-
-init()
 
 export default 'idsbllp'

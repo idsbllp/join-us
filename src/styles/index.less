@@ -243,7 +243,7 @@ body {
     height: .3rem;
     background: url(../img/ball_left.png);
     background-size: 100% 100%;
-        transform: translate(3rem,13rem);
+    transform: translate(3rem,13rem);
 
     animation: randomWalk 12s infinite linear;
 }
@@ -271,11 +271,15 @@ body {
     animation: easeIn 8s linear;
 }
 @keyframes easeIn {
-    from {
+    0% {
         transform: scale(1);
         opacity: 1;
     }
-    to {
+    15% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
         transform: scale(6);
         opacity: 0;
     }
@@ -416,20 +420,22 @@ body {
         background-image: url(../img/data_bg.png);
         background-size: 100% 100%;
         letter-spacing: .05rem;
+        /*animation: breakdown 1s infinite linear;*/
+    }
+    &-active {
+        opacity: 1;
     }
     &-title {
         margin: 2rem 0 .5rem;
         text-align: center;
         color: #fff;
         font-size: .7rem;
-        animation: fideIn 1.5s ease;
     }
     &-intro {
         margin: .4rem auto;
         width: 4.8rem;
         color: #5ab5d2;
         font-size: 0.36rem;
-        animation: fideIn 1.5s ease;
     }
     &-logo {
         position: absolute;
@@ -437,7 +443,6 @@ body {
         right: 1.2rem;
         bottom: 1.1rem;
         background-size: 100% 100%;
-        animation: fideIn 1.5s ease;
     }
     .sre {
         width: 1.826667rem;
@@ -465,7 +470,10 @@ body {
         background-image: url(../img/yidong.png);
     }
 }
-@keyframes fideIn {
+.linearIn {
+    animation: linearIn 1s ease;
+}
+@keyframes linearIn {
     from {
         opacity: 0;
     }
@@ -473,7 +481,29 @@ body {
         opacity: 1;
     }
 }
-.round-otuer {
+.linearOut {
+    animation: linearOut 1s ease;
+}
+@keyframes linearOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes breakdown {
+    0% {
+        transform: scale(1) translateX(-.5rem);
+    }
+    5% {
+        transform: scale(1.1) translateX(0);
+    }
+    7% {
+        transform: scale(1) translateX(0);
+    }
+}
+.round-outer {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -525,7 +555,6 @@ body {
     box-shadow: 1px 0 #5f5f65, -1px 0 #5f5f65, 0 -1px #5f5f65, 0 1px #5f5f65;
 
     animation: flash 1s infinite linear;
-
 }
 @keyframes flash {
     0% {
@@ -558,7 +587,55 @@ body {
     transform: rotate(180deg);
 }
 
-
+/* 点击左按钮, 由左向右滑动 */
+.show-left {
+    animation: showLeft 1s ease;
+    transform: translate(0,0);
+    &-copy {
+        animation: showLeftCopy 1s ease;
+        transform: translate(0,0);
+    }
+}
+@keyframes showLeft {
+    from {
+        transform: translate(0,0);
+    }
+    to {
+        transform: translate(10rem,0);
+    }
+}
+@keyframes showLeftCopy {
+    from {
+        transform: translate(-8.16rem,0);
+    }
+    to {
+        transform: translate(0,0);
+    }
+}
+.show-right {
+    animation: showRight 1s ease;
+    transform: translate(0,0);
+    &-copy {
+        transform: translate(0,0);
+        animation: showRightCopy 1s ease;
+    }
+}
+@keyframes showRight {
+    from {
+        transform: translate(0,0);
+    }
+    to {
+        transform: translate(-10rem,0);
+    }
+}
+@keyframes showRightCopy {
+    from {
+        transform: translate(8.16rem,0);
+    }
+    to {
+        transform: translate(0,0);
+    }
+}
 
 
 
