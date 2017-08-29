@@ -6,7 +6,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
     entry: {
         app: path.resolve(__dirname, '../src/index.js'),
-        prospect: path.resolve(__dirname, '../src/prospect.js'),
+        prospect: path.resolve(__dirname, '../src/prospect.js')
     },
     output: {
         path: path.resolve(__dirname, '../dist/'),
@@ -55,11 +55,11 @@ module.exports = {
         ],
     },
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     }
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
         new ExtractTextPlugin("./styles/index.css"),
         new webpack.LoaderOptionsPlugin({
             options: {

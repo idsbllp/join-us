@@ -85,9 +85,8 @@ CustomSinCurve.prototype.getPoint = function (t) {
     return new THREE.Vector3(t, t, t)
 };
 
-function addBalls() {
+const addBalls = () => {
     // 添加五个球
-    console.log('11111', new Date())
     positionOfBalls.forEach((value, index) => {
         let { pic, radius, seg, material, pos, ballName } = value
         let map = new THREE.TextureLoader().load(pic)
@@ -153,7 +152,6 @@ function addBalls() {
 
         scene.add(object)
     })
-    console.log('22222', new Date())
 }
 
 const blueBallImgMap = new THREE.TextureLoader().load('./img/ball1.jpg')
@@ -206,8 +204,8 @@ const createSmallBall = (x, y, z, color) => {
     // 背景星星
     drawStars()
     addBalls()
-    // 添加装饰小球
 
+    // 添加装饰小球
     for (let i = 0; i < 100; i++) {
         let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
         scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
@@ -218,7 +216,7 @@ const createSmallBall = (x, y, z, color) => {
     controls.autoRotateSpeed = 0.23
     controls.enableZoom = true
 
-    // 陀螺仪, 听说不用了
+    // 陀螺仪, 不用了
     // function setOrientationControls(e){
     //     console.log(e.alpha)
     //     if (e.alpha) {
@@ -320,7 +318,7 @@ $('.department').addEventListener('click', hidDepartment)
 $('.round-inner').addEventListener('click', hidDepartment)
 $('.round-outer').addEventListener('click', hidDepartment)
 
-function animate() {
+const animate = () => {
     timer = RAF(animate)
     controls.update()
     selfRotate()
@@ -329,7 +327,7 @@ function animate() {
 }
 
 // 相机位置理解: http://www.cnblogs.com/v-weiwang/p/6072235.html
-function selfRotate() {
+const selfRotate = () => {
     let rotate = 0.0014
 
     for (let i = 0, l = scene.children.length; i < l; i ++) {

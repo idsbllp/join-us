@@ -14,9 +14,9 @@ var newWebpackConfig = merge(webpackConfig, {
       template: './src/index.html',
       inject: true,
       minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
+        // removeComments: true,
+        // collapseWhitespace: true,
+        // removeAttributeQuotes: true
       },
       // chunksSortMode: function (chunk1, chunk2) {
       //   return chunk2.id - chunk1.id
