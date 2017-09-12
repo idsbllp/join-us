@@ -10,7 +10,7 @@ import './img/down.png'
 import './img/enroll1.png'
 import './img/load_effect.png'
 
-const loadingTime = 7000
+const loadingTime = 5000
 // loading
 setTimeout(() => {
     $('.loading-effect').style.opacity = 1
@@ -23,7 +23,7 @@ const door = $('.door')
 setTimeout(() => {
     door.classList.add('easeIn')
     $('#loading').remove()
-    document.body.style.background = '#0f0f18'
+    // document.body.style.background = '#0f0f18'
 }, loadingTime)
 
 setTimeout(() => {

@@ -21,10 +21,10 @@ const h = window.innerHeight
 const per = (h > w ? w : h) / 375
 
 // 球半径 
-const radius = [per*17, per*10, per*14, per*20, per*30]
+const radius = [per*17, per*25, per*17, per*20, per*30]
 
 // 球的分段数 
-const seg = [20, 20, 12, 15, 14]
+const seg = [20, 20, 20, 20, 20]
 
 // 球的名字 
 const ballName = ['运维安全部', '移动开发部', '视觉设计部', 'WEB研发部', '产品策划及运营部']
@@ -36,9 +36,10 @@ const color = []
 const ballPos = [
     [-25*per, -40*per, 70*per],
     [-50*per, 0, 0],
-    [0, 0, 0],
+    // [0, 0, 0],
+    [10*per, -10*per, -80*per],
     [40*per, 60*per, -130*per],
-    [80*per, 0, -100*per]
+    [80*per, 0, -50*per]
 ]
 
 const getPos = () => {

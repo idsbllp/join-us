@@ -2,7 +2,7 @@
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/onEvent.js'
-// import './utils/DeviceOrientationControls.js'
+import './utils/DeviceOrientationControls.js'
 
 import './styles/index.less'
 import './img/transparent.png'
@@ -15,9 +15,9 @@ import positionOfBalls from './conf/balls_pos.js'
 import ballsIntro from './conf/balls_intro.js'
 import './font/HYZhuZiTongNianTiW_Regular.json'
 
-const { PI, cos, sin, random, ceil } = Math
+const { PI, cos, sin, random, ceil, abs, sqrt } = Math
 const START_NUM = 200
-const { innerWidth, innerHeight, devicePixelRatio } = window
+let { innerWidth, innerHeight, devicePixelRatio } = window
 const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
@@ -31,7 +31,7 @@ $('.redrock').addEventListener('click', e => {
     
     setTimeout(() => {
         prospect.remove()
-        $('.bg').remove()
+        $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
         $('.enroll').style.display = 'block'
         canvas.style.opacity = 1
         animate()
@@ -56,8 +56,8 @@ let stats
 let container, camera, scene, renderer
 // scene 里面的内容
 let light, object, circle, material, geometry, mesh, ring
-// 手势滑动和定时器
-let controls, timer
+// 手势滑动和定时器, 部门详情定时器
+let controls, timer, detialTimer
 
 if (!Detector.webgl) Detector.addGetWebGLMessage()
 
@@ -65,11 +65,11 @@ const addFont = (department, radius, pos, ballName) => {
     new THREE.FontLoader().load('./font/HYZhuZiTongNianTiW_Regular.json', font => {
         let departmentName = new THREE.TextGeometry(ballName, {
             font: font,
-            size: 7,
+            size: 6,
             height: 1,
             curveSegments: 22,
         })
-        material = new THREE.MeshPhongMaterial({color: 0xffffff}),
+        material = new THREE.MeshPhongMaterial({color: 0xf5e5bc}),
         object = new THREE.Mesh(departmentName, material)
         object.position.set(pos[0]-radius, pos[1]+radius+5, pos[2])
         scene.add(object)
@@ -85,8 +85,8 @@ CustomSinCurve.prototype.getPoint = function (t) {
     return new THREE.Vector3(t, t, t)
 };
 
+// 添加五个球
 const addBalls = () => {
-    // 添加五个球
     positionOfBalls.forEach((value, index) => {
         let { pic, radius, seg, material, pos, ballName } = value
         let map = new THREE.TextureLoader().load(pic)
@@ -94,7 +94,7 @@ const addBalls = () => {
         map.anisotropy = 16
 
         if (index === 3) {
-            material = new THREE.MeshLambertMaterial({ color: 0x3978ef, map: map, side: THREE.DoubleSide })
+            material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
         } else {
             material = new THREE.MeshLambertMaterial({ map: map, side: THREE.DoubleSide })
         }
@@ -103,8 +103,9 @@ const addBalls = () => {
 
         object.name = `${pic}_ball`
         object.on('click', object => {
+            CRAF(timer)
             ballIndex = index
-            showDetail(index)
+            showDetail(index, '', object)
         })
         // 左右, 上下, 斜的？？？？
         object.position.set(pos[0], pos[1], pos[2])
@@ -184,15 +185,15 @@ const createSmallBall = (x, y, z, color) => {
     renderer.setSize(innerWidth, innerHeight)
 
     // z 轴取小的那一个的  2/3
-    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.5 : innerWidth/1.5)
+    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.2 : innerWidth/1.2)
     camera.lookAt(new THREE.Vector3(0,0,0))
 
     // 给小球添加点击事件
     THREE.onEvent(scene, camera, canvas)
 
     // 开灯 亮度
-    scene.add(new THREE.AmbientLight(0x404040))
-    light = new THREE.DirectionalLight(0x4ab0c7, 1.7)
+    scene.add(new THREE.AmbientLight(0xf5e5bc))
+    light = new THREE.DirectionalLight(0x000000, 1.7)
     light.position.set(1, 0, 1)
 
     scene.add(light)
@@ -213,10 +214,10 @@ const createSmallBall = (x, y, z, color) => {
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
     controls.autoRotate = true
-    controls.autoRotateSpeed = 0.23
+    controls.autoRotateSpeed = 0.5
     controls.enableZoom = true
 
-    // 陀螺仪, 不用了
+    // // 陀螺仪, 不用了
     // function setOrientationControls(e){
     //     console.log(e.alpha)
     //     if (e.alpha) {
@@ -232,7 +233,8 @@ const createSmallBall = (x, y, z, color) => {
 })()
 
 function onWindowResize() {
-    const { innerWidth, innerHeight } = window
+    innerWidth = window.innerWidth
+    innerHeight = window.innerWidth
     camera.aspect = innerWidth / innerHeight
     camera.updateProjectionMatrix()
     renderer.setSize(innerWidth, innerHeight)
@@ -240,12 +242,103 @@ function onWindowResize() {
 // 点击球弹出详情， done
 let ballIndex = 0
 const department = $('.department')
+// 记录点击球时候的位置, 和相机位置，中间位置
+let originPosition = [],
+    endPosition = [],
+    cameraPosition = []
 
-function showDetail(index = 5, direction) {
+// 详情球的旋转动画
+const showDetialTAnimate = ball => {
+    detialTimer = RAF(() => {
+        showDetialTAnimate(ball)
+    })
+    rotateDitailBall(ball)
+    renderer.render(scene, camera)
+}
+// 详情球的旋转
+const rotateDitailBall = ball => {
+    let rotate = 0.024 / devicePixelRatio
+    // ball.rotation.set(rotate, rotate, rotate)
+    // console.log(ball.rotation)
+    // ball.rotation.x += rotate/devicePixelRatio
+    ball.rotation.y += rotate/devicePixelRatio
+    // ball.rotation.z += rotate/devicePixelRatio
+}
+// 三个方向到 中点
+let xEnd, yEnd, zEnd, moveScaleBallTimer, perDis
+const moveScaleBallAnimation = (object, originPos, endPos) => {
+    perDis = perDis || endPos.map((val, idx) => Math.abs((val-originPos[idx]) / 45))
+    let [ x, y, z ] = originPos
+    if (abs(endPos[0]-x) <= 1.1*perDis[0]) {
+        xEnd = true
+    } else {
+        endPos[0]>x ? x+=perDis[0] : x-=perDis[0]
+    }
+
+    if (abs(endPos[1]-y) <= 1.1*perDis[1]) {
+        yEnd = true
+    } else {
+        endPos[1]>y ? y+=perDis[1] : y-=perDis[1]
+    }
+
+    if (abs(endPos[2]-z) <= 1.1*perDis[2]) {
+        zEnd = true
+    } else {
+        endPos[2]>z ? z+=perDis[2] : z-=perDis[2]
+    }
+    originPos = [ x, y, z ]
+    moveScaleBallTimer = RAF(() => {
+        moveScaleBallAnimation(object, originPos, endPos)
+    })
+
+    if (xEnd && yEnd && zEnd) {
+        CRAF(moveScaleBallTimer)
+        xEnd = yEnd = zEnd = false
+        perDis = null
+        showDetialTAnimate(object)
+    }
+
+    renderer.render(scene, camera)
+    object.position.set(x, y, z)
+}
+let isShowing = false, preObject
+
+function showDetail(index = 5, direction, object) {
     CRAF(timer)
     if (index < 0 || index >= 5) {
         return
     }
+
+    // 点击放大效果
+    if (isShowing && preObject) {
+        let [x, y, z] = originPosition
+        preObject.position.set(x, y, z)
+    }
+    object = object || scene.getObjectByName(`./img/ball${index+1}.jpg_ball`, true)
+    preObject = object
+    // 记录点击球时候的位置
+    var { x, y, z } = object.position
+    originPosition = [x, y, z]
+
+    // 相机的位置
+    var { x, y, z } = camera.position
+    cameraPosition = [x, y, z]
+    // 相机到原点的距离
+    const cameraDis = sqrt(cameraPosition.reduce((sum, val) => {
+        return sum + val*val
+    }, 0))
+    // 球的终点距离dis = 相机的终点距离减掉一段距离 (radius*4/(innerWidth/375)), 距离比例, 球的终点
+    const dis = cameraDis - positionOfBalls[index].radius*4 / (innerWidth/375),
+        disScale = dis / cameraDis
+
+    // 球的终点位置
+    endPosition = cameraPosition.map(val => disScale*val)
+
+    moveScaleBallAnimation(object, originPosition, endPosition)
+
+    isShowing = true
+    // return
+
     const ballIntro = ballsIntro[index]
     $('.department').style.display = 'block'
     // 之前的 departmentCon 和复制
@@ -281,6 +374,7 @@ function showDetail(index = 5, direction) {
     departmentCopy.classList.add(`show-${direction}-copy`)
 
     department.insertBefore(departmentCopy, $('.lefthand'))
+
     // 动画完之后删去原来的 departmentCon
     setTimeout(() => {
         departmentCopy.classList.remove(`show-${direction}-copy`)
@@ -305,9 +399,15 @@ const hidDepartment = e => {
     let classList = e.target.classList
 
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
-        animate()
+        CRAF(detialTimer)
+        CRAF(timer)
+
         $('.department').classList.add('linearOut')
+        isShowing = false
+        object = scene.getObjectByName(`./img/ball${ballIndex+1}.jpg_ball`, true)
+        moveScaleBallAnimation(object, endPosition, originPosition)
         setTimeout(() => {
+            animate()
             $('.department').classList.remove('linearOut')
             $('.department').style.display = 'none'
         }, 900)
@@ -322,14 +422,14 @@ const animate = () => {
     timer = RAF(animate)
     controls.update()
     selfRotate()
+    // console.log('timer ', timer)
     // ring.moveWaves()
     renderer.render(scene, camera)
 }
 
 // 相机位置理解: http://www.cnblogs.com/v-weiwang/p/6072235.html
 const selfRotate = () => {
-    let rotate = 0.0014
-
+    let rotate = 0.0114
     for (let i = 0, l = scene.children.length; i < l; i ++) {
         let object = scene.children[i]
         // 自转

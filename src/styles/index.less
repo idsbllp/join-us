@@ -1,4 +1,4 @@
-@loadingTime: 7s;
+@loadingTime: 5s;
 * {
     -webkit-tap-highlight-color: transparent;
 }
@@ -12,6 +12,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    // background-image: url(../img/bg_department2.png);
 }
 .loading {
     position: absolute;
@@ -32,7 +33,7 @@ body {
         width: 3.733333rem;
         height: 1.333333*2rem;
         z-index: 3;
-        animation: 5s loading infinite ease;
+        animation: 5.2s loading infinite linear;
     }
 
     &-stars {
@@ -193,7 +194,7 @@ body {
     transform: translate(10rem, -2rem);
 }
 .line1 {
-    animation: flya 2.8s infinite linear;
+    animation: flya 2s infinite linear;
 }
 @keyframes flya {
     0% {
@@ -207,8 +208,8 @@ body {
     }
 }
 .line2 {
-    animation: flyb 2.8s infinite linear;
-    animation-delay: 2.8s;
+    animation: flyb 2s infinite linear;
+    animation-delay: 2s;
 }
 @keyframes flyb {
     0% {
@@ -279,6 +280,9 @@ body {
         transform: scale(1);
         opacity: 1;
     }
+    85% {
+        opacity: 0;
+    }
     100% {
         transform: scale(6) translateY(1rem);
         opacity: 0;
@@ -301,34 +305,37 @@ body {
 }
 .m1 {
     background-image: url(../img/1.png);
-    animation-delay: @loadingTime+6.7s;
+    animation-delay: @loadingTime+6.7-1.2s;
 }
 .m2 {
     background-image: url(../img/2.png);
-    animation-delay: @loadingTime+7.2s;
+    animation-delay: @loadingTime+7.2-1.2s;
 }
 .m3 {
     background-image: url(../img/3.png);
-    animation-delay: @loadingTime+7.7s;
+    animation-delay: @loadingTime+7.7-1.2s;
 }
 .m4 {
     margin-top: 1.066667rem;
     width: 3.33333rem;
+    height: .34rem;
     background-image: url(../img/4.png);
-    transform: translateY(-2rem);
+    transform: translateY(-3rem);
     animation: 4s fideout;
     animation-delay: @loadingTime+10.5s;
 }
 .m5 {
     width: 4.33333rem;
+    height: .34rem;
     background-image: url(../img/5.png);
-    transform: translateY(-2rem);
+    transform: translateY(-3rem);
     animation: 4s nofide;
     animation-delay: @loadingTime+11.5s;
 }
 .m6 {
+    height: .34rem;
     background-image: url(../img/6.png);
-    transform: translateY(-2rem);
+    transform: translateY(-3rem);
     animation: 4s nofide;
     animation-delay: @loadingTime+12.5s;
 }
@@ -347,28 +354,28 @@ body {
 }
 @keyframes fideout {
     0% {
-        transform: translateY(3rem);
+        transform: translateY(1rem);
     }
     50% {
         opacity: 1;
-        transform: translateY(-2rem);
+        transform: translateY(-3rem);
     }
     100% {
         opacity: 0;
-        transform: translateY(-2rem);
+        transform: translateY(-3rem);
     }
 }
 @keyframes nofide {
     0% {
-        transform: translateY(3rem);
+        transform: translateY(1rem);
     }
     50% {
         opacity: 1;
-        transform: translateY(-2rem);
+        transform: translateY(-3rem);
     }
     100% {
         opacity: 1;
-        transform: translateY(-2rem);
+        transform: translateY(-3rem);
     }
 }
 .redrock {
@@ -414,8 +421,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../img/bg_department.png);
+    // background-image: url(../img/bg_department.png);
     background-size: 100% 100%;
+    // background-color: rgba(0,0,0,.5);
     font-family: 'go';
 
     &-con {
@@ -517,13 +525,23 @@ body {
 .round-outer {
     position: absolute;
     top: 0;
+    left: -2.2rem;
     bottom: 0;
     margin: auto;
     width: 14.4rem;
     height: 14.4rem;
     border: 2px dotted #285966;
     border-radius: 50%;
-    transform: translateX(-2.2rem);
+
+    animation: turnOuter 10s infinite linear;
+}
+@keyframes turnOuter {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
 }
 .round-inner {
     position: absolute;
@@ -536,7 +554,7 @@ body {
     background-image: url(../img/round.png);
     background-size: 100% 100%;
 
-    animation: turn 12s infinite linear;
+    animation: turn 6s infinite linear;
 }
 @keyframes turn {
     from {

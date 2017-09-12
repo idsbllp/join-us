@@ -8,7 +8,6 @@ export const RAF = window.requestAnimationFrame
 export const CRAF = window.cancelAnimationFrame
              || window.mozcancelAnimationFrame
              || window.webkitcancelAnimationFrame
-             || window.mscancelAnimationFrame
              || ( timerId => clearTimeout(timerId) )
 
 export const getRandomNumber = (min, max) => {

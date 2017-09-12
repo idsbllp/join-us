@@ -287,7 +287,6 @@ function OrbitControls ( object, domElement ) {
 	}
 
 	function handleTouchMoveRotate( event ) {
-
 		rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
 		rotateDelta.subVectors( rotateEnd, rotateStart );
 
