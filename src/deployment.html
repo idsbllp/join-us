@@ -8,55 +8,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
         <meta http-equiv="expires" content="0">
         <script>
-            // // 原版
-            // var loadBg = new Image();
-            // loadBg.src = './img/load_bg_effect.png';
-            // loadBg.onload = function() {
-            //     document.body.style.display = 'block'
-            // }
-            // !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
-            // // 避免 QQ浏览器 下拉出现小黑框
-            // document.addEventListener('touchmove', function(e) {
-            //     e.preventDefault();
-            // }, false)
-            // window.addEventListener('load', function() {
-            //     // 判断电脑
-            //     if (!/mobile/i.test(navigator.userAgent)) {
-            //         document.body.innerHTML = `
-            //             <audio loop autoplay id="music">
-            //                 <source src="./mp3/music.mp3" type="audio/wav">
-            //             </audio>
-            //             <div class="controls">
-            //                 <div class="play"></div>
-            //                 <div class="pause"></div>
-            //             </div>
-            //             <div>用手机打开</div>
-            //         `
-            //         var music = document.querySelector('#music')
-            //         var play = document.querySelector('.play')
-            //         var pause = document.querySelector('.pause')
-            //         console.log(music)
-            //         music.addEventListener('error', function(e) {
-            //             e.preventDefault()
-            //         })
-            //         pause.addEventListener('click', function(e) {
-            //             music.play()
-            //             pause.style.display = 'none'
-            //         })
-            //         play.addEventListener('click', function(e) {
-            //             music.pause()
-            //             pause.style.display = 'block'
-            //         })
-            //         return;
-            //     }
-            //     document.querySelector('#joinus').style.display = 'block';
-            //     ['prospect', 'app'].forEach(file => {
-            //         var js = document.createElement('script');
-            //         js.src = './js/' + file + '.js';
-            //         document.body.appendChild(js);
-            //     });
-            // })
-            // 压缩版
+            // 压缩版，原版在 index.html
             !function(e){function n(o){if(t[o])return t[o].exports;var i=t[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}var t={};n.m=e,n.c=t,n.i=function(e){return e},n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:o})},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},n.p="./",n(n.s=63)}({63:function(e,n,t){"use strict";var o=new Image;o.src="./img/load_bg_effect.png",o.onload=function(){document.body.style.display="block"},function(e,n){function t(){n.body?n.body.style.fontSize=12*r+"px":n.addEventListener("DOMContentLoaded",t)}function o(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=n.documentElement,r=e.devicePixelRatio||1;if(t(),o(),e.addEventListener("resize",o),e.addEventListener("pageshow",function(e){e.persisted&&o()}),r>=2){var d=n.createElement("body"),c=n.createElement("div");c.style.border=".5px solid transparent",d.appendChild(c),i.appendChild(d),1===c.offsetHeight&&i.classList.add("hairlines"),i.removeChild(d)}}(window,document),document.addEventListener("touchmove",function(e){e.preventDefault()},!1),window.addEventListener("load",function(){if(!/mobile/i.test(navigator.userAgent)){document.body.innerHTML='\n            <audio loop autoplay id="music">\n                <source src="./mp3/music.mp3" type="audio/wav">\n            </audio>\n            <div class="controls">\n                <div class="play"></div>\n                <div class="pause"></div>\n            </div>\n            <div>用手机打开</div>\n        ';var e=document.querySelector("#music"),n=document.querySelector(".play"),t=document.querySelector(".pause");return console.log(e),e.addEventListener("error",function(e){e.preventDefault()}),t.addEventListener("click",function(n){e.play(),t.style.display="none"}),void n.addEventListener("click",function(n){e.pause(),t.style.display="block"})}document.querySelector("#joinus").style.display="block",["prospect","app"].forEach(function(e){var n=document.createElement("script");n.src="./js/"+e+".js",document.body.appendChild(n)})})}});
         </script>
     <link href="./styles/index.css" rel="stylesheet"></head>
@@ -85,8 +37,12 @@
                     <p class="m m3"></p>
                     <p class="m m4"></p>
                     <p class="m m5"></p>
-                    <p class="m m6"></p>
+                    <!-- <p class="m m6"></p> -->
                 </div>
+                <div class="title">
+                <div class="title-bg"></div>
+                <div class="title-text"></div>
+            </div>
                 <div class="redrock">
                     <img src="./img/redrock.png" class="logo">
                     <img src="./img/down.png" class="down">

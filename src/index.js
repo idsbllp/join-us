@@ -5,7 +5,6 @@ import './utils/onEvent.js'
 import './utils/DeviceOrientationControls.js'
 
 import './styles/index.less'
-import './img/transparent.png'
 import './img/load_effect.png'
 import './img/bg_cp.png'
 
@@ -38,7 +37,7 @@ $('.redrock').addEventListener('click', e => {
     }, 500)
 }, false)
 
-// // for test
+// // for dev
 // canvas.classList.add('canvas')
 // $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
 // document.body.appendChild(canvas)
@@ -242,66 +241,67 @@ function onWindowResize() {
 // 点击球弹出详情， done
 let ballIndex = 0
 const department = $('.department')
-// 记录点击球时候的位置, 和相机位置，中间位置
-let originPosition = [],
-    endPosition = [],
-    cameraPosition = []
 
-// 详情球的旋转动画
-const showDetialTAnimate = ball => {
-    detialTimer = RAF(() => {
-        showDetialTAnimate(ball)
-    })
-    rotateDitailBall(ball)
-    renderer.render(scene, camera)
-}
-// 详情球的旋转
-const rotateDitailBall = ball => {
-    let rotate = 0.024 / devicePixelRatio
-    // ball.rotation.set(rotate, rotate, rotate)
-    // console.log(ball.rotation)
-    // ball.rotation.x += rotate/devicePixelRatio
-    ball.rotation.y += rotate/devicePixelRatio
-    // ball.rotation.z += rotate/devicePixelRatio
-}
-// 三个方向到 中点
-let xEnd, yEnd, zEnd, moveScaleBallTimer, perDis
-const moveScaleBallAnimation = (object, originPos, endPos) => {
-    perDis = perDis || endPos.map((val, idx) => Math.abs((val-originPos[idx]) / 45))
-    let [ x, y, z ] = originPos
-    if (abs(endPos[0]-x) <= 1.1*perDis[0]) {
-        xEnd = true
-    } else {
-        endPos[0]>x ? x+=perDis[0] : x-=perDis[0]
-    }
+// // 记录点击球时候的位置, 和相机位置，中间位置
+// let originPosition = [],
+//     endPosition = [],
+//     cameraPosition = []
 
-    if (abs(endPos[1]-y) <= 1.1*perDis[1]) {
-        yEnd = true
-    } else {
-        endPos[1]>y ? y+=perDis[1] : y-=perDis[1]
-    }
+// // 详情球的旋转动画
+// const showDetialTAnimate = ball => {
+//     detialTimer = RAF(() => {
+//         showDetialTAnimate(ball)
+//     })
+//     rotateDitailBall(ball)
+//     renderer.render(scene, camera)
+// }
+// // 详情球的旋转
+// const rotateDitailBall = ball => {
+//     let rotate = 0.024 / devicePixelRatio
+//     // ball.rotation.set(rotate, rotate, rotate)
+//     // console.log(ball.rotation)
+//     // ball.rotation.x += rotate/devicePixelRatio
+//     ball.rotation.y += rotate/devicePixelRatio
+//     // ball.rotation.z += rotate/devicePixelRatio
+// }
+// // 三个方向到 中点
+// let xEnd, yEnd, zEnd, moveScaleBallTimer, perDis
+// const moveScaleBallAnimation = (object, originPos, endPos) => {
+//     perDis = perDis || endPos.map((val, idx) => Math.abs((val-originPos[idx]) / 45))
+//     let [ x, y, z ] = originPos
+//     if (abs(endPos[0]-x) <= 1.1*perDis[0]) {
+//         xEnd = true
+//     } else {
+//         endPos[0]>x ? x+=perDis[0] : x-=perDis[0]
+//     }
 
-    if (abs(endPos[2]-z) <= 1.1*perDis[2]) {
-        zEnd = true
-    } else {
-        endPos[2]>z ? z+=perDis[2] : z-=perDis[2]
-    }
-    originPos = [ x, y, z ]
-    moveScaleBallTimer = RAF(() => {
-        moveScaleBallAnimation(object, originPos, endPos)
-    })
+//     if (abs(endPos[1]-y) <= 1.1*perDis[1]) {
+//         yEnd = true
+//     } else {
+//         endPos[1]>y ? y+=perDis[1] : y-=perDis[1]
+//     }
 
-    if (xEnd && yEnd && zEnd) {
-        CRAF(moveScaleBallTimer)
-        xEnd = yEnd = zEnd = false
-        perDis = null
-        showDetialTAnimate(object)
-    }
+//     if (abs(endPos[2]-z) <= 1.1*perDis[2]) {
+//         zEnd = true
+//     } else {
+//         endPos[2]>z ? z+=perDis[2] : z-=perDis[2]
+//     }
+//     originPos = [ x, y, z ]
+//     moveScaleBallTimer = RAF(() => {
+//         moveScaleBallAnimation(object, originPos, endPos)
+//     })
 
-    renderer.render(scene, camera)
-    object.position.set(x, y, z)
-}
-let isShowing = false, preObject
+//     if (xEnd && yEnd && zEnd) {
+//         CRAF(moveScaleBallTimer)
+//         xEnd = yEnd = zEnd = false
+//         perDis = null
+//         showDetialTAnimate(object)
+//     }
+
+//     renderer.render(scene, camera)
+//     object.position.set(x, y, z)
+// }
+// let isShowing = false, preObject
 
 function showDetail(index = 5, direction, object) {
     CRAF(timer)
@@ -309,35 +309,35 @@ function showDetail(index = 5, direction, object) {
         return
     }
 
-    // 点击放大效果
-    if (isShowing && preObject) {
-        let [x, y, z] = originPosition
-        preObject.position.set(x, y, z)
-    }
-    object = object || scene.getObjectByName(`./img/ball${index+1}.jpg_ball`, true)
-    preObject = object
-    // 记录点击球时候的位置
-    var { x, y, z } = object.position
-    originPosition = [x, y, z]
+    // // 点击放大效果
+    // if (isShowing && preObject) {
+    //     let [x, y, z] = originPosition
+    //     preObject.position.set(x, y, z)
+    // }
+    // // object = object || scene.getObjectByName(`./img/ball${index+1}.jpg_ball`, true)
+    // // preObject = object
+    // // // 记录点击球时候的位置
+    // // var { x, y, z } = object.position
+    // // originPosition = [x, y, z]
 
-    // 相机的位置
-    var { x, y, z } = camera.position
-    cameraPosition = [x, y, z]
-    // 相机到原点的距离
-    const cameraDis = sqrt(cameraPosition.reduce((sum, val) => {
-        return sum + val*val
-    }, 0))
-    // 球的终点距离dis = 相机的终点距离减掉一段距离 (radius*4/(innerWidth/375)), 距离比例, 球的终点
-    const dis = cameraDis - positionOfBalls[index].radius*4 / (innerWidth/375),
-        disScale = dis / cameraDis
+    // // // 相机的位置
+    // // var { x, y, z } = camera.position
+    // // cameraPosition = [x, y, z]
+    // // // 相机到原点的距离
+    // // const cameraDis = sqrt(cameraPosition.reduce((sum, val) => {
+    // //     return sum + val*val
+    // // }, 0))
+    // // // 球的终点距离dis = 相机的终点距离减掉一段距离 (radius*4/(innerWidth/375)), 距离比例, 球的终点
+    // // const dis = cameraDis - positionOfBalls[index].radius*4 / (innerWidth/375),
+    // //     disScale = dis / cameraDis
 
-    // 球的终点位置
-    endPosition = cameraPosition.map(val => disScale*val)
+    // // // 球的终点位置
+    // // endPosition = cameraPosition.map(val => disScale*val)
 
-    moveScaleBallAnimation(object, originPosition, endPosition)
+    // // moveScaleBallAnimation(object, originPosition, endPosition)
 
-    isShowing = true
-    // return
+    // // isShowing = true
+
 
     const ballIntro = ballsIntro[index]
     $('.department').style.display = 'block'
@@ -399,14 +399,14 @@ const hidDepartment = e => {
     let classList = e.target.classList
 
     if (classList.contains('department') || classList.contains('round-inner') || classList.contains('round-outer')) {
-        CRAF(detialTimer)
-        CRAF(timer)
+        // CRAF(detialTimer)
 
         $('.department').classList.add('linearOut')
-        isShowing = false
-        object = scene.getObjectByName(`./img/ball${ballIndex+1}.jpg_ball`, true)
-        moveScaleBallAnimation(object, endPosition, originPosition)
+        // isShowing = false
+        // object = scene.getObjectByName(`./img/ball${ballIndex+1}.jpg_ball`, true)
+        // moveScaleBallAnimation(object, endPosition, originPosition)
         setTimeout(() => {
+            CRAF(timer)
             animate()
             $('.department').classList.remove('linearOut')
             $('.department').style.display = 'none'
@@ -422,8 +422,6 @@ const animate = () => {
     timer = RAF(animate)
     controls.update()
     selfRotate()
-    // console.log('timer ', timer)
-    // ring.moveWaves()
     renderer.render(scene, camera)
 }
 

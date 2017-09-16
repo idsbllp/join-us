@@ -1,8 +1,8 @@
-import '../img/sre.png'
-import '../img/chanpin.png'
-import '../img/shijue.png'
-import '../img/web.png'
-import '../img/yidong.png'
+import '../img/logo_sre.png'
+import '../img/logo_chanpin.png'
+import '../img/logo_shijue.png'
+import '../img/logo_web.png'
+import '../img/logo_yidong.png'
 
 export default [
     {

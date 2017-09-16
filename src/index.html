@@ -8,6 +8,54 @@
         <meta http-equiv="expires" content="0">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
         <script>
+            // // 原版
+            // var loadBg = new Image();
+            // loadBg.src = './img/load_bg_effect.png';
+            // loadBg.onload = function() {
+            //     document.body.style.display = 'block'
+            // }
+            // !function(e,t){function n(){t.body?t.body.style.fontSize=12*o+"px":t.addEventListener("DOMContentLoaded",n)}function d(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=t.documentElement,o=e.devicePixelRatio||1;if(n(),d(),e.addEventListener("resize",d),e.addEventListener("pageshow",function(e){e.persisted&&d()}),o>=2){var a=t.createElement("body"),s=t.createElement("div");s.style.border=".5px solid transparent",a.appendChild(s),i.appendChild(a),1===s.offsetHeight&&i.classList.add("hairlines"),i.removeChild(a)}}(window,document);
+            // // 避免 QQ浏览器 下拉出现小黑框
+            // document.addEventListener('touchmove', function(e) {
+            //     e.preventDefault();
+            // }, false)
+            // window.addEventListener('load', function() {
+            //     // 判断电脑
+            //     if (!/mobile/i.test(navigator.userAgent)) {
+            //         document.body.innerHTML = `
+            //             <audio loop autoplay id="music">
+            //                 <source src="./mp3/music.mp3" type="audio/wav">
+            //             </audio>
+            //             <div class="controls">
+            //                 <div class="play"></div>
+            //                 <div class="pause"></div>
+            //             </div>
+            //             <div>用手机打开</div>
+            //         `
+            //         var music = document.querySelector('#music')
+            //         var play = document.querySelector('.play')
+            //         var pause = document.querySelector('.pause')
+            //         console.log(music)
+            //         music.addEventListener('error', function(e) {
+            //             e.preventDefault()
+            //         })
+            //         pause.addEventListener('click', function(e) {
+            //             music.play()
+            //             pause.style.display = 'none'
+            //         })
+            //         play.addEventListener('click', function(e) {
+            //             music.pause()
+            //             pause.style.display = 'block'
+            //         })
+            //         return;
+            //     }
+            //     document.querySelector('#joinus').style.display = 'block';
+            //     ['prospect', 'app'].forEach(file => {
+            //         var js = document.createElement('script');
+            //         js.src = './js/' + file + '.js';
+            //         document.body.appendChild(js);
+            //     });
+            // })
             var loadBg = new Image();
             loadBg.src = './img/load_bg_effect.png';
             loadBg.onload = function() {
@@ -44,7 +92,10 @@
                 <p class="m m3"></p>
                 <p class="m m4"></p>
                 <p class="m m5"></p>
-                <p class="m m6"></p>
+            </div>
+            <div class="title">
+                <div class="title-bg"></div>
+                <div class="title-text"></div>
             </div>
             <div class="redrock">
                 <img src="./img/redrock.png" class="logo">
@@ -88,7 +139,7 @@
             </div>
         </div>
         <a href="http://hongyan.cqupt.edu.cn/activity/wx/index" class="enroll">
-            <img src="./img/enroll1.png">
+            <img src="./img/enroll.gif">
         </a>
         <script src="./js/three.min.js"></script>
         <!-- built files will be auto injected -->

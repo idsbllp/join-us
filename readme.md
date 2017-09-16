@@ -19,7 +19,7 @@
 ```
 
 ** PS. **
-> index.html -> index.html (需手动替换为 `cp src/deployment.html ./dist/index.html`
+> index.html -> index.html # (替换为 `src/deployment.html`
 
 > index.js -> js/app.js (五个球的文件, 无需更改)
 

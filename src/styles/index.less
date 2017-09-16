@@ -12,7 +12,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    // background-image: url(../img/bg_department2.png);
 }
 .loading {
     position: absolute;
@@ -150,6 +149,7 @@ body {
     width: 25px;
     height: 25px;
     z-index: 999;
+    font-family: 'go';
 }
 .play {
     position: absolute;
@@ -194,13 +194,13 @@ body {
     transform: translate(10rem, -2rem);
 }
 .line1 {
-    animation: flya 2s infinite linear;
+    animation: flya 4s infinite linear;
 }
 @keyframes flya {
     0% {
         transform: translate(10rem, -2rem);
     }
-    50% {
+    25% {
         transform: translate(-4rem, 8.73rem);
     }
     100% {
@@ -208,14 +208,14 @@ body {
     }
 }
 .line2 {
-    animation: flyb 2s infinite linear;
-    animation-delay: 2s;
+    animation: flyb 4s infinite linear;
+    animation-delay: 4s;
 }
 @keyframes flyb {
     0% {
         transform: translate(10rem, 2rem);
     }
-    50% {
+    70% {
         transform: translate(10rem, 2rem);
     }
     100% {
@@ -305,47 +305,51 @@ body {
 }
 .m1 {
     background-image: url(../img/1.png);
-    animation-delay: @loadingTime+6.7-1.2s;
+    animation-delay: @loadingTime+6s;
 }
 .m2 {
     background-image: url(../img/2.png);
-    animation-delay: @loadingTime+7.2-1.2s;
+    animation-delay: @loadingTime+6+0.5s;
 }
 .m3 {
     background-image: url(../img/3.png);
-    animation-delay: @loadingTime+7.7-1.2s;
+    animation-delay: @loadingTime+6+1s;
 }
 .m4 {
     margin-top: 1.066667rem;
-    width: 3.33333rem;
-    height: .34rem;
+    width: 4.033333rem;
+    height: .4rem;
     background-image: url(../img/4.png);
     transform: translateY(-3rem);
     animation: 4s fideout;
-    animation-delay: @loadingTime+10.5s;
+    animation-delay: @loadingTime+10s;
 }
 .m5 {
-    width: 4.33333rem;
-    height: .34rem;
+    width: 5.33333rem;
+    height: .4rem;
     background-image: url(../img/5.png);
     transform: translateY(-3rem);
-    animation: 4s nofide;
-    animation-delay: @loadingTime+11.5s;
+    animation: 4s fideout;
+    animation-delay: @loadingTime+10+0.5s;
 }
-.m6 {
+/* .m6 {
     height: .34rem;
     background-image: url(../img/6.png);
     transform: translateY(-3rem);
-    animation: 4s nofide;
-    animation-delay: @loadingTime+12.5s;
+    animation: 4s fideout;
+    animation-delay: @loadingTime+12.5-0.5s;
 }
+*/
 @keyframes fide {
     0% {
         transform: translateY(3rem);
     }
-    50% {
+    30% {
         opacity: 1;
         transform: translateY(0);
+    }
+    70% {
+        opacity: 1;
     }
     100% {
         opacity: 0;
@@ -356,26 +360,67 @@ body {
     0% {
         transform: translateY(1rem);
     }
-    50% {
+    30% {
         opacity: 1;
         transform: translateY(-3rem);
+    }
+    70% {
+        opacity: 1;
     }
     100% {
         opacity: 0;
         transform: translateY(-3rem);
     }
 }
-@keyframes nofide {
+.title {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 6.0rem;
+    height: 7.066667rem;
+    z-index: 0;
+    transition: opacity 1s ease;
+    &-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 4.4rem;
+        height: 7.066667rem;
+        background-image: url(../img/title_bg.png);
+        background-size: 100% 100%;
+        z-index: 1;
+    }
+    &-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 100%;
+        height: 5.73333rem;
+        background-image: url(../img/title.png);
+        background-size: 100% 100%;
+        z-index: 2;
+        animation: upDown 3s infinite linear;
+    }
+}
+@keyframes upDown {
     0% {
-        transform: translateY(1rem);
+        transform: translateY(0rem);
     }
     50% {
-        opacity: 1;
-        transform: translateY(-3rem);
+        transform: translateY(-1rem);
     }
     100% {
-        opacity: 1;
-        transform: translateY(-3rem);
+        transform: translateY(0rem);
     }
 }
 .redrock {
@@ -384,7 +429,7 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    width: 3.6rem;
+    width: 3rem;
     text-align: center;
     z-index: 10;
 }
@@ -421,9 +466,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    // background-image: url(../img/bg_department.png);
+    background-image: url(../img/bg.png);
     background-size: 100% 100%;
-    // background-color: rgba(0,0,0,.5);
     font-family: 'go';
 
     &-con {
@@ -434,12 +478,12 @@ body {
         left: 0;
         right: 0;
         margin: auto;
-        width: 8.16rem;
+        width: 7.8rem;
         height: 9.986667rem;
         background-image: url(../img/data_bg.png);
         background-size: 100% 100%;
         letter-spacing: .05rem;
-        /*animation: breakdown 1s infinite linear;*/
+        transform: translate(0, -.3rem);
     }
     &-active {
         opacity: 1;
@@ -447,14 +491,19 @@ body {
     &-title {
         margin: 2rem 0 .5rem;
         text-align: center;
-        color: #fff;
+        color: #8cbaff;
         font-size: .7rem;
+        text-shadow: #f57378 1.5px 1.5px;
+        letter-spacing: 0.066667rem;
+        transform: translateX(.25rem);
     }
     &-intro {
         margin: .4rem auto;
         width: 4.8rem;
-        color: #5ab5d2;
-        font-size: 0.36rem;
+        color: #1e437a;
+        font-size: 0.373333rem;
+        font-weight: 900;
+        transform: translateX(.25rem);
     }
     &-logo {
         position: absolute;
@@ -466,27 +515,27 @@ body {
     .sre {
         width: 1.826667rem;
         height: 1.2rem;
-        background-image: url(../img/sre.png);
+        background-image: url(../img/logo_sre.png);
     }
     .chanpin {
         width: 2.08rem;
         height: 1.706667rem;
-        background-image: url(../img/chanpin.png);
+        background-image: url(../img/logo_chanpin.png);
     }
     .shijue {
         width: 1.64rem;
         height: 1.666667rem;
-        background-image: url(../img/shijue.png);
+        background-image: url(../img/logo_shijue.png);
     }
     .web {
         width: 1.586667rem;
         height: 1.333333rem;
-        background-image: url(../img/web.png);
+        background-image: url(../img/logo_web.png);
     }
     .yidong {
         width: 1.973333rem;
         height: 1.226667rem;
-        background-image: url(../img/yidong.png);
+        background-image: url(../img/logo_yidong.png);
     }
 }
 .linearIn {
@@ -509,17 +558,6 @@ body {
     }
     to {
         opacity: 0;
-    }
-}
-@keyframes breakdown {
-    0% {
-        transform: scale(1) translateX(-.5rem);
-    }
-    5% {
-        transform: scale(1.1) translateX(0);
-    }
-    7% {
-        transform: scale(1) translateX(0);
     }
 }
 .round-outer {
@@ -619,50 +657,50 @@ body {
 /* 点击左按钮, 由左向右滑动 */
 .show-left {
     animation: showLeft 1s ease;
-    transform: translate(0,0);
+    transform: translate(0,-.3rem);
     &-copy {
         animation: showLeftCopy 1s ease;
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
     }
 }
 @keyframes showLeft {
     from {
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
     }
     to {
-        transform: translate(10rem,0);
+        transform: translate(10rem,-.3rem);
     }
 }
 @keyframes showLeftCopy {
     from {
-        transform: translate(-8.16rem,0);
+        transform: translate(-8.16rem,-.3rem);
     }
     to {
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
     }
 }
 .show-right {
     animation: showRight 1s ease;
-    transform: translate(0,0);
+    transform: translate(0,-.3rem);
     &-copy {
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
         animation: showRightCopy 1s ease;
     }
 }
 @keyframes showRight {
     from {
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
     }
     to {
-        transform: translate(-10rem,0);
+        transform: translate(-10rem,-.3rem);
     }
 }
 @keyframes showRightCopy {
     from {
-        transform: translate(8.16rem,0);
+        transform: translate(8.16rem,-.3rem);
     }
     to {
-        transform: translate(0,0);
+        transform: translate(0,-.3rem);
     }
 }
 .enroll {

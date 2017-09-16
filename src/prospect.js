@@ -7,7 +7,7 @@ import './font/go.otf'
 import './img/prospect.png'
 import './img/redrock.png'
 import './img/down.png'
-import './img/enroll1.png'
+import './img/bg.png'
 import './img/load_effect.png'
 
 const loadingTime = 5000
@@ -34,9 +34,9 @@ setTimeout(() => {
 const messages = $('.message p')
 
 setTimeout(() => {
-    [messages[4], messages[5], $('.logo'), $('.down')].forEach((val, idx) => {
+    [$('.logo'), $('.down'), $('.title')].forEach((val, idx) => {
         val.style.opacity = 1
-        if (idx === 3) {
+        if (idx === 1) {
             val.classList.add('fideInOut')
         }
     })
