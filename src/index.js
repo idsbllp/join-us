@@ -40,6 +40,7 @@ $('.redrock').addEventListener('click', e => {
 // // for dev
 // canvas.classList.add('canvas')
 // $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
+// $('.enroll').style.display = 'block'
 // document.body.appendChild(canvas)
 // canvas.style.opacity = 1
 // setTimeout(() => {
@@ -213,7 +214,7 @@ const createSmallBall = (x, y, z, color) => {
     // 给屏幕添加手指拖动事件
     controls = new OrbitControls(camera, canvas)
     controls.autoRotate = true
-    controls.autoRotateSpeed = 0.5
+    controls.autoRotateSpeed = -0.5
     controls.enableZoom = true
 
     // // 陀螺仪, 不用了

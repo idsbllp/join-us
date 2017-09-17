@@ -8,6 +8,7 @@ import './img/prospect.png'
 import './img/redrock.png'
 import './img/down.png'
 import './img/bg.png'
+import './img/enroll.png'
 import './img/load_effect.png'
 
 const loadingTime = 5000

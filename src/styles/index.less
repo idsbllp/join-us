@@ -711,13 +711,68 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    width: 4.52rem;
-    height: 1.2rem;
-    img {
-        width: 100%;
+    width: 6.133333rem;
+    height: 1.133333rem;
+    animation: wave 2s infinite linear;
+    &-fire {
+        float: left;
+        margin-top: (1.133333-0.666667)/3rem;
+        width: 1.013333rem;
+        height: 0.666667rem;
+        background-image: url(../img/fire3.png);
+        background-size: 100% 100%;
+        animation: fire .8s infinite linear;
+    }
+    &-img {
+        float: left;
+        width: 6.133333-1.013333rem;;
         height: 100%;
+        transform: translateX(-.2rem);
     }
 }
+@keyframes fire {
+    0% {
+        background-image: url(../img/fire1.png);
+    }
+    24% {
+        background-image: url(../img/fire1.png);
+    }
+    25% {
+        background-image: url(../img/fire2.png);
+    }
+    49% {
+        background-image: url(../img/fire2.png);
+    }
+    50% {
+        background-image: url(../img/fire3.png);
+    }
+    74% {
+        background-image: url(../img/fire3.png);
+    }
+    75% {
+        background-image: url(../img/fire4.png);
+    }
+    99% {
+        background-image: url(../img/fire4.png);
+    }
+    100% {
+        background-image: url(../img/fire1.png);
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateY(-0.133333rem);
+    }
+    50% {
+        transform: translateY(0.133333rem);
+    }
+    100% {
+        transform: translateY(-0.133333rem);
+    }
+}
+
+
 
 
 
