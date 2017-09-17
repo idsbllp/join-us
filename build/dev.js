@@ -4,8 +4,6 @@ var path = require('path')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var Px2remWebpackPlugin = require('px2rem-webpack-plugin')
-var proxyMiddleware = require('http-proxy-middleware')
 
 var webpackConfig = require('./webpack.config.js')
 
@@ -17,7 +15,6 @@ var newWebpackConfig = merge(webpackConfig, {
             template: './src/index.html',
             inject: true
         }),
-        // new Px2remWebpackPlugin({ originScreenWidth: 750 }),
     ]
 })
 

@@ -2,7 +2,7 @@
 import OrbitControls from './utils/OrbitControls.js'
 import Detector from './utils/Detector.js'
 import './utils/onEvent.js'
-import './utils/DeviceOrientationControls.js'
+// import './utils/DeviceOrientationControls.js'
 
 import './styles/index.less'
 import './img/load_effect.png'
@@ -21,6 +21,10 @@ const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
+setTimeout(() => {
+    init()
+}, 2000)
+
 // 点击按钮载入canvas
 $('.redrock').addEventListener('click', e => {
     const prospect = $('.prospect')
@@ -33,6 +37,7 @@ $('.redrock').addEventListener('click', e => {
         $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
         $('.enroll').style.display = 'block'
         canvas.style.opacity = 1
+        // init()
         animate()
     }, 500)
 }, false)
@@ -44,6 +49,7 @@ $('.redrock').addEventListener('click', e => {
 // document.body.appendChild(canvas)
 // canvas.style.opacity = 1
 // setTimeout(() => {
+//     init()
 //     animate()
 // })
 
@@ -69,7 +75,7 @@ const addFont = (department, radius, pos, ballName) => {
             height: 1,
             curveSegments: 22,
         })
-        material = new THREE.MeshPhongMaterial({color: 0xf5e5bc}),
+        material = new THREE.MeshPhongMaterial({color: 0xf5e5bc})
         object = new THREE.Mesh(departmentName, material)
         object.position.set(pos[0]-radius, pos[1]+radius+5, pos[2])
         scene.add(object)
@@ -171,7 +177,7 @@ const createSmallBall = (x, y, z, color) => {
     return cube
 }
 
-(function init() {
+function init() {
     scene = new THREE.Scene()
 
     camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2000)
@@ -230,7 +236,7 @@ const createSmallBall = (x, y, z, color) => {
     // window.addEventListener('deviceorientation', setOrientationControls, true);
 
     window.addEventListener('resize', onWindowResize, false)
-})()
+}
 
 function onWindowResize() {
     innerWidth = window.innerWidth
