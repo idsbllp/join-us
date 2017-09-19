@@ -24,7 +24,6 @@ const door = $('.door')
 setTimeout(() => {
     door.classList.add('easeIn')
     $('#loading').remove()
-    // document.body.style.background = '#0f0f18'
 }, loadingTime)
 
 setTimeout(() => {

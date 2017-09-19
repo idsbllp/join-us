@@ -15,11 +15,13 @@
 //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
 //    Pan - right mouse, or arrow keys / touch: three finger swipe
 
-function OrbitControls ( object, domElement ) {
+function OrbitControls ( object, domElement, scene ) {
 
 	this.object = object;
 
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
+
+	this.scene = scene
 
 	// Set to false to disable this control
 	this.enabled = true;
@@ -209,17 +211,11 @@ function OrbitControls ( object, domElement ) {
 	}();
 
 	this.dispose = function () {
-
 		scope.domElement.removeEventListener( 'contextmenu', onContextMenu, false );
 		scope.domElement.removeEventListener( 'touchstart', onTouchStart, false );
 		scope.domElement.removeEventListener( 'touchend', onTouchEnd, false );
 		scope.domElement.removeEventListener( 'touchmove', onTouchMove, false );
 	};
-
-	//
-	// internals
-	//
-
 	var scope = this;
 
 	var changeEvent = { type: 'change' };
@@ -285,7 +281,6 @@ function OrbitControls ( object, domElement ) {
 		dollyStart.set( 0, distance );
 
 	}
-
 	function handleTouchMoveRotate( event ) {
 		rotateEnd.set( event.touches[ 0 ].pageX, event.touches[ 0 ].pageY );
 		rotateDelta.subVectors( rotateEnd, rotateStart );
@@ -299,6 +294,11 @@ function OrbitControls ( object, domElement ) {
 		rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
 
 		rotateStart.copy( rotateEnd );
+
+		[0, 1, 2, 3, 4].forEach(val => {
+			const font = scope.scene.getObjectByName(`font-${val}`)
+			font.lookAt(scope.object.position)
+		})
 
 		scope.update();
 
@@ -381,11 +381,10 @@ function OrbitControls ( object, domElement ) {
 	}
 
 	function onTouchMove( event ) {
-
+		// console.log(scope.object)
 		if ( scope.enabled === false ) return;
 
 		event.preventDefault();
-		// event.stopPropagation();
 
 		switch ( event.touches.length ) {
 

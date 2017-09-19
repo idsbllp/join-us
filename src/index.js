@@ -21,10 +21,6 @@ const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-setTimeout(() => {
-    init()
-}, 2000)
-
 // 点击按钮载入canvas
 $('.redrock').addEventListener('click', e => {
     const prospect = $('.prospect')
@@ -37,8 +33,7 @@ $('.redrock').addEventListener('click', e => {
         $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'
         $('.enroll').style.display = 'block'
         canvas.style.opacity = 1
-        // init()
-        animate()
+        slideIn()
     }, 500)
 }, false)
 
@@ -49,8 +44,7 @@ $('.redrock').addEventListener('click', e => {
 // document.body.appendChild(canvas)
 // canvas.style.opacity = 1
 // setTimeout(() => {
-//     init()
-//     animate()
+    // slideIn()
 // })
 
 // 为了让 IOS 能变得可点击
@@ -63,22 +57,28 @@ let container, camera, scene, renderer
 // scene 里面的内容
 let light, object, circle, material, geometry, mesh, ring
 // 手势滑动和定时器, 部门详情定时器
-let controls, timer, detialTimer
+let controls, timer, detialTimer, pivot
 
 if (!Detector.webgl) Detector.addGetWebGLMessage()
 
-const addFont = (department, radius, pos, ballName) => {
+const addFont = (department, radius, pos, ballName, index) => {
     new THREE.FontLoader().load('./font/HYZhuZiTongNianTiW_Regular.json', font => {
         let departmentName = new THREE.TextGeometry(ballName, {
             font: font,
-            size: 6,
+            size: 8,
             height: 1,
             curveSegments: 22,
         })
+        departmentName.center()
         material = new THREE.MeshPhongMaterial({color: 0xf5e5bc})
         object = new THREE.Mesh(departmentName, material)
-        object.position.set(pos[0]-radius, pos[1]+radius+5, pos[2])
-        scene.add(object)
+        object.position.set(pos[0], pos[1]+radius+5, pos[2])
+        object.name = `font-${index}`
+        // scene.add(object)
+        // scene.geometry.applyMatrix(new THREE.Matrix4().makeTranslation((-pos[0]-radius), (-pos[1]+radius+5), -pos[2]))
+        pivot = new THREE.Object3D()
+        pivot.add( object )
+        scene.add( pivot )
     })
 }
 function CustomSinCurve(scale) {
@@ -155,7 +155,7 @@ const addBalls = () => {
         //     object.add(circle)
         // }
 
-        addFont(object, radius, pos, ballName)
+        addFont(object, radius, pos, ballName, index)
 
         scene.add(object)
     })
@@ -177,7 +177,27 @@ const createSmallBall = (x, y, z, color) => {
     return cube
 }
 
-function init() {
+const slideIn = () => {
+    let z = 0
+    const cameraPositionZ = innerWidth > innerHeight ? innerHeight/1.2 : innerWidth/1.2
+    const perDis = cameraPositionZ / 50
+
+    const slideCamera = () => {
+        if (z < cameraPositionZ) {
+            setTimeout(() => {
+                camera.position.set(0, 0, z)
+                z += perDis
+                slideCamera()
+                renderer.render(scene, camera)
+            }, 1000/60)
+        } else {
+            animate()
+        }
+    }
+    slideCamera()
+}
+
+const init = () => {
     scene = new THREE.Scene()
 
     camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 1, 2000)
@@ -191,7 +211,8 @@ function init() {
     renderer.setSize(innerWidth, innerHeight)
 
     // z 轴取小的那一个的  2/3
-    camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.2 : innerWidth/1.2)
+    // camera.position.set(0, 0, innerWidth > innerHeight ? innerHeight/1.2 : innerWidth/1.2)
+    camera.position.set(0, 0, 0)
     camera.lookAt(new THREE.Vector3(0,0,0))
 
     // 给小球添加点击事件
@@ -217,8 +238,9 @@ function init() {
         let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
         scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
     }
+
     // 给屏幕添加手指拖动事件
-    controls = new OrbitControls(camera, canvas)
+    controls = new OrbitControls(camera, canvas, scene)
     controls.autoRotate = true
     controls.autoRotateSpeed = -0.5
     controls.enableZoom = true
@@ -235,8 +257,10 @@ function init() {
     // }
     // window.addEventListener('deviceorientation', setOrientationControls, true);
 
-    window.addEventListener('resize', onWindowResize, false)
 }
+init()
+
+window.addEventListener('resize', onWindowResize, false)
 
 function onWindowResize() {
     innerWidth = window.innerWidth
@@ -438,7 +462,7 @@ const selfRotate = () => {
     for (let i = 0, l = scene.children.length; i < l; i ++) {
         let object = scene.children[i]
         // 自转
-        if (!object.name) continue
+        if (!object.name || /font/.test(object.name)) continue
         object.rotation.x += rotate/devicePixelRatio
         object.rotation.y += rotate/devicePixelRatio
         object.rotation.z += rotate/devicePixelRatio
