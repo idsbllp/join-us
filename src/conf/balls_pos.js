@@ -5,9 +5,21 @@ import '../img/ball2.jpg'
 import '../img/ball3.jpg'
 import '../img/ball4.jpg'
 import '../img/ball5.jpg'
+
+import '../img/ball12.jpg'
+import '../img/ball22.jpg'
+import '../img/ball32.jpg'
+import '../img/ball42.jpg'
+import '../img/ball52.jpg'
+
 import '../img/ball7.jpg'
 
-const pics = ['./img/ball1.jpg', './img/ball2.jpg', './img/ball3.jpg', './img/ball4.jpg', './img/ball5.jpg']
+let pics = ['./img/ball1.jpg', './img/ball2.jpg', './img/ball3.jpg', './img/ball4.jpg', './img/ball5.jpg']
+
+const query = location.search
+if (/ref=.*activity/.test(query)) {
+    pics = ['./img/ball12.jpg', './img/ball22.jpg', './img/ball32.jpg', './img/ball42.jpg', './img/ball52.jpg']
+}
 
 // 左下角， 中间 
 const theta = Math.PI / 4

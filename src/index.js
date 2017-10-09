@@ -6,6 +6,8 @@ import './utils/onEvent.js'
 
 import './styles/index.less'
 import './img/load_effect.png'
+import './img/explore.png'
+import './img/qrcode.png'
 import './img/bg_cp.png'
 
 import Ring from './utils/ring.js'
@@ -20,6 +22,13 @@ let { innerWidth, innerHeight, devicePixelRatio } = window
 const canvas = document.createElement('canvas')
 canvas.width = innerWidth
 canvas.height = innerHeight
+
+const query = location.search
+if (/ref=.*activity/.test(query)) {
+    const enrollBtn = $('.enroll')
+    enrollBtn.href = 'https://wx.idsbllp.cn/aboutus/mobile/'
+    enrollBtn.lastElementChild.src = './img/explore.png'
+}
 
 // 点击按钮载入canvas
 $('.redrock').addEventListener('click', e => {
@@ -234,7 +243,7 @@ const init = () => {
     addBalls()
 
     // 添加装饰小球
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
         let color = random() < 0.5 ? 0x68c3c0 : 0xffffff
         scene.add(createSmallBall(getRandomNumber(0, 150), getRandomNumber(0, 150), getRandomNumber(0, 150), color))
     }
@@ -533,7 +542,7 @@ function drawStars() {
     bufferGeometry.computeBoundingSphere()
 
     /*星星的material*/
-    let material = new THREE.PointsMaterial({ size: 6, vertexColors: THREE.VertexColors })
+    let material = new THREE.PointsMaterial({ size: 8, vertexColors: THREE.VertexColors })
     let particleSystem = new THREE.Points(bufferGeometry, material)
     scene.add(particleSystem)
 }

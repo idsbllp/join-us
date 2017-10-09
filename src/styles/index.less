@@ -13,6 +13,10 @@ body {
     height: 100%;
     overflow: hidden;
 }
+.preload {
+    background: url(../img/bg.png);
+    opacity: 0;
+}
 .loading {
     position: absolute;
     top: 0;
@@ -731,32 +735,17 @@ body {
     }
 }
 @keyframes fire {
-    0% {
+    0%, 24%, 100% {
         background-image: url(../img/fire1.png);
     }
-    24% {
-        background-image: url(../img/fire1.png);
-    }
-    25% {
+    25%, 49% {
         background-image: url(../img/fire2.png);
     }
-    49% {
-        background-image: url(../img/fire2.png);
-    }
-    50% {
+    50%, 74% {
         background-image: url(../img/fire3.png);
     }
-    74% {
-        background-image: url(../img/fire3.png);
-    }
-    75% {
+    75%, 99% {
         background-image: url(../img/fire4.png);
-    }
-    99% {
-        background-image: url(../img/fire4.png);
-    }
-    100% {
-        background-image: url(../img/fire1.png);
     }
 }
 
@@ -770,6 +759,25 @@ body {
     100% {
         transform: translateY(-0.133333rem);
     }
+}
+
+.windows {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e8ebec;
+}
+.qrcode {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 440px;
+    height: 460px;
 }
 
 
