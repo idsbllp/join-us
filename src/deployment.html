@@ -2,11 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>红岩网校2017招贤纳士</title>
+        <title>红岩网校工作站招新啦</title>
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
         <meta http-equiv="pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
         <meta http-equiv="expires" content="0">
+
+        <script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script>
             // 压缩版，原版在 index.html
             !function(e){function n(o){if(t[o])return t[o].exports;var i=t[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,n),i.l=!0,i.exports}var t={};n.m=e,n.c=t,n.i=function(e){return e},n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:o})},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},n.p="./",n(n.s=63)}({63:function(e,n,t){"use strict";var o=new Image;o.src="./img/load_bg_effect.png",o.onload=function(){document.body.style.display="block"},function(e,n){function t(){n.body?n.body.style.fontSize=12*r+"px":n.addEventListener("DOMContentLoaded",t)}function o(){var e=i.clientWidth/10;i.style.fontSize=e+"px"}var i=n.documentElement,r=e.devicePixelRatio||1;if(t(),o(),e.addEventListener("resize",o),e.addEventListener("pageshow",function(e){e.persisted&&o()}),r>=2){var d=n.createElement("body"),c=n.createElement("div");c.style.border=".5px solid transparent",d.appendChild(c),i.appendChild(d),1===c.offsetHeight&&i.classList.add("hairlines"),i.removeChild(d)}}(window,document),document.addEventListener("touchmove",function(e){e.preventDefault()},!1),window.addEventListener("load",function(){if(!/mobile/i.test(navigator.userAgent)){document.body.innerHTML='\n            <audio loop autoplay id="music">\n                <source src="./mp3/music.mp3" type="audio/wav">\n            </audio>\n            <div class="controls">\n                <div class="play"></div>\n                <div class="pause"></div>\n            </div>\n            <div class="windows"><img src="./img/qrcode.png" class="qrcode" /></div>\n        ';var e=document.querySelector("#music"),n=document.querySelector(".play"),t=document.querySelector(".pause");return console.log(e),e.addEventListener("error",function(e){e.preventDefault()}),t.addEventListener("click",function(n){e.play(),t.style.display="none"}),void n.addEventListener("click",function(n){e.pause(),t.style.display="block"})}document.querySelector("#joinus").style.display="block",["prospect","app"].forEach(function(e){var n=document.createElement("script");n.src="./js/"+e+".js",document.body.appendChild(n)})})}});
@@ -45,6 +47,7 @@
             </div>
                 <div class="redrock">
                     <img src="./img/redrock.png" class="logo">
+                    点击进入
                     <img src="./img/down.png" class="down">
                 </div>
             </div>
@@ -84,12 +87,38 @@
                     <div class="bar bar4"></div>
                 </div>
             </div>
-            <a href="https://wx.idsbllp.cn/activity/wx/index" class="enroll">
+            <a href="https://wx.idsbllp.cn/activity/wx/index?ref=https://wx.idsbllp.cn/joinus2017/" class="enroll">
+                <div class="prompt"></div>
                 <span class="enroll-fire"></span>
                 <img class="enroll-img" src="./img/enroll.png">
             </a>
         </div>
 
+        <script src="https://wx.idsbllp.cn/api/share.js?1234"></script>
+        <script>
+            WXSHARE.config({debug: false});
+
+            WXSHARE.ready(function() {
+                var option = {
+                    desc: '大家好！这是重邮互联网大咖的摇篮@红岩网校工作站',
+                    link: 'https://wx.idsbllp.cn/joinus2017/',
+                    imgUrl: 'https://wx.idsbllp.cn/joinus2017/img/title.png',
+                    title: '红岩网校工作站招贤纳士',
+                    type: '',
+                    success: function() {
+                       console.log('分享成功');
+                    },
+                    cancel: function() {
+                       console.log('取消分享');
+                    },
+                };
+                wx.onMenuShareTimeline(option);
+                wx.onMenuShareAppMessage(option);
+                wx.onMenuShareQQ(option);
+                wx.onMenuShareWeibo(option);
+                wx.onMenuShareQZone(option);
+            });
+        </script>
         <script src="./js/three.min.js"></script>
    </body>
 </html>

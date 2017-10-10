@@ -11,12 +11,17 @@ import './img/bg.png'
 import './img/enroll.png'
 import './img/load_effect.png'
 
-const loadingTime = 5000
-// loading
+const bg = new Image()
+bg.src = './img/bg.png'
+bg.addEventListener('load', e => {
+    $('.bg').style.backgroundImage = 'url(./img/bg.png)'
+})
+
+const loadingTime = 4000 
+// loading 
 setTimeout(() => {
     $('.loading-effect').style.opacity = 1
-    $('.bg').style.backgroundImage = 'url(./img/bg.png)'
-}, 4000)
+}, loadingTime-1000)
 
 // 前景
 const door = $('.door')
@@ -24,7 +29,7 @@ const door = $('.door')
 setTimeout(() => {
     door.classList.add('easeIn')
     $('#loading').remove()
-}, loadingTime)
+}, loadingTime-300)
 
 setTimeout(() => {
     door.remove()
@@ -34,10 +39,10 @@ setTimeout(() => {
 const messages = $('.message p')
 
 setTimeout(() => {
-    [$('.logo'), $('.down'), $('.title')].forEach((val, idx) => {
+    [$('.logo'), $('.down'), $('.title'), $('.redrock')].forEach((val, idx) => {
         val.style.opacity = 1
         if (idx === 1) {
             val.classList.add('fideInOut')
         }
     })
-}, loadingTime+13500)
+}, loadingTime+10500)

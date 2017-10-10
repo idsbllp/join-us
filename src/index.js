@@ -24,7 +24,10 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 const query = location.search
-if (/ref=.*activity/.test(query)) {
+const now = new Date();
+const startTime = new Date('2017/10/11 03:00:00');
+
+if (/ref=.*activity/.test(query) || now < startTime) {
     const enrollBtn = $('.enroll')
     enrollBtn.href = 'https://wx.idsbllp.cn/aboutus/mobile/'
     enrollBtn.lastElementChild.src = './img/explore.png'
@@ -37,6 +40,13 @@ $('.redrock').addEventListener('click', e => {
     canvas.classList.add('canvas')
     document.body.appendChild(canvas)
     
+    const prompt = $('.prompt')
+    prompt.classList.add('fadeInOut')
+
+    setTimeout(() => {
+        prompt.remove()
+    }, 7800)
+
     setTimeout(() => {
         prospect.remove()
         $('.bg').style.backgroundImage = 'url(./img/bg_cp.png)'

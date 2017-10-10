@@ -1,10 +1,6 @@
-@loadingTime: 5s;
+@loadingTime: 4s;
 * {
     -webkit-tap-highlight-color: transparent;
-}
-@font-face {
-    font-family: "go";
-    src: url("../font/go.otf");
 }
 body {
     position: absolute;
@@ -12,10 +8,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-.preload {
-    background: url(../img/bg.png);
-    opacity: 0;
 }
 .loading {
     position: absolute;
@@ -36,7 +28,7 @@ body {
         width: 3.733333rem;
         height: 1.333333*2rem;
         z-index: 3;
-        animation: 5.2s loading infinite linear;
+        animation: @loadingTime+0-0.8s loading linear;
     }
 
     &-stars {
@@ -130,6 +122,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: #fff;
+    background-image: url(../img/bg_cp.png);
     background-size: cover;
 }
 .canvas {
@@ -153,7 +146,6 @@ body {
     width: 25px;
     height: 25px;
     z-index: 999;
-    font-family: 'go';
 }
 .play {
     position: absolute;
@@ -305,19 +297,19 @@ body {
     height: .42rem;
     background-size:  100% 100%;
     opacity: 0;
-    animation: 4s fide;
+    animation: 3s fide;
 }
 .m1 {
     background-image: url(../img/1.png);
-    animation-delay: @loadingTime+6s;
+    animation-delay: @loadingTime+6-0.5s;
 }
 .m2 {
     background-image: url(../img/2.png);
-    animation-delay: @loadingTime+6+0.5s;
+    animation-delay: @loadingTime+6-0.5+0.5s;
 }
 .m3 {
     background-image: url(../img/3.png);
-    animation-delay: @loadingTime+6+1s;
+    animation-delay: @loadingTime+6-0.5+1s;
 }
 .m4 {
     margin-top: 1.066667rem;
@@ -325,16 +317,16 @@ body {
     height: .4rem;
     background-image: url(../img/4.png);
     transform: translateY(-3rem);
-    animation: 4s fideout;
-    animation-delay: @loadingTime+10s;
+    animation: 3s fideout;
+    animation-delay: @loadingTime+9-0.5s;
 }
 .m5 {
     width: 5.33333rem;
     height: .4rem;
     background-image: url(../img/5.png);
     transform: translateY(-3rem);
-    animation: 4s fideout;
-    animation-delay: @loadingTime+10+0.5s;
+    animation: 3s fideout;
+    animation-delay: @loadingTime+9-0.5+0.5s;
 }
 /* .m6 {
     height: .34rem;
@@ -436,6 +428,10 @@ body {
     width: 3rem;
     text-align: center;
     z-index: 10;
+    color: #fff;
+    opacity: 0;
+    font-size: .6rem;
+    font-family: 'go';
 }
 .logo {
     width: 100%;
@@ -462,6 +458,10 @@ body {
 }
 
 /* 部门简介 */
+@font-face {
+    font-family: "go";
+    src: url("../font/go.otf");
+}
 .department {
     display: none;
     position: absolute;
@@ -504,7 +504,7 @@ body {
     &-intro {
         margin: .4rem auto;
         width: 4.8rem;
-        color: #1e437a;
+        color: #fff;
         font-size: 0.373333rem;
         font-weight: 900;
         transform: translateX(.25rem);
@@ -718,6 +718,15 @@ body {
     width: 6.133333rem;
     height: 1.133333rem;
     animation: wave 2s infinite linear;
+    .prompt {
+        position: absolute;
+        top: -1.566667rem;
+        left: 7%;
+        width: 85%;
+        height: 100%;
+        background-image: url(../img/prompt.png);
+        background-size: 100% 100%;
+    }
     &-fire {
         float: left;
         margin-top: (1.133333-0.666667)/3rem;
@@ -778,6 +787,17 @@ body {
     margin: auto;
     width: 440px;
     height: 460px;
+}
+.fadeInOut {
+    animation: fadeInOut 8s infinite linear;
+}
+@keyframes fadeInOut {
+    0%, 75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 
